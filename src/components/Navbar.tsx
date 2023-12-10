@@ -6,7 +6,7 @@ import guacLogo from "../assets/avocado.png";
 
 const Navbar = () => {
   return (
-    <Box sx={{ paddingX: "200px", position: "relative" }}>
+    <Box sx={{ paddingX: "200px", paddingY: "12px", position: "relative" }}>
       <Box display="flex" sx={{ paddingLeft: "70%" }}>
         <Box display="flex" alignItems="center">
           <img
@@ -21,11 +21,7 @@ const Navbar = () => {
           <ExpandMoreOutlinedIcon />
         </Box>
       </Box>
-      <Box
-        position="relative"
-        display={"flex"}
-        alignItems={"center"}
-      >
+      <Box position="relative" display={"flex"} alignItems={"center"}>
         <Box display="flex">
           <img src={guacLogo} className="logo" alt="Guac logo" width={50} />
           <Box sx={{ marginLeft: "8px" }}>
