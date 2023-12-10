@@ -1,10 +1,24 @@
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import guacLogo from "../assets/avocado.png";
+import AuthDialog from "./AuthDialog";
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const [authDialogType, setAuthDialogType] = useState<string | null>(null);
+
+  const openSignUp = () => {
+    setAuthDialogType("signUp");
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box sx={{ paddingX: "200px", paddingY: "12px", position: "relative" }}>
       <Box display="flex" sx={{ paddingLeft: "70%" }}>
@@ -56,11 +70,13 @@ const Navbar = () => {
             sx={{
               mr: "16px",
             }}
+            onClick={openSignUp}
           >
             Join Now
           </Button>
         </Box>
       </Box>
+      <AuthDialog open={open} handleClose={handleClose} type={authDialogType} />
     </Box>
   );
 };

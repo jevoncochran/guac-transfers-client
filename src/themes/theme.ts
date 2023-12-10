@@ -25,5 +25,35 @@ export const appTheme = createTheme({
         },
       ],
     },
+    MuiTextField: {
+      styleOverrides: {
+        root: { backgroundColor: "#fff", marginBottom: "12px" },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          padding: "12px 24px 24px 24px",
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+          fontFamily: "Barlow Condensed",
+          fontWeight: 700,
+          fontSize: "32px",
+          color: "#609000",
+        },
+      },
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+        },
+      },
+    },
   },
 });
