@@ -10,6 +10,11 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [authDialogType, setAuthDialogType] = useState<string | null>(null);
 
+  const openSignIn = () => {
+    setAuthDialogType("signIn");
+    setOpen(true);
+  };
+
   const openSignUp = () => {
     setAuthDialogType("signUp");
     setOpen(true);
@@ -62,7 +67,7 @@ const Navbar = () => {
             paddingY: "auto",
           }}
         >
-          <Button variant="outlined" sx={{ mr: "16px" }}>
+          <Button variant="outlined" sx={{ mr: "16px" }} onClick={openSignIn}>
             Sign In
           </Button>
           <Button

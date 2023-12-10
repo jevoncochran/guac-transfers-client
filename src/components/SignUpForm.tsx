@@ -1,7 +1,8 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
+import AuthDialogButton from "./AuthDialogButton";
 
 const SignUpForm = () => {
   const [credentials, setCredentials] = useState({
@@ -14,8 +15,18 @@ const SignUpForm = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/auth/register`, credentials)
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <TextField
         name="email"
         label="Email Address"
@@ -37,9 +48,7 @@ const SignUpForm = () => {
         fullWidth
         onChange={handleChange}
       />
-      <Button variant="contained" sx={{ marginBottom: "12px" }}>
-        Join Now
-      </Button>
+      <AuthDialogButton label="Join Now" />
       <Typography>
         Already have an account?{" "}
         <span
@@ -52,7 +61,7 @@ const SignUpForm = () => {
           Sign In
         </span>
       </Typography>
-    </div>
+    </form>
   );
 };
 
