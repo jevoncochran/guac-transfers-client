@@ -18,13 +18,11 @@ const AuthDialog = ({ open, handleClose, type }: Props) => {
       open={open}
       onClose={handleClose}
       PaperProps={{
+        variant: "dialog",
         style: { backgroundColor: "#fcfbe6", borderRadius: "16px" },
       }}
     >
-      <Box
-        display={"flex"}
-        justifyContent={"flex-end"}
-      >
+      <Box display={"flex"} justifyContent={"flex-end"}>
         <CloseIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
       </Box>
       <DialogTitle textAlign={"center"} sx={{ marginBottom: "12px" }}>

@@ -8,27 +8,41 @@ import AuthDialog from "./AuthDialog";
 import { useTheme } from "@mui/material";
 import { RootState } from "../redux/store";
 import { useAppSelector } from "../redux/hooks";
+import AccountMenu from "./AccountMenu";
 
 const Navbar = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
 
-  const [open, setOpen] = useState(false);
+  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
   const [authDialogType, setAuthDialogType] = useState<string | null>(null);
+  const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
 
   const theme = useTheme();
 
   const openSignIn = () => {
     setAuthDialogType("signIn");
-    setOpen(true);
+    setIsAuthDialogOpen(true);
   };
 
   const openSignUp = () => {
     setAuthDialogType("signUp");
-    setOpen(true);
+    setIsAuthDialogOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleAuthDialogClose = () => {
+    setIsAuthDialogOpen(false);
+  };
+
+  const isMenuOpen = Boolean(menuAnchorEl);
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (!menuAnchorEl) {
+      setMenuAnchorEl(event.currentTarget);
+    }
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchorEl(null);
   };
 
   return (
@@ -41,10 +55,7 @@ const Navbar = () => {
         alignItems: "center",
       }}
     >
-      <Box
-        display="flex"
-        alignItems={"center"}
-      >
+      <Box display="flex" alignItems={"center"}>
         <img src={guacLogo} className="logo" alt="Guac logo" height={50} />
         <Box sx={{ marginLeft: "8px" }}>
           <Typography
@@ -116,9 +127,27 @@ const Navbar = () => {
               </Button>
             </Box>
           )}
+          {user && (
+            <>
+              <Box display="flex" alignItems="center" onClick={handleMenuClick}>
+                <Typography sx={{ marginX: "8px" }}>Welcome</Typography>
+                <ExpandMoreOutlinedIcon />
+              </Box>
+              <AccountMenu
+                anchorEl={menuAnchorEl}
+                open={isMenuOpen}
+                handleClick={handleMenuClick}
+                handleClose={handleMenuClose}
+              />
+            </>
+          )}
         </Box>
       </Box>
-      <AuthDialog open={open} handleClose={handleClose} type={authDialogType} />
+      <AuthDialog
+        open={isAuthDialogOpen}
+        handleClose={handleAuthDialogClose}
+        type={authDialogType}
+      />
     </Box>
   );
 };

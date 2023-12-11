@@ -1,5 +1,12 @@
 import { createTheme } from "@mui/material/styles";
 
+declare module "@mui/material/Paper" {
+  interface PaperPropsVariantOverrides {
+    dialog: true;
+    menu: true;
+  }
+}
+
 export const appTheme = createTheme({
   palette: {
     primary: {
@@ -49,6 +56,20 @@ export const appTheme = createTheme({
           padding: "12px 24px 24px 24px",
         },
       },
+      variants: [
+        {
+          props: { variant: "dialog" },
+          style: {
+            padding: "12px 24px 24px 24px",
+          },
+        },
+        {
+          props: { variant: "menu" },
+          style: {
+            padding: 0,
+          },
+        },
+      ],
     },
     MuiDialogTitle: {
       styleOverrides: {
