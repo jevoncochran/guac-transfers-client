@@ -5,6 +5,9 @@ import Settings from "@mui/icons-material/Settings";
 import RedeemIcon from "@mui/icons-material/Redeem";
 import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useAppDispatch } from "../redux/hooks";
+import { logout } from "../redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   anchorEl: null | HTMLElement;
@@ -14,6 +17,15 @@ interface Props {
 }
 
 const AccountMenu = ({ anchorEl, open, handleClick, handleClose }: Props) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const onLogoutClick = () => {
+    dispatch(logout());
+    handleClose();
+    navigate("/");
+  };
+
   return (
     <Menu
       anchorEl={anchorEl}
@@ -68,7 +80,7 @@ const AccountMenu = ({ anchorEl, open, handleClick, handleClose }: Props) => {
         </ListItemIcon>
         Help
       </MenuItem>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={onLogoutClick}>
         <ListItemIcon>
           <LogoutIcon fontSize="small" />
         </ListItemIcon>
