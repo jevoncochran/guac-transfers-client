@@ -6,6 +6,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "./themes/theme.ts";
 import "./index.css";
 import SendMoney from "./views/SendMoney.tsx";
+import { persistor, store } from "./redux/store.ts";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 const router = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
@@ -14,8 +17,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider theme={appTheme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={appTheme}>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );

@@ -4,8 +4,11 @@ import AuthDialogButton from "./AuthDialogButton";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { retrieveUser } from "../redux/features/auth/authSlice";
 
 const LoginForm = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -21,7 +24,7 @@ const LoginForm = () => {
       .post(`${import.meta.env.VITE_API_URL}/auth/login`, credentials)
       .then((res) => {
         if (res.status === 200) {
-          localStorage.setItem("user", JSON.stringify(res.data));
+          dispatch(retrieveUser(res.data));
           navigate("/us/en/transfer/send");
         }
       });

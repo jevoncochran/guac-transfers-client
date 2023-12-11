@@ -25,7 +25,6 @@ const SignUpForm = () => {
       .post(`${import.meta.env.VITE_API_URL}/auth/register`, credentials)
       .then((res) => {
         if (res.status === 201) {
-          localStorage.setItem("user", JSON.stringify(res.data));
           navigate("/us/en/transfer/send");
         }
       });

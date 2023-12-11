@@ -6,12 +6,16 @@ import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import guacLogo from "../assets/avocado.png";
 import AuthDialog from "./AuthDialog";
 import { useTheme } from "@mui/material";
+import { RootState } from "../redux/store";
+import { useAppSelector } from "../redux/hooks";
 
 const Navbar = () => {
-  const theme = useTheme();
+  const user = useAppSelector((state: RootState) => state.auth.user);
 
   const [open, setOpen] = useState(false);
   const [authDialogType, setAuthDialogType] = useState<string | null>(null);
+
+  const theme = useTheme();
 
   const openSignIn = () => {
     setAuthDialogType("signIn");
@@ -60,29 +64,31 @@ const Navbar = () => {
             </Typography>
           </Box>
         </Box>
-        <Box
-          display={"flex"}
-          sx={{
-            position: "absolute",
-            top: "50%",
-            paddingLeft: "70%",
-            transform: "translateY(-50%)",
-            paddingY: "auto",
-          }}
-        >
-          <Button variant="outlined" sx={{ mr: "16px" }} onClick={openSignIn}>
-            Sign In
-          </Button>
-          <Button
-            variant="contained"
+        {!user && (
+          <Box
+            display={"flex"}
             sx={{
-              mr: "16px",
+              position: "absolute",
+              top: "50%",
+              paddingLeft: "70%",
+              transform: "translateY(-50%)",
+              paddingY: "auto",
             }}
-            onClick={openSignUp}
           >
-            Join Now
-          </Button>
-        </Box>
+            <Button variant="outlined" sx={{ mr: "16px" }} onClick={openSignIn}>
+              Sign In
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                mr: "16px",
+              }}
+              onClick={openSignUp}
+            >
+              Join Now
+            </Button>
+          </Box>
+        )}
       </Box>
       <AuthDialog open={open} handleClose={handleClose} type={authDialogType} />
     </Box>
