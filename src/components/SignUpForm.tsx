@@ -3,8 +3,11 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import AuthDialogButton from "./AuthDialogButton";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
+
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -21,7 +24,10 @@ const SignUpForm = () => {
     axios
       .post(`${import.meta.env.VITE_API_URL}/auth/register`, credentials)
       .then((res) => {
-        console.log(res);
+        if (res.status === 201) {
+          localStorage.setItem("user", JSON.stringify(res.data));
+          navigate("/us/en/transfer/send");
+        }
       });
   };
 
