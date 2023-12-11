@@ -9,10 +9,18 @@ import SendMoney from "./views/SendMoney.tsx";
 import { persistor, store } from "./redux/store.ts";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
-  { path: "/us/en/transfer/send", element: <SendMoney /> },
+  {
+    path: "/us/en/transfer/send",
+    element: (
+      <ProtectedRoute>
+        <SendMoney />
+      </ProtectedRoute>
+    ),
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
