@@ -5,8 +5,11 @@ import Button from "@mui/material/Button";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import guacLogo from "../assets/avocado.png";
 import AuthDialog from "./AuthDialog";
+import { useTheme } from "@mui/material";
 
 const Navbar = () => {
+  const theme = useTheme();
+
   const [open, setOpen] = useState(false);
   const [authDialogType, setAuthDialogType] = useState<string | null>(null);
 
@@ -48,7 +51,7 @@ const Navbar = () => {
               variant="h4"
               fontFamily={"Barlow Condensed"}
               fontWeight={700}
-              color={"#609000"}
+              color={theme.palette.primary.main}
             >
               Guac
             </Typography>

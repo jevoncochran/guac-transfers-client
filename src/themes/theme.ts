@@ -1,6 +1,19 @@
 import { createTheme } from "@mui/material/styles";
 
 export const appTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#609000",
+      // light: will be calculated from palette.primary.main,
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      main: "#C0B517",
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: "#FFF",
+    },
+  },
   components: {
     MuiButton: {
       styleOverrides: { root: { borderRadius: "16px" } },
