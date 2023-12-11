@@ -32,63 +32,91 @@ const Navbar = () => {
   };
 
   return (
-    <Box sx={{ paddingX: "200px", paddingY: "12px", position: "relative" }}>
-      <Box display="flex" sx={{ paddingLeft: "70%" }}>
-        <Box display="flex" alignItems="center">
-          <img
-            src="https://flagsapi.com/US/flat/32.png"
-            style={{ borderRadius: "16px" }}
-          />
-          <Typography sx={{ marginX: "8px" }}>United States</Typography>
-          <ExpandMoreOutlinedIcon />
-        </Box>
-        <Box display="flex" alignItems="center">
-          <Typography sx={{ marginX: "8px" }}>English</Typography>
-          <ExpandMoreOutlinedIcon />
+    <Box
+      sx={{
+        paddingX: "200px",
+        paddingY: "12px",
+        position: "relative",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <Box
+        display="flex"
+        alignItems={"center"}
+      >
+        <img src={guacLogo} className="logo" alt="Guac logo" height={50} />
+        <Box sx={{ marginLeft: "8px" }}>
+          <Typography
+            variant="h4"
+            fontFamily={"Barlow Condensed"}
+            fontWeight={700}
+            color={theme.palette.primary.main}
+          >
+            Guac
+          </Typography>
+          <Typography fontFamily={"Barlow Condensed"} color={"#c0b517"}>
+            Your Money, Fast
+          </Typography>
         </Box>
       </Box>
-      <Box position="relative" display={"flex"} alignItems={"center"}>
-        <Box display="flex">
-          <img src={guacLogo} className="logo" alt="Guac logo" width={50} />
-          <Box sx={{ marginLeft: "8px" }}>
-            <Typography
-              variant="h4"
-              fontFamily={"Barlow Condensed"}
-              fontWeight={700}
-              color={theme.palette.primary.main}
-            >
-              Guac
-            </Typography>
-            <Typography fontFamily={"Barlow Condensed"} color={"#c0b517"}>
-              Your Money, Fast
-            </Typography>
-          </Box>
-        </Box>
-        {!user && (
+      <Box
+        display="flex"
+        sx={{
+          flexGrow: 1,
+        }}
+      >
+        <Box
+          display="flex"
+          flexDirection={"column"}
+          alignItems={"flex-end"}
+          sx={{ width: "100%" }}
+        >
           <Box
-            display={"flex"}
-            sx={{
-              position: "absolute",
-              top: "50%",
-              paddingLeft: "70%",
-              transform: "translateY(-50%)",
-              paddingY: "auto",
-            }}
+            display="flex"
+            justifyContent={"space-between"}
+            width="270px"
+            marginBottom={"12px"}
           >
-            <Button variant="outlined" sx={{ mr: "16px" }} onClick={openSignIn}>
-              Sign In
-            </Button>
-            <Button
-              variant="contained"
-              sx={{
-                mr: "16px",
-              }}
-              onClick={openSignUp}
-            >
-              Join Now
-            </Button>
+            <Box display="flex" alignItems="center">
+              <img
+                src="https://flagsapi.com/US/flat/32.png"
+                style={{ borderRadius: "16px" }}
+              />
+              <Typography sx={{ marginX: "8px" }}>United States</Typography>
+              <ExpandMoreOutlinedIcon />
+            </Box>
+            <Box display="flex" alignItems="center">
+              <Typography sx={{ marginX: "8px" }}>English</Typography>
+              <ExpandMoreOutlinedIcon />
+            </Box>
           </Box>
-        )}
+          {!user && (
+            <Box
+              display={"flex"}
+              sx={{
+                width: "270px",
+              }}
+            >
+              <Button
+                variant="outlined"
+                sx={{ mr: "16px" }}
+                onClick={openSignIn}
+              >
+                Sign In
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  mr: "16px",
+                }}
+                onClick={openSignUp}
+              >
+                Join Now
+              </Button>
+            </Box>
+          )}
+        </Box>
       </Box>
       <AuthDialog open={open} handleClose={handleClose} type={authDialogType} />
     </Box>
