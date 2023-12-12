@@ -7,31 +7,22 @@ import guacLogo from "../assets/avocado.png";
 import AuthDialog from "./AuthDialog";
 import { useTheme } from "@mui/material";
 import { RootState } from "../redux/store";
-import { useAppSelector } from "../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import {
+  openLoginModal,
+  openRegisterModal,
+  closeAuthModal,
+} from "../redux/features/ui/uiSlice";
 import AccountMenu from "./AccountMenu";
 
 const Navbar = () => {
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.auth.user);
+  const authDialog = useAppSelector((state: RootState) => state.ui.authDialog);
 
-  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
-  const [authDialogType, setAuthDialogType] = useState<string | null>(null);
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
 
   const theme = useTheme();
-
-  const openSignIn = () => {
-    setAuthDialogType("signIn");
-    setIsAuthDialogOpen(true);
-  };
-
-  const openSignUp = () => {
-    setAuthDialogType("signUp");
-    setIsAuthDialogOpen(true);
-  };
-
-  const handleAuthDialogClose = () => {
-    setIsAuthDialogOpen(false);
-  };
 
   const isMenuOpen = Boolean(menuAnchorEl);
 
@@ -112,7 +103,7 @@ const Navbar = () => {
               <Button
                 variant="outlined"
                 sx={{ mr: "16px" }}
-                onClick={openSignIn}
+                onClick={() => dispatch(openLoginModal())}
               >
                 Sign In
               </Button>
@@ -121,7 +112,7 @@ const Navbar = () => {
                 sx={{
                   mr: "16px",
                 }}
-                onClick={openSignUp}
+                onClick={() => dispatch(openRegisterModal())}
               >
                 Join Now
               </Button>
@@ -144,9 +135,9 @@ const Navbar = () => {
         </Box>
       </Box>
       <AuthDialog
-        open={isAuthDialogOpen}
-        handleClose={handleAuthDialogClose}
-        type={authDialogType}
+        open={authDialog.isOpen}
+        handleClose={() => dispatch(closeAuthModal())}
+        type={authDialog.dialog}
       />
     </Box>
   );

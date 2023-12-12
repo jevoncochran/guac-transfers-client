@@ -6,6 +6,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
 import { retrieveUser } from "../redux/features/auth/authSlice";
+import {
+  openRegisterModal,
+  closeAuthModal,
+} from "../redux/features/ui/uiSlice";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -25,9 +29,15 @@ const LoginForm = () => {
       .then((res) => {
         if (res.status === 200) {
           dispatch(retrieveUser(res.data));
+          dispatch(closeAuthModal());
           navigate("/us/en/transfer/send");
         }
       });
+  };
+
+  const handleJoinNow = () => {
+    dispatch(closeAuthModal());
+    dispatch(openRegisterModal());
   };
 
   return (
@@ -55,6 +65,7 @@ const LoginForm = () => {
             textDecoration: "underline",
             cursor: "pointer",
           }}
+          onClick={handleJoinNow}
         >
           Join Now
         </span>

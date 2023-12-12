@@ -4,9 +4,14 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import AuthDialogButton from "./AuthDialogButton";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { openLoginModal, closeAuthModal } from "../redux/features/ui/uiSlice";
+import { retrieveUser } from "../redux/features/auth/authSlice";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -25,6 +30,8 @@ const SignUpForm = () => {
       .post(`${import.meta.env.VITE_API_URL}/auth/register`, credentials)
       .then((res) => {
         if (res.status === 201) {
+          dispatch(retrieveUser(res.data));
+          dispatch(closeAuthModal());
           navigate("/us/en/transfer/send");
         }
       });
@@ -62,6 +69,7 @@ const SignUpForm = () => {
             textDecoration: "underline",
             cursor: "pointer",
           }}
+          onClick={() => dispatch(openLoginModal())}
         >
           Sign In
         </span>

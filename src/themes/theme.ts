@@ -89,5 +89,15 @@ export const appTheme = createTheme({
         },
       },
     },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: "transparent",
+            color: "#609000",
+          },
+        },
+      },
+    },
   },
 });
