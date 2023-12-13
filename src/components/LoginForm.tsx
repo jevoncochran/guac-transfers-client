@@ -30,7 +30,7 @@ const LoginForm = () => {
         if (res.status === 200) {
           dispatch(retrieveUser(res.data));
           dispatch(closeAuthModal());
-          navigate("/us/en/transfer/send");
+          navigate("/transfer/send");
         }
       });
   };

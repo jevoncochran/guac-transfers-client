@@ -11,12 +11,13 @@ export const appTheme = createTheme({
   palette: {
     primary: {
       main: "#609000",
-      // light: will be calculated from palette.primary.main,
+      light: "#34b11d",
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     secondary: {
       main: "#C0B517",
+      light: "#d3cb1f",
       // dark: will be calculated from palette.secondary.main,
       contrastText: "#FFF",
     },

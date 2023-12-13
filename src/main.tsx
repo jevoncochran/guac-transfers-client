@@ -14,7 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute.tsx";
 const router = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
   {
-    path: "/us/en/transfer/send",
+    path: "/transfer/send",
     element: (
       <ProtectedRoute>
         <SendMoney />

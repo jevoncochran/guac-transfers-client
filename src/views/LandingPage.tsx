@@ -12,7 +12,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/us/en/transfer/send");
+      navigate("/transfer/send");
     }
   }, [user, navigate]);
 

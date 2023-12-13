@@ -15,6 +15,7 @@ import {
 } from "../redux/features/ui/uiSlice";
 import Menu from "./Menu";
 import { useMenuItems } from "../hooks/useMenuItems";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -69,11 +70,12 @@ const Navbar = () => {
       sx={{
         paddingX: "200px",
         paddingY: "12px",
-        position: "relative",
         display: "flex",
         alignItems: "center",
+        height: "68px",
       }}
     >
+      {/* LOGO */}
       <Box display="flex" alignItems={"center"}>
         <img src={guacLogo} className="logo" alt="Guac logo" height={50} />
         <Box sx={{ marginLeft: "8px" }}>
@@ -90,10 +92,100 @@ const Navbar = () => {
           </Typography>
         </Box>
       </Box>
+
+      {/* VIEWS */}
+      {user && (
+        <Box
+          flexGrow={1}
+          display="flex"
+          justifyContent={"space-evenly"}
+          alignItems={"flex-end"}
+          sx={{ height: "100%" }}
+        >
+          <Box position={"relative"}>
+            <NavLink
+              to="/transfer/send"
+              style={({ isActive }) => {
+                return {
+                  textDecoration: "none",
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? theme.palette.secondary.main : "#000",
+                };
+              }}
+            >
+              {({ isActive }) => (
+                <>
+                  Send Money
+                  <Box
+                    sx={{
+                      display: isActive ? "block" : "none",
+                      width: "100%",
+                      borderBottom: `6px solid ${theme.palette.secondary.main}`,
+                      position: "absolute",
+                      bottom: "-8px",
+                    }}
+                  ></Box>
+                </>
+              )}
+            </NavLink>
+          </Box>
+          <NavLink
+            to="/transfer/history"
+            style={({ isActive }) => {
+              return {
+                textDecoration: "none",
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? theme.palette.secondary.main : "#000",
+              };
+            }}
+          >
+            {({ isActive }) => (
+              <>
+                Transfer History
+                <Box
+                  sx={{
+                    display: isActive ? "block" : "none",
+                    width: "100%",
+                    borderBottom: `6px solid ${theme.palette.secondary.main}`,
+                    position: "absolute",
+                    bottom: "-8px",
+                  }}
+                ></Box>
+              </>
+            )}
+          </NavLink>
+          <NavLink
+            to="/refer"
+            style={({ isActive }) => {
+              return {
+                textDecoration: "none",
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? theme.palette.secondary.main : "#000",
+              };
+            }}
+          >
+            {({ isActive }) => (
+              <>
+                Refer Friends
+                <Box
+                  sx={{
+                    display: isActive ? "block" : "none",
+                    width: "100%",
+                    borderBottom: `6px solid ${theme.palette.secondary.main}`,
+                    position: "absolute",
+                    bottom: "-8px",
+                  }}
+                ></Box>
+              </>
+            )}
+          </NavLink>
+        </Box>
+      )}
+
       <Box
         display="flex"
         sx={{
-          flexGrow: 1,
+          flexGrow: user ? 0 : 1,
         }}
       >
         <Box
