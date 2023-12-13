@@ -10,16 +10,44 @@ import { persistor, store } from "./redux/store.ts";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import PageLayout from "./components/PageLayout.tsx";
+import TransferHistory from "./views/TransferHistory.tsx";
+import ReferFriends from "./views/ReferFriends.tsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <LandingPage /> },
   {
-    path: "/transfer/send",
-    element: (
-      <ProtectedRoute>
-        <SendMoney />
-      </ProtectedRoute>
-    ),
+    path: "/",
+    element: <PageLayout />,
+    children: [
+      {
+        index: true,
+        element: <LandingPage />,
+      },
+      {
+        path: "/transfer/send",
+        element: (
+          <ProtectedRoute>
+            <SendMoney />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/transfer/history",
+        element: (
+          <ProtectedRoute>
+            <TransferHistory />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/refer",
+        element: (
+          <ProtectedRoute>
+            <ReferFriends />
+          </ProtectedRoute>
+        ),
+      },
+    ],
   },
 ]);
 

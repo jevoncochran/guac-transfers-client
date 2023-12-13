@@ -102,7 +102,7 @@ const Navbar = () => {
           alignItems={"flex-end"}
           sx={{ height: "100%" }}
         >
-          <Box position={"relative"}>
+          <Box>
             <NavLink
               to="/transfer/send"
               style={({ isActive }) => {
@@ -114,7 +114,7 @@ const Navbar = () => {
               }}
             >
               {({ isActive }) => (
-                <>
+                <Box position={"relative"}>
                   Send Money
                   <Box
                     sx={{
@@ -125,7 +125,7 @@ const Navbar = () => {
                       bottom: "-8px",
                     }}
                   ></Box>
-                </>
+                </Box>
               )}
             </NavLink>
           </Box>
@@ -140,7 +140,7 @@ const Navbar = () => {
             }}
           >
             {({ isActive }) => (
-              <>
+              <Box position={"relative"}>
                 Transfer History
                 <Box
                   sx={{
@@ -151,7 +151,7 @@ const Navbar = () => {
                     bottom: "-8px",
                   }}
                 ></Box>
-              </>
+              </Box>
             )}
           </NavLink>
           <NavLink
@@ -165,7 +165,7 @@ const Navbar = () => {
             }}
           >
             {({ isActive }) => (
-              <>
+              <Box position={"relative"}>
                 Refer Friends
                 <Box
                   sx={{
@@ -176,7 +176,7 @@ const Navbar = () => {
                     bottom: "-8px",
                   }}
                 ></Box>
-              </>
+              </Box>
             )}
           </NavLink>
         </Box>
@@ -249,6 +249,7 @@ const Navbar = () => {
           {!user && (
             <Box
               display={"flex"}
+              justifyContent={"flex-end"}
               sx={{
                 width: "270px",
               }}
@@ -262,36 +263,32 @@ const Navbar = () => {
               </Button>
               <Button
                 variant="contained"
-                sx={{
-                  mr: "16px",
-                }}
                 onClick={() => dispatch(openRegisterModal())}
               >
                 Join Now
               </Button>
             </Box>
           )}
-          {user && (
-            <>
-              <Box
-                display="flex"
-                alignItems="center"
-                onClick={handleAccountMenuClick}
-              >
-                <Typography sx={{ marginX: "8px" }}>Welcome</Typography>
-                <ExpandMoreOutlinedIcon />
-              </Box>
-              {/* Account Menu */}
-              <Menu
-                anchorEl={accountMenuAnchorEl}
-                open={isAccountMenuOpen}
-                handleClick={handleAccountMenuClick}
-                handleClose={handleAccountMenuClose}
-                handleSelect={handleAccountMenuClose}
-                menuItems={useMenuItems().account}
-              />
-            </>
-          )}
+
+          <Box sx={{ display: user ? "block" : "none" }}>
+            <Box
+              display="flex"
+              alignItems="center"
+              onClick={handleAccountMenuClick}
+            >
+              <Typography sx={{ marginX: "8px" }}>Welcome</Typography>
+              <ExpandMoreOutlinedIcon />
+            </Box>
+            {/* Account Menu */}
+            <Menu
+              anchorEl={accountMenuAnchorEl}
+              open={isAccountMenuOpen}
+              handleClick={handleAccountMenuClick}
+              handleClose={handleAccountMenuClose}
+              handleSelect={handleAccountMenuClose}
+              menuItems={useMenuItems().account}
+            />
+          </Box>
         </Box>
       </Box>
       <AuthDialog

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useAppSelector } from "../redux/hooks";
 import HeroSection from "../components/HeroSection";
-import Navbar from "../components/Navbar";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 
@@ -16,12 +15,7 @@ const LandingPage = () => {
     }
   }, [user, navigate]);
 
-  return (
-    <>
-      <Navbar />
-      <HeroSection />
-    </>
-  );
+  return <HeroSection />;
 };
 
 export default LandingPage;
