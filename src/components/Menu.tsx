@@ -1,29 +1,33 @@
-import Menu from "@mui/material/Menu";
+import MuiMenu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { LANGUAGES } from "../constants";
-import { useAppDispatch } from "../redux/hooks";
-import { updateLanguage } from "../redux/features/auth/authSlice";
-import { Language } from "../types";
+
+interface MenuItem {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  item: any;
+  onSelect?: () => void;
+}
 
 interface Props {
   anchorEl: null | HTMLElement;
   open: boolean;
   handleClick: (event: React.MouseEvent<HTMLElement>) => void;
   handleClose: () => void;
+  handleSelect: () => void;
+  menuItems: MenuItem[];
 }
 
-const LanguageMenu = ({ anchorEl, open, handleClick, handleClose }: Props) => {
-  const dispatch = useAppDispatch();
-
-  const handleLangSelect = (language: Language) => {
-    dispatch(updateLanguage(language));
-    handleClose();
-  };
-
+const Menu = ({
+  anchorEl,
+  open,
+  handleClick,
+  handleClose,
+  handleSelect,
+  menuItems,
+}: Props) => {
   return (
-    <Menu
+    <MuiMenu
       anchorEl={anchorEl}
-      id="account-menu"
+      //   id="account-menu"
       open={open}
       onClose={handleClose}
       onClick={handleClick}
@@ -39,13 +43,22 @@ const LanguageMenu = ({ anchorEl, open, handleClick, handleClose }: Props) => {
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      {LANGUAGES.map((language) => (
-        <MenuItem onClick={() => handleLangSelect(language)}>
-          {language.name}
+      {menuItems.map((mi) => (
+        <MenuItem
+          onClick={
+            mi.onSelect
+              ? () => {
+                  mi.onSelect();
+                  handleClose();
+                }
+              : handleSelect
+          }
+        >
+          {mi.item}
         </MenuItem>
       ))}
-    </Menu>
+    </MuiMenu>
   );
 };
 
-export default LanguageMenu;
+export default Menu;
