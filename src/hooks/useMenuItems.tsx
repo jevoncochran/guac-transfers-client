@@ -3,7 +3,11 @@ import RedeemIcon from "@mui/icons-material/Redeem";
 import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAppDispatch } from "../redux/hooks";
-import { logout, updateLanguage } from "../redux/features/auth/authSlice";
+import {
+  logout,
+  updateCountry,
+  updateLanguage,
+} from "../redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { LANGUAGES, USER_COUNTRIES } from "../constants";
 
@@ -58,11 +62,12 @@ export const useMenuItems = () => {
 
   const userCountryMenuitems = USER_COUNTRIES.map((country) => ({
     item: country.name,
+    onSelect: () => dispatch(updateCountry(country)),
   }));
 
   return {
     account: accountMenuItems,
     langugage: languageMenuItems,
-    userCountry: userCountryMenuitems
+    userCountry: userCountryMenuitems,
   };
 };

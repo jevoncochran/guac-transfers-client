@@ -114,10 +114,14 @@ const Navbar = () => {
               onClick={handleUserCountryMenuClick}
             >
               <img
-                src="https://flagsapi.com/US/flat/32.png"
+                src={`https://flagsapi.com/${
+                  user?.country?.code ?? "us"
+                }/flat/32.png`}
                 style={{ borderRadius: "16px" }}
               />
-              <Typography sx={{ marginX: "8px" }}>United States</Typography>
+              <Typography sx={{ marginX: "8px" }}>
+                {user?.country?.name ?? "United States"}
+              </Typography>
               <ExpandMoreOutlinedIcon />
             </Box>
             {/* User Country Menu */}

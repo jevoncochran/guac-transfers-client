@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Language } from "../../../types";
+import { Language, Country } from "../../../types";
 
 export interface AuthState {
   user: {
-    id: number;
-    email: string;
-    language: Language;
+    id?: number;
+    email?: string;
+    language?: Language;
+    country?: Country;
   } | null;
 }
 
@@ -29,9 +30,16 @@ export const authSlice = createSlice({
         language: action.payload,
       };
     },
+    updateCountry: (state, action) => {
+      state.user = {
+        ...state.user,
+        country: action.payload,
+      };
+    },
   },
 });
 
-export const { retrieveUser, logout, updateLanguage } = authSlice.actions;
+export const { retrieveUser, logout, updateLanguage, updateCountry } =
+  authSlice.actions;
 
 export default authSlice.reducer;
