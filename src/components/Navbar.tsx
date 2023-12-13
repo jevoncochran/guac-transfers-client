@@ -115,9 +115,8 @@ const Navbar = () => {
             >
               <img
                 src={`https://flagsapi.com/${
-                  user?.country?.code ?? "us"
+                  user?.country?.code ?? "US"
                 }/flat/32.png`}
-                style={{ borderRadius: "16px" }}
               />
               <Typography sx={{ marginX: "8px" }}>
                 {user?.country?.name ?? "United States"}

@@ -1,11 +1,6 @@
 import MuiMenu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-
-interface MenuItem {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  item: any;
-  onSelect?: () => void;
-}
+import MuiMenuItem from "@mui/material/MenuItem";
+import { MenuItem } from "../types";
 
 interface Props {
   anchorEl: null | HTMLElement;
@@ -44,7 +39,7 @@ const Menu = ({
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       {menuItems.map((mi) => (
-        <MenuItem
+        <MuiMenuItem
           onClick={
             mi.onSelect
               ? () => {
@@ -55,7 +50,7 @@ const Menu = ({
           }
         >
           {mi.item}
-        </MenuItem>
+        </MuiMenuItem>
       ))}
     </MuiMenu>
   );

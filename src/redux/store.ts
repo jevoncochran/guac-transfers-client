@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/auth/authSlice";
 import uiReducer from "./features/ui/uiSlice";
+import transferReducer from "./features/transfer/transferSlice";
 import storage from "redux-persist/lib/storage";
 import {
   persistReducer,
@@ -19,7 +20,11 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({ auth: authReducer, ui: uiReducer });
+const rootReducer = combineReducers({
+  auth: authReducer,
+  ui: uiReducer,
+  transfer: transferReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

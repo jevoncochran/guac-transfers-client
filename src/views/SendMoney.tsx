@@ -1,17 +1,40 @@
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import { SITE_PADDING_X } from "../constants";
 import { useTheme } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
+import TransferCountryMenu from "../components/TransferCountryMenu";
+import { useAppSelector } from "../redux/hooks";
+import { RootState } from "../redux/store";
 
 const SendMoney = () => {
   const theme = useTheme();
+
+  const transferCountry = useAppSelector(
+    (state: RootState) => state.transfer.country
+  );
+
+  const [transferCountryMenuAnchorEl, setTransferCountryMenuAnchorEl] =
+    useState<null | HTMLElement>(null);
+
+  const isTransferCountryMenuOpen = Boolean(transferCountryMenuAnchorEl);
+
+  const handleTransferCountryMenuClick = (
+    event: React.MouseEvent<HTMLElement>
+  ) => {
+    if (!transferCountryMenuAnchorEl) {
+      setTransferCountryMenuAnchorEl(event.currentTarget);
+    }
+  };
+
+  const handleTransferCountryMenuClose = () => {
+    setTransferCountryMenuAnchorEl(null);
+  };
+
   return (
     <>
       <Navbar />
@@ -25,32 +48,36 @@ const SendMoney = () => {
           <Typography color="#fff" marginRight={"8px"}>
             Send money to
           </Typography>
-          <FormControl>
-            <InputLabel id="demo-simple-select-label" sx={{ color: "#fff" }}>
-              {/* <img
-                src="https://flagsapi.com/CO/flat/32.png"
-                style={{ borderRadius: "16px", marginRight: "8px" }}
-              /> */}
-              Select Country
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              //   value={age}
-              label="Age"
-              //   onChange={handleChange}
-              sx={{
-                width: "150px",
-                height: "45px",
-                color: "#fff",
-                border: "1px solid #fff",
-              }}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            sx={{
+              border: "1px solid white",
+              borderRadius: "6px",
+              padding: "6px",
+            }}
+            onClick={handleTransferCountryMenuClick}
+          >
+            <img
+              src={`https://flagsapi.com/${
+                transferCountry?.code ?? "CO"
+              }/flat/32.png`}
+              style={{ marginRight: "8px" }}
+            />
+            <Typography color={theme.palette.secondary.contrastText}>
+              {transferCountry?.name ?? "Colombia"}
+            </Typography>
+            <ExpandMoreOutlinedIcon
+              sx={{ color: theme.palette.secondary.contrastText }}
+            />
+          </Box>
+          {/* Transfer Country Menu */}
+          <TransferCountryMenu
+            anchorEl={transferCountryMenuAnchorEl}
+            open={isTransferCountryMenuOpen}
+            handleClick={handleTransferCountryMenuClick}
+            handleClose={handleTransferCountryMenuClose}
+          />
         </Box>
         <Box sx={{ paddingX: SITE_PADDING_X, paddingTop: "32px" }}>
           <Box
