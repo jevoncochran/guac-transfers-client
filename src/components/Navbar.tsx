@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -14,26 +14,44 @@ import {
   closeAuthModal,
 } from "../redux/features/ui/uiSlice";
 import AccountMenu from "./AccountMenu";
+import LanguageMenu from "./LanguageMenu";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.auth.user);
   const authDialog = useAppSelector((state: RootState) => state.ui.authDialog);
+  const language = useAppSelector(
+    (state: RootState) => state.auth.user?.language.name
+  );
 
-  const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const [accountMenuAnchorEl, setAccountMenuAnchorEl] =
+    useState<null | HTMLElement>(null);
+  const [languageMenuAnchorEl, setLanguageMenuAnchorEl] =
+    useState<null | HTMLElement>(null);
 
   const theme = useTheme();
 
-  const isMenuOpen = Boolean(menuAnchorEl);
+  const isAccountMenuOpen = Boolean(accountMenuAnchorEl);
+  const isLanguageMenuOpen = Boolean(languageMenuAnchorEl);
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-    if (!menuAnchorEl) {
-      setMenuAnchorEl(event.currentTarget);
+  const handleAccountMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (!accountMenuAnchorEl) {
+      setAccountMenuAnchorEl(event.currentTarget);
     }
   };
 
-  const handleMenuClose = () => {
-    setMenuAnchorEl(null);
+  const handleAccountMenuClose = () => {
+    setAccountMenuAnchorEl(null);
+  };
+
+  const handleLanguageMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (!languageMenuAnchorEl) {
+      setLanguageMenuAnchorEl(event.currentTarget);
+    }
+  };
+
+  const handleLanguageMenuClose = () => {
+    setLanguageMenuAnchorEl(null);
   };
 
   return (
@@ -77,7 +95,7 @@ const Navbar = () => {
           <Box
             display="flex"
             justifyContent={"space-between"}
-            width="270px"
+            width="300px"
             marginBottom={"12px"}
           >
             <Box display="flex" alignItems="center">
@@ -88,10 +106,22 @@ const Navbar = () => {
               <Typography sx={{ marginX: "8px" }}>United States</Typography>
               <ExpandMoreOutlinedIcon />
             </Box>
-            <Box display="flex" alignItems="center">
-              <Typography sx={{ marginX: "8px" }}>English</Typography>
-              <ExpandMoreOutlinedIcon />
-            </Box>
+            <>
+              <Box
+                display="flex"
+                alignItems="center"
+                onClick={handleLanguageMenuClick}
+              >
+                <Typography sx={{ marginX: "8px" }}>{language}</Typography>
+                <ExpandMoreOutlinedIcon />
+              </Box>
+              <LanguageMenu
+                anchorEl={languageMenuAnchorEl}
+                open={isLanguageMenuOpen}
+                handleClick={handleLanguageMenuClick}
+                handleClose={handleLanguageMenuClose}
+              />
+            </>
           </Box>
           {!user && (
             <Box
@@ -120,15 +150,19 @@ const Navbar = () => {
           )}
           {user && (
             <>
-              <Box display="flex" alignItems="center" onClick={handleMenuClick}>
+              <Box
+                display="flex"
+                alignItems="center"
+                onClick={handleAccountMenuClick}
+              >
                 <Typography sx={{ marginX: "8px" }}>Welcome</Typography>
                 <ExpandMoreOutlinedIcon />
               </Box>
               <AccountMenu
-                anchorEl={menuAnchorEl}
-                open={isMenuOpen}
-                handleClick={handleMenuClick}
-                handleClose={handleMenuClose}
+                anchorEl={accountMenuAnchorEl}
+                open={isAccountMenuOpen}
+                handleClick={handleAccountMenuClick}
+                handleClose={handleAccountMenuClose}
               />
             </>
           )}
