@@ -58,23 +58,29 @@ const SignUpForm = () => {
     <form onSubmit={handleSubmit}>
       <TextField
         name="email"
-        label="Email Address"
+        label={credentials.email ? "" : "Email Address"}
+        type="email"
         variant="outlined"
         fullWidth
+        InputLabelProps={{ shrink: false }}
         onChange={handleChange}
       />
       <TextField
         name="password"
-        label="Password"
+        label={credentials.password ? "" : "Password"}
+        type="password"
         variant="outlined"
         fullWidth
+        InputLabelProps={{ shrink: false }}
         onChange={handleChange}
       />
       <TextField
         name="passwordConfirm"
-        label="Confirm Password"
+        label={credentials.passwordConfirm ? "" : "Confirm Password"}
+        type="password"
         variant="outlined"
         fullWidth
+        InputLabelProps={{ shrink: false }}
         onChange={handleChange}
       />
       <AuthDialogButton label="Join Now" />

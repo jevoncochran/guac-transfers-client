@@ -40,8 +40,9 @@ const Menu = ({
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      {menuItems.map((mi) => (
+      {menuItems.map((mi, idx) => (
         <MuiMenuItem
+          key={idx}
           onClick={
             mi.onSelect
               ? () => {

@@ -58,16 +58,20 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit}>
       <TextField
         name="email"
-        label="Email Address"
+        label={credentials.email ? "" : "Email Address"}
+        type="email"
         variant="outlined"
         fullWidth
+        InputLabelProps={{ shrink: false }}
         onChange={handleChange}
       />
       <TextField
         name="password"
-        label="Password"
+        label={credentials.password ? "" : "Password"}
+        type="password"
         variant="outlined"
         fullWidth
+        InputLabelProps={{ shrink: false }}
         onChange={handleChange}
       />
       <AuthDialogButton label="Sign In" />
