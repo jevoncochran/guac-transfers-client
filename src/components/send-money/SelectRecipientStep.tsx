@@ -6,9 +6,9 @@ import { useTheme } from "@mui/material";
 
 const SelectRecipientStep = () => {
   const theme = useTheme();
-  
+
   return (
-    <Box sx={{ paddingX: "280px", paddingY: "24px" }}>
+    <>
       <Typography variant="h6" fontWeight={700} sx={{ marginBottom: "24px" }}>
         Select a recipient to send money to:
       </Typography>
@@ -53,7 +53,7 @@ const SelectRecipientStep = () => {
           <NavigateNextIcon />
         </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

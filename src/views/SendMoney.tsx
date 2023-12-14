@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import { SITE_PADDING_X } from "../constants";
 import { useTheme } from "@mui/material";
 import SelectRecipientStep from "../components/send-money/SelectRecipientStep";
+import SelectAmountStep from "../components/send-money/SelectAmountStep";
 
 const SendMoney = () => {
   const theme = useTheme();
@@ -17,7 +18,9 @@ const SendMoney = () => {
             borderRadius: "6px",
           }}
         >
-          <SelectRecipientStep />
+          <Box sx={{ paddingX: "280px", paddingY: "24px" }}>
+            <SelectAmountStep />
+          </Box>
         </Box>
       </Box>
     </Box>
