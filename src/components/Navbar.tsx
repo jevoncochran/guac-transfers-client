@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -16,12 +16,18 @@ import {
 import Menu from "./Menu";
 import { useMenuItems } from "../hooks/useMenuItems";
 import { NavLink } from "react-router-dom";
+import { Country, Language } from "../types";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.auth.user);
+  const isLoggedIn = useAppSelector(
+    (state: RootState) => state.auth.isLoggedIn
+  );
   const authDialog = useAppSelector((state: RootState) => state.ui.authDialog);
 
+  const [language, setLanguage] = useState<Language | null>(null);
+  const [userCountry, setUserCountry] = useState<Country | null>(null);
   const [accountMenuAnchorEl, setAccountMenuAnchorEl] =
     useState<null | HTMLElement>(null);
   const [languageMenuAnchorEl, setLanguageMenuAnchorEl] =
@@ -65,6 +71,30 @@ const Navbar = () => {
     setUserCountryMenuAnchorEl(null);
   };
 
+  useEffect(() => {
+    if (user && isLoggedIn) {
+      localStorage.setItem("language", JSON.stringify(user.language));
+      localStorage.setItem("country", JSON.stringify(user.country));
+    } else {
+      const storedLanguage = localStorage.getItem("language");
+      const storedCountry = localStorage.getItem("country");
+      if (!storedLanguage) {
+        localStorage.setItem(
+          "language",
+          JSON.stringify({ code: "en", name: "English" })
+        );
+      }
+      if (!storedCountry) {
+        localStorage.setItem(
+          "country",
+          JSON.stringify({ code: "US", name: "United States" })
+        );
+      }
+    }
+    setLanguage(JSON.parse(localStorage.getItem("language")!));
+    setUserCountry(JSON.parse(localStorage.getItem("country")!));
+  }, [isLoggedIn, user]);
+
   return (
     <Box
       sx={{
@@ -94,7 +124,7 @@ const Navbar = () => {
       </Box>
 
       {/* VIEWS */}
-      {user && (
+      {isLoggedIn && (
         <Box
           flexGrow={1}
           display="flex"
@@ -185,7 +215,7 @@ const Navbar = () => {
       <Box
         display="flex"
         sx={{
-          flexGrow: user ? 0 : 1,
+          flexGrow: isLoggedIn ? 0 : 1,
         }}
       >
         <Box
@@ -207,12 +237,15 @@ const Navbar = () => {
             >
               <img
                 src={`https://flagsapi.com/${
-                  user?.country?.code ?? "US"
+                  user?.country?.code ??
+                  JSON.parse(localStorage.getItem("country")!)?.code
                 }/flat/32.png`}
               />
-              <Typography sx={{ marginX: "8px" }}>
-                {user?.country?.name ?? "United States"}
-              </Typography>
+              {userCountry && (
+                <Typography sx={{ marginX: "8px" }}>
+                  {userCountry.name}
+                </Typography>
+              )}
               <ExpandMoreOutlinedIcon />
             </Box>
             {/* User Country Menu */}
@@ -230,9 +263,11 @@ const Navbar = () => {
                 alignItems="center"
                 onClick={handleLanguageMenuClick}
               >
-                <Typography sx={{ marginX: "8px" }}>
-                  {user?.language?.name ?? "English"}
-                </Typography>
+                {language && (
+                  <Typography sx={{ marginX: "8px" }}>
+                    {language.name}
+                  </Typography>
+                )}
                 <ExpandMoreOutlinedIcon />
               </Box>
               {/* Language Menu */}
@@ -246,7 +281,7 @@ const Navbar = () => {
               />
             </>
           </Box>
-          {!user && (
+          {!isLoggedIn && (
             <Box
               display={"flex"}
               justifyContent={"flex-end"}
@@ -270,7 +305,7 @@ const Navbar = () => {
             </Box>
           )}
 
-          <Box sx={{ display: user ? "block" : "none" }}>
+          <Box sx={{ display: isLoggedIn ? "block" : "none" }}>
             <Box
               display="flex"
               alignItems="center"

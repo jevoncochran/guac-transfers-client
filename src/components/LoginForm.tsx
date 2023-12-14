@@ -10,6 +10,10 @@ import {
   openRegisterModal,
   closeAuthModal,
 } from "../redux/features/ui/uiSlice";
+import {
+  getLanguageByCode,
+  getCountryByCode,
+} from "../utils/getLanguageAndCountry";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +32,17 @@ const LoginForm = () => {
       .post(`${import.meta.env.VITE_API_URL}/auth/login`, credentials)
       .then((res) => {
         if (res.status === 200) {
-          dispatch(retrieveUser(res.data));
+          // Grab full language object using lang code provided by API call
+          const userLang = getLanguageByCode(res.data.language);
+          // Grab full country object using country code provided by API call
+          const userCountry = getCountryByCode(res.data.country);
+          dispatch(
+            retrieveUser({
+              ...res.data,
+              language: userLang,
+              country: userCountry,
+            })
+          );
           dispatch(closeAuthModal());
           navigate("/transfer/send");
         }

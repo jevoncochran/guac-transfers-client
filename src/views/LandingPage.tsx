@@ -7,13 +7,15 @@ import { useNavigate } from "react-router-dom";
 const LandingPage = () => {
   const navigate = useNavigate();
 
-  const user = useAppSelector((state: RootState) => state.auth.user);
+  const isLoggedIn = useAppSelector(
+    (state: RootState) => state.auth.isLoggedIn
+  );
 
   useEffect(() => {
-    if (user) {
+    if (isLoggedIn) {
       navigate("/transfer/send");
     }
-  }, [user, navigate]);
+  }, [isLoggedIn, navigate]);
 
   return <HeroSection />;
 };

@@ -8,10 +8,12 @@ export interface AuthState {
     language?: Language;
     country?: Country;
   } | null;
+  isLoggedIn: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
+  isLoggedIn: false,
 };
 
 export const authSlice = createSlice({
@@ -20,9 +22,11 @@ export const authSlice = createSlice({
   reducers: {
     retrieveUser: (state, action) => {
       state.user = action.payload;
+      state.isLoggedIn = true;
     },
     logout: (state) => {
       state.user = null;
+      state.isLoggedIn = false;
     },
     updateLanguage: (state, action) => {
       state.user = {
