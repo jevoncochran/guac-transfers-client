@@ -5,8 +5,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
-import { useAppSelector } from "../redux/hooks";
-import { RootState } from "../redux/store";
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
 
 interface Props {
   open: boolean;

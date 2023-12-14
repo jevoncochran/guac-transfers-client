@@ -1,25 +1,30 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import TextField from "@mui/material/TextField";
-import AuthDialogButton from "./AuthDialogButton";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import AuthDialogButton from "./AuthDialogButton";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../redux/hooks";
-import { retrieveUser } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../../redux/hooks";
 import {
-  openRegisterModal,
+  openLoginModal,
   closeAuthModal,
-} from "../redux/features/ui/uiSlice";
+} from "../../redux/features/ui/uiSlice";
+import { retrieveUser } from "../../redux/features/auth/authSlice";
 import {
-  getLanguageByCode,
   getCountryByCode,
-} from "../utils/getLanguageAndCountry";
+  getLanguageByCode,
+} from "../../utils/getLanguageAndCountry";
 
-const LoginForm = () => {
-  const dispatch = useAppDispatch();
+const SignUpForm = () => {
   const navigate = useNavigate();
 
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const dispatch = useAppDispatch();
+
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -29,12 +34,15 @@ const LoginForm = () => {
     e.preventDefault();
 
     axios
-      .post(`${import.meta.env.VITE_API_URL}/auth/login`, credentials)
+      .post(`${import.meta.env.VITE_API_URL}/auth/register`, {
+        ...credentials,
+        language: JSON.parse(localStorage.getItem("language")!).code,
+        country: JSON.parse(localStorage.getItem("country")!).code,
+      })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           // Grab full language object using lang code provided by API call
           const userLang = getLanguageByCode(res.data.language);
-          // Grab full country object using country code provided by API call
           const userCountry = getCountryByCode(res.data.country);
           dispatch(
             retrieveUser({
@@ -47,11 +55,6 @@ const LoginForm = () => {
           navigate("/transfer/send");
         }
       });
-  };
-
-  const handleJoinNow = () => {
-    dispatch(closeAuthModal());
-    dispatch(openRegisterModal());
   };
 
   return (
@@ -74,22 +77,31 @@ const LoginForm = () => {
         InputLabelProps={{ shrink: false }}
         onChange={handleChange}
       />
-      <AuthDialogButton label="Sign In" />
+      <TextField
+        name="passwordConfirm"
+        label={credentials.passwordConfirm ? "" : "Confirm Password"}
+        type="password"
+        variant="outlined"
+        fullWidth
+        InputLabelProps={{ shrink: false }}
+        onChange={handleChange}
+      />
+      <AuthDialogButton label="Join Now" />
       <Typography>
-        Need an account?{" "}
+        Already have an account?{" "}
         <span
           style={{
             color: "#609000",
             textDecoration: "underline",
             cursor: "pointer",
           }}
-          onClick={handleJoinNow}
+          onClick={() => dispatch(openLoginModal())}
         >
-          Join Now
+          Sign In
         </span>
       </Typography>
     </form>
   );
 };
 
-export default LoginForm;
+export default SignUpForm;

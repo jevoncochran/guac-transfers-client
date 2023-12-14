@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import guacLogo from "../assets/avocado.png";
-import AuthDialog from "./AuthDialog";
+import AuthDialog from "./auth/AuthDialog";
 import { useTheme } from "@mui/material";
 import { RootState } from "../redux/store";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";

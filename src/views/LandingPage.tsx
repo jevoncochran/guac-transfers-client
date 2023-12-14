@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppSelector } from "../redux/hooks";
-import HeroSection from "../components/HeroSection";
+import HeroSection from "../components/landing/HeroSection";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 

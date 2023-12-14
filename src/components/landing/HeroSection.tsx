@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import families from "../assets/families.png";
+import families from "../../assets/families.png";
 
 const HeroSection = () => {
   return (
