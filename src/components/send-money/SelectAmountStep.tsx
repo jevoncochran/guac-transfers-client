@@ -12,8 +12,9 @@ import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import axios from "axios";
 import debounce from "lodash.debounce";
-import { CURRENCIES } from "../../constants";
+import { THIRD_PARTY_CHARGES, CURRENCIES } from "../../constants";
 import TransferMethodCard from "./TransferMethodCard";
+import { calculateConversion } from "../../utils/calculateConversion";
 
 export type TransferMethod = "card" | "bankAccount";
 
@@ -26,37 +27,41 @@ const SelectAmountStep = () => {
   const [sendAmount, setSendAmount] = useState<number | null>(null);
   const [receiveAmount, setReceiveAmount] = useState<number | null>(null);
   const [transferMethod, setTransferMethod] = useState<TransferMethod>("card");
+  const [rate, setRate] = useState(0);
 
-  const fromCurrency = CURRENCIES[user?.country?.code]?.code;
-  const toCurrency = CURRENCIES[transferCountry?.code]?.code;
+  const userCurrency = CURRENCIES[user?.country?.code]?.code;
+  const transferCurrency = CURRENCIES[transferCountry?.code]?.code;
 
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    // If there is no value in the input, set the send and receive amounts to null
     if (!e.target.value) {
       setSendAmount(null);
       setReceiveAmount(null);
 
-      debouncedConversion(undefined, "USD", "COP", false);
+      debouncedConversion(undefined, false);
     }
 
     const newValue = Number(e.target.value);
 
+    // When send input value gets updated
     if (e.target.name === "sendAmount") {
       setSendAmount(newValue);
 
-      // Do conversion
+      // Perform conversion when user finishes typing
       if (newValue > 0) {
-        debouncedConversion(newValue, fromCurrency, toCurrency, false);
+        debouncedConversion(newValue, false);
       } else {
         setReceiveAmount(0);
       }
+      // When receive input value gets updated
     } else {
       setReceiveAmount(newValue);
 
-      //   Do conversion
+      //   Perfom conversion when user finishes typing
       if (newValue > 0) {
-        debouncedConversion(newValue, toCurrency, fromCurrency, true);
+        debouncedConversion(newValue, true);
       } else {
         setSendAmount(0);
       }
@@ -65,29 +70,61 @@ const SelectAmountStep = () => {
 
   const debouncedConversion = useMemo(
     () =>
-      debounce((amount, fromCurrency, toCurrency, reversed) => {
+      debounce((amount, reversed) => {
         if (!amount) return;
-        axios
-          .get(
-            `${
-              import.meta.env.VITE_API_URL
-            }/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}`
-          )
-          .then((res) => {
-            if (!reversed) {
-              setReceiveAmount(res.data.result);
-            } else {
-              setSendAmount(res.data.result);
-            }
-          });
+
+        if (!reversed) {
+          // Convert from send amount to receive amount
+          const conversionMinusCharges = calculateConversion(
+            amount,
+            rate,
+            THIRD_PARTY_CHARGES[transferMethod]
+          );
+          setReceiveAmount(conversionMinusCharges);
+        } else {
+          // Convert from receive amount to send amount
+          const transferAmountPlusCharges = calculateConversion(
+            amount,
+            rate,
+            THIRD_PARTY_CHARGES[transferMethod],
+            true
+          );
+          setSendAmount(transferAmountPlusCharges);
+        }
       }, 500),
-    []
+    [transferMethod, rate]
   );
 
+  // On initial render and when user changes user country or transfer country, we must:
   useEffect(() => {
+    // 1) Get the exchange rate
+    axios
+      .get(
+        `${
+          import.meta.env.VITE_API_URL
+        }/convert?from=${userCurrency}&to=${transferCurrency}&amount=${1}`
+      )
+      .then((res) => {
+        console.log(res.data);
+        setRate(res.data.result);
+      });
+
+    // 2) Reset send and receive input values
     setSendAmount(null);
     setReceiveAmount(null);
-  }, [user?.country, transferCountry]);
+  }, [userCurrency, transferCurrency]);
+
+  // When user changes transfer method, we must update receive input value
+  useEffect(() => {
+    if (sendAmount) {
+      const conversionMinusCharges = calculateConversion(
+        sendAmount,
+        rate,
+        THIRD_PARTY_CHARGES[transferMethod]
+      );
+      setReceiveAmount(conversionMinusCharges);
+    }
+  }, [transferMethod]);
 
   return transferCountry ? (
     <>
@@ -106,7 +143,7 @@ const SelectAmountStep = () => {
                 src={`https://flagsapi.com/${user?.country?.code}/flat/32.png`}
               />
             ),
-            endAdornment: fromCurrency,
+            endAdornment: userCurrency,
           }}
           sx={{
             img: { marginRight: "16px" },
@@ -142,7 +179,7 @@ const SelectAmountStep = () => {
                 src={`https://flagsapi.com/${transferCountry?.code}/flat/32.png`}
               />
             ),
-            endAdornment: toCurrency,
+            endAdornment: transferCurrency,
           }}
           sx={{
             img: { marginRight: "16px" },
@@ -176,7 +213,8 @@ const SelectAmountStep = () => {
         speed="minutes"
         paymentIcon={<CreditCardIcon />}
         payment="debit/credit card"
-        rate={0.97}
+        charge={THIRD_PARTY_CHARGES.card}
+        rate={rate}
       />
 
       <TransferMethodCard
@@ -188,7 +226,8 @@ const SelectAmountStep = () => {
         speed="3-5 days"
         paymentIcon={<AccountBalanceIcon />}
         payment="bank account"
-        rate={1}
+        charge={THIRD_PARTY_CHARGES.bankAccount}
+        rate={rate}
       />
 
       <Button

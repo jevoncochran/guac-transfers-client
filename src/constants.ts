@@ -634,10 +634,16 @@ const CURRENCIES = {
   ZW: { code: "ZWL", name: "Zimbabwean Dollar" },
 };
 
+const THIRD_PARTY_CHARGES = {
+  card: 0.05,
+  bankAccount: 0.025,
+};
+
 export {
   SITE_PADDING_X,
   USER_COUNTRIES,
   TRANSFER_COUNTRIES,
   LANGUAGES,
   CURRENCIES,
+  THIRD_PARTY_CHARGES,
 };

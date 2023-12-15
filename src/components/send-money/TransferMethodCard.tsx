@@ -1,9 +1,12 @@
 import Box from "@mui/material/Box";
 import Radio from "@mui/material/Radio";
 import Typography from "@mui/material/Typography";
-
 import { TransferMethod } from "./SelectAmountStep";
 import { useTheme } from "@mui/material";
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
+import { CURRENCIES } from "../../constants";
+import { calculateConversion } from "../../utils/calculateConversion";
 
 interface Props {
   label: string;
@@ -14,6 +17,7 @@ interface Props {
   speed: string;
   paymentIcon: JSX.Element;
   payment: string;
+  charge: number;
   rate: number;
 }
 
@@ -26,12 +30,24 @@ const TransferMethodCard = ({
   speed,
   paymentIcon,
   payment,
-  rate,
+  charge,
+  rate
 }: Props) => {
   const theme = useTheme();
 
+  const userCountry = useAppSelector(
+    (state: RootState) => state.auth.user?.country
+  );
+  const transferCountry = useAppSelector(
+    (state: RootState) => state.transfer.country
+  );
+
+  const userCurrency = CURRENCIES[userCountry.code].code;
+  const transferCurrency = CURRENCIES[transferCountry.code].code;
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTransferMethod(e.target.value);
+    setTransferMethod(e.target.value as TransferMethod);
   };
 
   return (
@@ -84,12 +100,14 @@ const TransferMethodCard = ({
           <Typography>{`Pay with ${payment}`}</Typography>
         </Box>
         <Typography fontSize="18px">
-          <span style={{ color: theme.palette.primary.main }}>1 USD =</span>
+          <span
+            style={{ color: theme.palette.primary.main }}
+          >{`1 ${userCurrency} =`}</span>
           <span
             style={{ color: theme.palette.primary.main, fontWeight: "bold" }}
           >
             {" "}
-            {rate * 3824.94} COP
+            {calculateConversion(1, rate, charge)} {transferCurrency}
           </span>
         </Typography>
       </Box>
