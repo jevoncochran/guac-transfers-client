@@ -17,4 +17,5 @@ export interface MenuItem {
 export enum TransferStep {
   SelectRecipient = 1,
   SelectAmount = 2,
+  SelectDeliveryMethod = 3
 }

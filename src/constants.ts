@@ -635,8 +635,8 @@ const CURRENCIES = {
 };
 
 const THIRD_PARTY_CHARGES = {
-  card: 0.05,
-  bankAccount: 0.025,
+  card: 0.03,
+  bankAccount: 0.015,
 };
 
 export {

@@ -8,17 +8,20 @@ import BoltIcon from "@mui/icons-material/Bolt";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import axios from "axios";
 import debounce from "lodash.debounce";
 import { THIRD_PARTY_CHARGES, CURRENCIES } from "../../constants";
 import TransferMethodCard from "./TransferMethodCard";
 import { calculateConversion } from "../../utils/calculateConversion";
+import { goToNextTransferStep } from "../../redux/features/transfer/transferSlice";
 
 export type TransferMethod = "card" | "bankAccount";
 
 const SelectAmountStep = () => {
+  const dispatch = useAppDispatch();
+
   const user = useAppSelector((state: RootState) => state.auth.user);
   const transferCountry = useAppSelector(
     (state: RootState) => state.transfer.country
@@ -234,6 +237,7 @@ const SelectAmountStep = () => {
         variant="contained"
         fullWidth
         sx={{ marginTop: "16px", borderRadius: "6px", height: "50px" }}
+        onClick={() => dispatch(goToNextTransferStep())}
       >
         Continue
       </Button>

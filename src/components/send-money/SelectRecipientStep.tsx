@@ -1,10 +1,10 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useTheme } from "@mui/material";
 import { useAppDispatch } from "../../redux/hooks";
 import { goToNextTransferStep } from "../../redux/features/transfer/transferSlice";
+import OptionCard from "./OptionCard";
 
 const SelectRecipientStep = () => {
   const theme = useTheme();
@@ -42,25 +42,10 @@ const SelectRecipientStep = () => {
           <Typography>New Recipient</Typography>
         </Box>
       </Box>
-      <Box
-        sx={{
-          height: "60px",
-          border: "1px solid black",
-          borderRadius: "6px",
-          display: "flex",
-          alignItems: "center",
-          paddingX: "16px",
-        }}
-      >
-        <Box
-          display={"flex"}
-          justifyContent={"space-between"}
-          sx={{ width: "100%" }}
-        >
-          <Typography>Jair Asprilla</Typography>
-          <NavigateNextIcon />
-        </Box>
-      </Box>
+      <OptionCard
+        label="Jair Asprilla"
+        sublabel="Bancolombia account ending in 5569"
+      />
     </>
   );
 };

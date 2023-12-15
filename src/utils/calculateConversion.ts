@@ -8,8 +8,9 @@ export const calculateConversion = (
     // Convert from send amount to receive amount
     // Get the gross conversion by multiplying send amount by exchange rate
     const grossConversion = amount * rate;
-    // Get the net conversion by subtracting third party charge % from gross conversion
-    const netConversion = grossConversion - grossConversion * charge;
+    const charges = grossConversion * charge;
+    // Get the net conversion by subtracting third party charge from gross conversion
+    const netConversion = grossConversion - charges;
     return netConversion;
   } else {
     // Backwards convert from receive amount to send amount
