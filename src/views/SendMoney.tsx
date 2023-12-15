@@ -13,7 +13,7 @@ const SendMoney = () => {
         <Box
           sx={{
             width: "100%",
-            height: "600px",
+            minHeight: "600px",
             border: `1px solid ${theme.palette.secondary.light}`,
             borderRadius: "6px",
           }}

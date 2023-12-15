@@ -2,11 +2,20 @@ import { useMemo, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import BoltIcon from "@mui/icons-material/Bolt";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import axios from "axios";
 import debounce from "lodash.debounce";
 import { CURRENCIES } from "../../constants";
+import TransferMethodCard from "./TransferMethodCard";
+
+export type TransferMethod = "card" | "bankAccount";
 
 const SelectAmountStep = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
@@ -16,6 +25,7 @@ const SelectAmountStep = () => {
 
   const [sendAmount, setSendAmount] = useState<number | null>(null);
   const [receiveAmount, setReceiveAmount] = useState<number | null>(null);
+  const [transferMethod, setTransferMethod] = useState<TransferMethod>("card");
 
   const fromCurrency = CURRENCIES[user?.country?.code].code;
   const toCurrency = CURRENCIES[transferCountry.code].code;
@@ -152,6 +162,42 @@ const SelectAmountStep = () => {
           onChange={handleAmountChange}
         />
       </Box>
+
+      <Typography variant="h5" sx={{ marginBottom: "16px" }}>
+        Delivery Speed
+      </Typography>
+
+      <TransferMethodCard
+        label="Express"
+        method="card"
+        transferMethod={transferMethod}
+        setTransferMethod={setTransferMethod}
+        speedIcon={<BoltIcon />}
+        speed="minutes"
+        paymentIcon={<CreditCardIcon />}
+        payment="debit/credit card"
+        rate={0.97}
+      />
+
+      <TransferMethodCard
+        label="Economy"
+        method="bankAccount"
+        transferMethod={transferMethod}
+        setTransferMethod={setTransferMethod}
+        speedIcon={<AccessTimeIcon />}
+        speed="3-5 days"
+        paymentIcon={<AccountBalanceIcon />}
+        payment="bank account"
+        rate={1}
+      />
+
+      <Button
+        variant="contained"
+        fullWidth
+        sx={{ marginTop: "16px", borderRadius: "6px", height: "50px" }}
+      >
+        Continue
+      </Button>
     </>
   );
 };
