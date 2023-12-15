@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
@@ -6,11 +6,19 @@ import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import axios from "axios";
 import debounce from "lodash.debounce";
+import { CURRENCIES } from "../../constants";
 
 const SelectAmountStep = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
+  const transferCountry = useAppSelector(
+    (state: RootState) => state.transfer.country
+  );
+
   const [sendAmount, setSendAmount] = useState<number | null>(null);
   const [receiveAmount, setReceiveAmount] = useState<number | null>(null);
+
+  const fromCurrency = CURRENCIES[user?.country?.code].code;
+  const toCurrency = CURRENCIES[transferCountry.code].code;
 
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,7 +37,7 @@ const SelectAmountStep = () => {
 
       // Do conversion
       if (newValue > 0) {
-        debouncedConversion(newValue, "USD", "COP", false);
+        debouncedConversion(newValue, fromCurrency, toCurrency, false);
       } else {
         setReceiveAmount(0);
       }
@@ -38,7 +46,7 @@ const SelectAmountStep = () => {
 
       //   Do conversion
       if (newValue > 0) {
-        debouncedConversion(newValue, "COP", "USD", true);
+        debouncedConversion(newValue, toCurrency, fromCurrency, true);
       } else {
         setSendAmount(0);
       }
@@ -66,13 +74,19 @@ const SelectAmountStep = () => {
     []
   );
 
+  useEffect(() => {
+    setSendAmount(null);
+    setReceiveAmount(null);
+  }, [user?.country, transferCountry]);
+
   return (
     <>
       <Box>
         <InputLabel>You send</InputLabel>
         <TextField
           name="sendAmount"
-          value={sendAmount?.toString()}
+          value={sendAmount?.toString() ?? ""}
+          type="number"
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
@@ -82,7 +96,7 @@ const SelectAmountStep = () => {
                 src={`https://flagsapi.com/${user?.country?.code}/flat/32.png`}
               />
             ),
-            endAdornment: "USD",
+            endAdornment: fromCurrency,
           }}
           sx={{
             img: { marginRight: "16px" },
@@ -107,15 +121,18 @@ const SelectAmountStep = () => {
         <InputLabel>They receive</InputLabel>
         <TextField
           name="receiveAmount"
-          value={receiveAmount?.toString()}
+          value={receiveAmount?.toString() ?? ""}
+          type="number"
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
           InputProps={{
             startAdornment: (
-              <img src={`https://flagsapi.com/${`CO`}/flat/32.png`} />
+              <img
+                src={`https://flagsapi.com/${transferCountry?.code}/flat/32.png`}
+              />
             ),
-            endAdornment: "COP",
+            endAdornment: toCurrency,
           }}
           sx={{
             img: { marginRight: "16px" },

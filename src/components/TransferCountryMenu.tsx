@@ -48,7 +48,10 @@ const TransferCountryMenu = ({
       {TRANSFER_COUNTRIES.map((country) => (
         <MuiMenuItem
           key={country.code}
-          onClick={() => dispatch(setTransferCountry(country))}
+          onClick={() => {
+            dispatch(setTransferCountry(country));
+            handleClose();
+          }}
         >
           <img
             src={`https://flagsapi.com/${country.code}/flat/32.png`}
