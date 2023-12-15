@@ -3,9 +3,13 @@ import Typography from "@mui/material/Typography";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useTheme } from "@mui/material";
+import { useAppDispatch } from "../../redux/hooks";
+import { goToNextTransferStep } from "../../redux/features/transfer/transferSlice";
 
 const SelectRecipientStep = () => {
   const theme = useTheme();
+
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -23,11 +27,15 @@ const SelectRecipientStep = () => {
           paddingX: "16px",
         }}
       >
-        <Box display={"flex"}>
+        <Box
+          display={"flex"}
+          sx={{ cursor: "pointer" }}
+          onClick={() => dispatch(goToNextTransferStep())}
+        >
           <PersonAddIcon
             sx={{
               marginRight: "8px",
-              color: theme.palette.primary.light,
+              color: theme.palette.primary.main,
             }}
             fontSize="medium"
           />

@@ -27,8 +27,8 @@ const SelectAmountStep = () => {
   const [receiveAmount, setReceiveAmount] = useState<number | null>(null);
   const [transferMethod, setTransferMethod] = useState<TransferMethod>("card");
 
-  const fromCurrency = CURRENCIES[user?.country?.code].code;
-  const toCurrency = CURRENCIES[transferCountry.code].code;
+  const fromCurrency = CURRENCIES[user?.country?.code]?.code;
+  const toCurrency = CURRENCIES[transferCountry?.code]?.code;
 
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -89,7 +89,7 @@ const SelectAmountStep = () => {
     setReceiveAmount(null);
   }, [user?.country, transferCountry]);
 
-  return (
+  return transferCountry ? (
     <>
       <Box>
         <InputLabel>You send</InputLabel>
@@ -199,6 +199,10 @@ const SelectAmountStep = () => {
         Continue
       </Button>
     </>
+  ) : (
+    <Typography variant="h5">
+      Please select a country to transfer money to.
+    </Typography>
   );
 };
 

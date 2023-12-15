@@ -30,7 +30,7 @@ const Divider = () => {
   const handleTransferCountryMenuClose = () => {
     setTransferCountryMenuAnchorEl(null);
   };
-  
+
   return (
     <Box
       display="flex"
@@ -51,15 +51,24 @@ const Divider = () => {
         }}
         onClick={handleTransferCountryMenuClick}
       >
-        <img
-          src={`https://flagsapi.com/${
-            transferCountry?.code ?? "CO"
-          }/flat/32.png`}
-          style={{ marginRight: "8px" }}
-        />
-        <Typography color={theme.palette.secondary.contrastText}>
-          {transferCountry?.name ?? "Colombia"}
-        </Typography>
+        {transferCountry ? (
+          <>
+            <img
+              src={`https://flagsapi.com/${transferCountry?.code}/flat/32.png`}
+              style={{ marginRight: "8px" }}
+            />
+            <Typography color={theme.palette.secondary.contrastText}>
+              {transferCountry?.name}
+            </Typography>
+          </>
+        ) : (
+          <Typography
+            color={theme.palette.secondary.contrastText}
+            fontSize="14px"
+          >
+            Select Country
+          </Typography>
+        )}
         <ExpandMoreOutlinedIcon
           sx={{ color: theme.palette.secondary.contrastText }}
         />

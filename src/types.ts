@@ -4,13 +4,17 @@ export interface Language {
 }
 
 export interface Country {
-    code: string;
-    name: string
+  code: string;
+  name: string;
 }
 
 export interface MenuItem {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    item: any;
-    onSelect?: () => void;
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  item: any;
+  onSelect?: () => void;
+}
 
+export enum TransferStep {
+  SelectRecipient = 1,
+  SelectAmount = 2,
+}
