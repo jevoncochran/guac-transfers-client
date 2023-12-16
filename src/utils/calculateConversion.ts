@@ -11,13 +11,20 @@ export const calculateConversion = (
     const charges = grossConversion * charge;
     // Get the net conversion by subtracting third party charge from gross conversion
     const netConversion = grossConversion - charges;
-    return netConversion;
+    // Limit to 2 decimal places
+    const netConversionTwoDecimals =
+      Math.round((netConversion + Number.EPSILON) * 100) / 100;
+    return netConversionTwoDecimals;
   } else {
     // Backwards convert from receive amount to send amount
     const netConversion = amount;
     // Get the gross conversion amount by mathematically removing the third party charge %
     const grossConversion = netConversion / (1 - charge);
     // Divide the gross conversion by the exchange rate
-    return grossConversion / rate;
+    const reverseConversion = grossConversion / rate;
+    // Limit to 2 decimal places
+    const reverseConversionTwoDecimals =
+      Math.round((reverseConversion + Number.EPSILON) * 100) / 100;
+    return reverseConversionTwoDecimals;
   }
 };

@@ -31,7 +31,7 @@ const TransferMethodCard = ({
   paymentIcon,
   payment,
   charge,
-  rate
+  rate,
 }: Props) => {
   const theme = useTheme();
 
@@ -44,7 +44,6 @@ const TransferMethodCard = ({
 
   const userCurrency = CURRENCIES[userCountry.code].code;
   const transferCurrency = CURRENCIES[transferCountry.code].code;
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTransferMethod(e.target.value as TransferMethod);
@@ -107,7 +106,8 @@ const TransferMethodCard = ({
             style={{ color: theme.palette.primary.main, fontWeight: "bold" }}
           >
             {" "}
-            {calculateConversion(1, rate, charge)} {transferCurrency}
+            {calculateConversion(1, rate, charge).toLocaleString()}{" "}
+            {transferCurrency}
           </span>
         </Typography>
       </Box>

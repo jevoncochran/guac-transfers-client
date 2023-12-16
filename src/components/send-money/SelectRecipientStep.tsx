@@ -13,7 +13,9 @@ const SelectRecipientStep = () => {
 
   return (
     <>
-      <Typography variant="h6" fontWeight={700} sx={{ marginBottom: "24px" }}>
+      <Typography
+        variant="transferStepHeading"
+      >
         Select a recipient to send money to:
       </Typography>
       <Box

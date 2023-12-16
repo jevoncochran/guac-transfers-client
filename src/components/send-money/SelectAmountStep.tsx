@@ -46,7 +46,10 @@ const SelectAmountStep = () => {
       debouncedConversion(undefined, false);
     }
 
-    const newValue = Number(e.target.value);
+    // Any commas present must be removed from input values before converting to number
+    // Otherwise, newValue could become NAN
+    const removeCommas = e.target.value.replace(/,/g, "");
+    const newValue = Number(removeCommas);
 
     // When send input value gets updated
     if (e.target.name === "sendAmount") {
@@ -108,8 +111,9 @@ const SelectAmountStep = () => {
         }/convert?from=${userCurrency}&to=${transferCurrency}&amount=${1}`
       )
       .then((res) => {
-        console.log(res.data);
-        setRate(res.data.result);
+        const resultTwoDecimals =
+          Math.round((res.data.result + Number.EPSILON) * 100) / 100;
+        setRate(resultTwoDecimals);
       });
 
     // 2) Reset send and receive input values
@@ -135,8 +139,7 @@ const SelectAmountStep = () => {
         <InputLabel>You send</InputLabel>
         <TextField
           name="sendAmount"
-          value={sendAmount?.toString() ?? ""}
-          type="number"
+          value={sendAmount?.toLocaleString() ?? ""}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
@@ -171,8 +174,7 @@ const SelectAmountStep = () => {
         <InputLabel>They receive</InputLabel>
         <TextField
           name="receiveAmount"
-          value={receiveAmount?.toString() ?? ""}
-          type="number"
+          value={receiveAmount?.toLocaleString() ?? ""}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
@@ -203,9 +205,7 @@ const SelectAmountStep = () => {
         />
       </Box>
 
-      <Typography variant="h5" sx={{ marginBottom: "16px" }}>
-        Delivery Speed
-      </Typography>
+      <Typography variant="transferStepHeading">Delivery Speed</Typography>
 
       <TransferMethodCard
         label="Express"
