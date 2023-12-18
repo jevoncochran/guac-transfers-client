@@ -15,7 +15,13 @@ import debounce from "lodash.debounce";
 import { THIRD_PARTY_CHARGES, CURRENCIES } from "../../constants";
 import TransferMethodCard from "./TransferMethodCard";
 import { calculateConversion } from "../../utils/calculateConversion";
-import { goToNextTransferStep } from "../../redux/features/transfer/transferSlice";
+import {
+  goToNextTransferStep,
+  clearTransferAmount,
+  setTransferAmount,
+  setSendAmount,
+  setReceiveAmount,
+} from "../../redux/features/transfer/transferSlice";
 
 export type TransferMethod = "card" | "bankAccount";
 
@@ -23,25 +29,19 @@ const SelectAmountStep = () => {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state: RootState) => state.auth.user);
-  const transferCountry = useAppSelector(
-    (state: RootState) => state.transfer.country
-  );
+  const transfer = useAppSelector((state: RootState) => state.transfer);
 
-  const [sendAmount, setSendAmount] = useState<number | null>(null);
-  const [receiveAmount, setReceiveAmount] = useState<number | null>(null);
-  const [transferMethod, setTransferMethod] = useState<TransferMethod>("card");
   const [rate, setRate] = useState(0);
 
   const userCurrency = CURRENCIES[user?.country?.code]?.code;
-  const transferCurrency = CURRENCIES[transferCountry?.code]?.code;
+  const transferCurrency = CURRENCIES[transfer.country?.code]?.code;
 
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     // If there is no value in the input, set the send and receive amounts to null
     if (!e.target.value) {
-      setSendAmount(null);
-      setReceiveAmount(null);
+      dispatch(clearTransferAmount());
 
       debouncedConversion(undefined, false);
     }
@@ -53,23 +53,23 @@ const SelectAmountStep = () => {
 
     // When send input value gets updated
     if (e.target.name === "sendAmount") {
-      setSendAmount(newValue);
+      dispatch(setSendAmount(newValue));
 
       // Perform conversion when user finishes typing
       if (newValue > 0) {
         debouncedConversion(newValue, false);
       } else {
-        setReceiveAmount(0);
+        dispatch(clearTransferAmount());
       }
       // When receive input value gets updated
     } else {
-      setReceiveAmount(newValue);
+      dispatch(setReceiveAmount(newValue));
 
       //   Perfom conversion when user finishes typing
       if (newValue > 0) {
         debouncedConversion(newValue, true);
       } else {
-        setSendAmount(0);
+        dispatch(clearTransferAmount());
       }
     }
   };
@@ -81,24 +81,38 @@ const SelectAmountStep = () => {
 
         if (!reversed) {
           // Convert from send amount to receive amount
-          const conversionMinusCharges = calculateConversion(
+          const conversion = calculateConversion(
             amount,
             rate,
-            THIRD_PARTY_CHARGES[transferMethod]
+            THIRD_PARTY_CHARGES[transfer.transferMethod],
+            0
           );
-          setReceiveAmount(conversionMinusCharges);
+          dispatch(
+            setTransferAmount({
+              sendAmount: conversion.sendAmount,
+              receiveAmount: conversion.receiveAmount,
+              thirdPartyCharge: conversion.thirdPartyCharge,
+            })
+          );
         } else {
           // Convert from receive amount to send amount
-          const transferAmountPlusCharges = calculateConversion(
+          const reverseConversion = calculateConversion(
             amount,
             rate,
-            THIRD_PARTY_CHARGES[transferMethod],
+            THIRD_PARTY_CHARGES[transfer.transferMethod],
+            0,
             true
           );
-          setSendAmount(transferAmountPlusCharges);
+          dispatch(
+            setTransferAmount({
+              sendAmount: reverseConversion.sendAmount,
+              receiveAmount: reverseConversion.receiveAmount,
+              thirdPartyCharge: reverseConversion.thirdPartyCharge,
+            })
+          );
         }
       }, 500),
-    [transferMethod, rate]
+    [dispatch, transfer.transferMethod, rate]
   );
 
   // On initial render and when user changes user country or transfer country, we must:
@@ -117,29 +131,36 @@ const SelectAmountStep = () => {
       });
 
     // 2) Reset send and receive input values
-    setSendAmount(null);
-    setReceiveAmount(null);
-  }, [userCurrency, transferCurrency]);
+    dispatch(clearTransferAmount());
+  }, [dispatch, userCurrency, transferCurrency]);
 
   // When user changes transfer method, we must update receive input value
   useEffect(() => {
-    if (sendAmount) {
-      const conversionMinusCharges = calculateConversion(
-        sendAmount,
+    if (transfer.sendAmount) {
+      const conversion = calculateConversion(
+        transfer.sendAmount,
         rate,
-        THIRD_PARTY_CHARGES[transferMethod]
+        THIRD_PARTY_CHARGES[transfer.transferMethod],
+        0
       );
-      setReceiveAmount(conversionMinusCharges);
+      dispatch(
+        setTransferAmount({
+          sendAmount: conversion.sendAmount,
+          receiveAmount: conversion.receiveAmount,
+          thirdPartyCharge: conversion.thirdPartyCharge,
+        })
+      );
     }
-  }, [transferMethod]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, rate, transfer.transferMethod]);
 
-  return transferCountry ? (
+  return transfer.country ? (
     <>
       <Box>
         <InputLabel>You send</InputLabel>
         <TextField
           name="sendAmount"
-          value={sendAmount?.toLocaleString() ?? ""}
+          value={transfer.sendAmount?.toLocaleString() ?? ""}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
@@ -165,7 +186,7 @@ const SelectAmountStep = () => {
               margin: 0,
             },
           }}
-          placeholder={sendAmount ? "" : "0.00"}
+          placeholder={transfer.sendAmount ? "" : "0.00"}
           onChange={handleAmountChange}
         />
       </Box>
@@ -174,14 +195,14 @@ const SelectAmountStep = () => {
         <InputLabel>They receive</InputLabel>
         <TextField
           name="receiveAmount"
-          value={receiveAmount?.toLocaleString() ?? ""}
+          value={transfer.receiveAmount?.toLocaleString() ?? ""}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
           InputProps={{
             startAdornment: (
               <img
-                src={`https://flagsapi.com/${transferCountry?.code}/flat/32.png`}
+                src={`https://flagsapi.com/${transfer.country?.code}/flat/32.png`}
               />
             ),
             endAdornment: transferCurrency,
@@ -200,7 +221,7 @@ const SelectAmountStep = () => {
               margin: 0,
             },
           }}
-          placeholder={receiveAmount ? "" : "0.00"}
+          placeholder={transfer.receiveAmount ? "" : "0.00"}
           onChange={handleAmountChange}
         />
       </Box>
@@ -210,8 +231,6 @@ const SelectAmountStep = () => {
       <TransferMethodCard
         label="Express"
         method="card"
-        transferMethod={transferMethod}
-        setTransferMethod={setTransferMethod}
         speedIcon={<BoltIcon />}
         speed="minutes"
         paymentIcon={<CreditCardIcon />}
@@ -223,8 +242,6 @@ const SelectAmountStep = () => {
       <TransferMethodCard
         label="Economy"
         method="bankAccount"
-        transferMethod={transferMethod}
-        setTransferMethod={setTransferMethod}
         speedIcon={<AccessTimeIcon />}
         speed="3-5 days"
         paymentIcon={<AccountBalanceIcon />}

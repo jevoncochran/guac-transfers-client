@@ -2,29 +2,53 @@ export const calculateConversion = (
   amount: number,
   rate: number,
   charge: number,
+  standardFee: number,
   reverse: boolean = false
 ) => {
   if (!reverse) {
-    // Convert from send amount to receive amount
-    // Get the gross conversion by multiplying send amount by exchange rate
-    const grossConversion = amount * rate;
-    const charges = grossConversion * charge;
-    // Get the net conversion by subtracting third party charge from gross conversion
-    const netConversion = grossConversion - charges;
-    // Limit to 2 decimal places
-    const netConversionTwoDecimals =
-      Math.round((netConversion + Number.EPSILON) * 100) / 100;
-    return netConversionTwoDecimals;
+    // Get third party fee
+    let charges = amount * charge;
+    // Remove excess decimals
+    charges = removeExcessDecimals(charges);
+
+    // Get amount of send currency to convert to receive currency
+    const toConvert = amount - charges - standardFee;
+
+    // Convert to send currency
+    let converted = toConvert * rate;
+    // Remove excess decimals
+    converted = removeExcessDecimals(converted);
+
+    return {
+      sendAmount: amount,
+      receiveAmount: converted,
+      thirdPartyCharge: charges,
+    };
   } else {
     // Backwards convert from receive amount to send amount
-    const netConversion = amount;
-    // Get the gross conversion amount by mathematically removing the third party charge %
-    const grossConversion = netConversion / (1 - charge);
-    // Divide the gross conversion by the exchange rate
-    const reverseConversion = grossConversion / rate;
-    // Limit to 2 decimal places
-    const reverseConversionTwoDecimals =
-      Math.round((reverseConversion + Number.EPSILON) * 100) / 100;
-    return reverseConversionTwoDecimals;
+
+    let converted = amount / rate;
+    // Remove excess decimals
+    converted = removeExcessDecimals(converted);
+
+    let sendAmountWithoutCharges = converted / (1 - charge);
+    // Remove excess decimals
+    sendAmountWithoutCharges = removeExcessDecimals(sendAmountWithoutCharges);
+
+    // Get third party fee
+    const charges = sendAmountWithoutCharges - converted;
+
+    // Tack on standard fee
+    sendAmountWithoutCharges = sendAmountWithoutCharges + standardFee;
+
+    return {
+      sendAmount: sendAmountWithoutCharges,
+      receiveAmount: amount,
+      thirdPartyCharge: charges,
+    };
   }
+};
+
+const removeExcessDecimals = (figure: number) => {
+  return Math.round((figure + Number.EPSILON) * 100) / 100;
 };

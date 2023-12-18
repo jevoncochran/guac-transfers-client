@@ -3,16 +3,15 @@ import Radio from "@mui/material/Radio";
 import Typography from "@mui/material/Typography";
 import { TransferMethod } from "./SelectAmountStep";
 import { useTheme } from "@mui/material";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { CURRENCIES } from "../../constants";
 import { calculateConversion } from "../../utils/calculateConversion";
+import { setTransferMethod } from "../../redux/features/transfer/transferSlice";
 
 interface Props {
   label: string;
   method: TransferMethod;
-  transferMethod: TransferMethod;
-  setTransferMethod: React.Dispatch<React.SetStateAction<TransferMethod>>;
   speedIcon: JSX.Element;
   speed: string;
   paymentIcon: JSX.Element;
@@ -24,8 +23,6 @@ interface Props {
 const TransferMethodCard = ({
   label,
   method,
-  transferMethod,
-  setTransferMethod,
   speedIcon,
   speed,
   paymentIcon,
@@ -35,18 +32,23 @@ const TransferMethodCard = ({
 }: Props) => {
   const theme = useTheme();
 
+  const dispatch = useAppDispatch();
+
   const userCountry = useAppSelector(
     (state: RootState) => state.auth.user?.country
   );
   const transferCountry = useAppSelector(
     (state: RootState) => state.transfer.country
   );
+  const transferMethod = useAppSelector(
+    (state: RootState) => state.transfer.transferMethod
+  );
 
   const userCurrency = CURRENCIES[userCountry.code].code;
   const transferCurrency = CURRENCIES[transferCountry.code].code;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTransferMethod(e.target.value as TransferMethod);
+    dispatch(setTransferMethod(e.target.value));
   };
 
   return (
@@ -106,7 +108,12 @@ const TransferMethodCard = ({
             style={{ color: theme.palette.primary.main, fontWeight: "bold" }}
           >
             {" "}
-            {calculateConversion(1, rate, charge).toLocaleString()}{" "}
+            {calculateConversion(
+              1,
+              rate,
+              charge,
+              0
+            ).receiveAmount.toLocaleString()}{" "}
             {transferCurrency}
           </span>
         </Typography>

@@ -17,5 +17,7 @@ export interface MenuItem {
 export enum TransferStep {
   SelectRecipient = 1,
   SelectAmount = 2,
-  SelectDeliveryMethod = 3
+  SelectDeliveryMethod = 3,
 }
+
+export type TransferMethod = "card" | "bankAccount";
