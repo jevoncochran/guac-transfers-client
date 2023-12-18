@@ -4,9 +4,16 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import AuthDialogButton from "./AuthDialogButton";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../redux/hooks";
-import { openLoginModal, closeAuthModal } from "../redux/features/ui/uiSlice";
-import { retrieveUser } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../../redux/hooks";
+import {
+  openLoginModal,
+  closeAuthModal,
+} from "../../redux/features/ui/uiSlice";
+import { retrieveUser } from "../../redux/features/auth/authSlice";
+import {
+  getCountryByCode,
+  getLanguageByCode,
+} from "../../utils/getLanguageAndCountry";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -27,12 +34,25 @@ const SignUpForm = () => {
     e.preventDefault();
 
     axios
-      .post(`${import.meta.env.VITE_API_URL}/auth/register`, credentials)
+      .post(`${import.meta.env.VITE_API_URL}/auth/register`, {
+        ...credentials,
+        language: JSON.parse(localStorage.getItem("language")!).code,
+        country: JSON.parse(localStorage.getItem("country")!).code,
+      })
       .then((res) => {
         if (res.status === 201) {
-          dispatch(retrieveUser(res.data));
+          // Grab full language object using lang code provided by API call
+          const userLang = getLanguageByCode(res.data.language);
+          const userCountry = getCountryByCode(res.data.country);
+          dispatch(
+            retrieveUser({
+              ...res.data,
+              language: userLang,
+              country: userCountry,
+            })
+          );
           dispatch(closeAuthModal());
-          navigate("/us/en/transfer/send");
+          navigate("/transfer/send");
         }
       });
   };
@@ -41,23 +61,29 @@ const SignUpForm = () => {
     <form onSubmit={handleSubmit}>
       <TextField
         name="email"
-        label="Email Address"
+        label={credentials.email ? "" : "Email Address"}
+        type="email"
         variant="outlined"
         fullWidth
+        InputLabelProps={{ shrink: false }}
         onChange={handleChange}
       />
       <TextField
         name="password"
-        label="Password"
+        label={credentials.password ? "" : "Password"}
+        type="password"
         variant="outlined"
         fullWidth
+        InputLabelProps={{ shrink: false }}
         onChange={handleChange}
       />
       <TextField
         name="passwordConfirm"
-        label="Confirm Password"
+        label={credentials.passwordConfirm ? "" : "Confirm Password"}
+        type="password"
         variant="outlined"
         fullWidth
+        InputLabelProps={{ shrink: false }}
         onChange={handleChange}
       />
       <AuthDialogButton label="Join Now" />

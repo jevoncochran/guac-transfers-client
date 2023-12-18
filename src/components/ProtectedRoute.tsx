@@ -7,9 +7,11 @@ interface Props {
 }
 
 const ProtectedRoute = ({ children }: Props) => {
-  const user = useAppSelector((state: RootState) => state.auth.user);
-  
-  if (!user) {
+  const isLoggedIn = useAppSelector(
+    (state: RootState) => state.auth.isLoggedIn
+  );
+
+  if (!isLoggedIn) {
     return <Navigate to="/" replace />;
   }
 

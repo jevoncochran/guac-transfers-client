@@ -7,21 +7,42 @@ declare module "@mui/material/Paper" {
   }
 }
 
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    transferStepHeading: true;
+  }
+}
+
 export const appTheme = createTheme({
   palette: {
     primary: {
       main: "#609000",
-      // light: will be calculated from palette.primary.main,
+      light: "#f4f8e6",
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     secondary: {
       main: "#C0B517",
+      light: "#d3cb1f",
       // dark: will be calculated from palette.secondary.main,
       contrastText: "#FFF",
     },
   },
   components: {
+    MuiTypography: {
+      defaultProps: { variantMapping: { transferStepHeading: "p" } },
+      variants: [
+        {
+          props: { variant: "transferStepHeading" },
+          style: {
+            fontWeight: 700,
+            marginBottom: "16px",
+            fontSize: "1.25rem",
+            fontFamily: "Roboto",
+          },
+        },
+      ],
+    },
     MuiButton: {
       styleOverrides: { root: { borderRadius: "16px" } },
       variants: [
