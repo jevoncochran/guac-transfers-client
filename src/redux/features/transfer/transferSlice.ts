@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Country, TransferStep } from "../../../types";
+import { Country, DeliveryMethod, TransferStep } from "../../../types";
 import { TransferMethod } from "../../../types";
+
+interface Institution {
+  id: number | string;
+  name: string;
+}
 
 export interface TransferState {
   country: Country | null;
@@ -10,7 +15,10 @@ export interface TransferState {
   thirdPartyCharge: number | null;
   standardFee: number | null;
   transferMethod: TransferMethod;
+  deliveryMethod: DeliveryMethod | null;
+  institution: Institution | null;
 }
+
 const initialState: TransferState = {
   country: null,
   step: 1,
@@ -19,6 +27,8 @@ const initialState: TransferState = {
   thirdPartyCharge: null,
   standardFee: 0,
   transferMethod: "card",
+  deliveryMethod: null,
+  institution: null,
 };
 
 export const transferSlice = createSlice({
@@ -38,7 +48,6 @@ export const transferSlice = createSlice({
       state.sendAmount = action.payload.sendAmount;
       state.receiveAmount = action.payload.receiveAmount;
       state.thirdPartyCharge = action.payload.thirdPartyCharge;
-      // state.standardFee = action.payload.standardFee;
     },
     setSendAmount: (state, action) => {
       state.sendAmount = action.payload;
@@ -55,6 +64,12 @@ export const transferSlice = createSlice({
     setTransferMethod: (state, action) => {
       state.transferMethod = action.payload;
     },
+    setDeliveryMethod: (state, action) => {
+      state.deliveryMethod = action.payload;
+    },
+    setInstitution: (state, action) => {
+      state.institution = action.payload;
+    },
   },
 });
 
@@ -67,6 +82,8 @@ export const {
   setReceiveAmount,
   clearTransferAmount,
   setTransferMethod,
+  setDeliveryMethod,
+  setInstitution,
 } = transferSlice.actions;
 
 export default transferSlice.reducer;

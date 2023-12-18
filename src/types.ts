@@ -18,6 +18,10 @@ export enum TransferStep {
   SelectRecipient = 1,
   SelectAmount = 2,
   SelectDeliveryMethod = 3,
+  SelectInstitutionStep = 4,
+  EnterRecipientNameStep = 5
 }
 
 export type TransferMethod = "card" | "bankAccount";
+
+export type DeliveryMethod = "bankDeposit" | "cashPickup";

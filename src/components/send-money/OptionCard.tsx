@@ -5,9 +5,11 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 interface Props {
   label: string;
   sublabel?: string;
+  handleClick: (value: unknown) => void;
+  value: unknown;
 }
 
-const OptionCard = ({ label, sublabel }: Props) => {
+const OptionCard = ({ label, sublabel, handleClick, value }: Props) => {
   return (
     <Box
       sx={{
@@ -18,7 +20,9 @@ const OptionCard = ({ label, sublabel }: Props) => {
         alignItems: "center",
         paddingX: "16px",
         "&:not(:last-of-type)": { marginBottom: "12px" },
+        cursor: "pointer",
       }}
+      onClick={() => handleClick(value)}
     >
       <Box
         display="flex"
