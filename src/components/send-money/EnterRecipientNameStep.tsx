@@ -1,8 +1,4 @@
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import TextField from "@mui/material/TextField";
-
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import {
@@ -11,6 +7,7 @@ import {
 } from "../../redux/features/transfer/transferSlice";
 import ContinueButton from "./ContinueButton";
 import { TransferStep } from "../../types";
+import TransferInputField from "./TransferInputField";
 
 const EnterRecipientNameStep = () => {
   const dispatch = useAppDispatch();
@@ -51,48 +48,29 @@ const EnterRecipientNameStep = () => {
             : "government-issued ID"
         }`}
       </Typography>
-      <Box>
-        <InputLabel>First Name</InputLabel>
-        <TextField
-          name="firstName"
-          value={recipientName?.firstName ?? ""}
-          variant="outlined"
-          fullWidth
-          InputLabelProps={{ shrink: false }}
-          placeholder={
-            recipientName?.firstName ? "" : "Please enter first name"
-          }
-          onChange={handleChange}
-        />
-      </Box>
-      <Box>
-        <InputLabel>Middle Name</InputLabel>
-        <TextField
-          name="middleName"
-          value={recipientName?.middleName ?? ""}
-          variant="outlined"
-          fullWidth
-          InputLabelProps={{ shrink: false }}
-          placeholder={
-            recipientName?.middleName
-              ? ""
-              : "Please enter middle name (optional)"
-          }
-          onChange={handleChange}
-        />
-      </Box>
-      <Box>
-        <InputLabel>Last Name</InputLabel>
-        <TextField
-          name="lastName"
-          value={recipientName?.lastName ?? ""}
-          variant="outlined"
-          fullWidth
-          InputLabelProps={{ shrink: false }}
-          placeholder={recipientName?.lastName ? "" : "Please enter last name"}
-          onChange={handleChange}
-        />
-      </Box>
+      <TransferInputField
+        inputName="firstName"
+        label="First Name"
+        value={recipientName?.firstName ?? ""}
+        placeholder={recipientName?.firstName ? "" : "Please enter first name"}
+        onChange={handleChange}
+      />
+      <TransferInputField
+        inputName="middleName"
+        label="Middle Name"
+        value={recipientName?.middleName ?? ""}
+        placeholder={
+          recipientName?.middleName ? "" : "Please enter middle name (optional)"
+        }
+        onChange={handleChange}
+      />
+      <TransferInputField
+        inputName="lastName"
+        label="Last Name"
+        value={recipientName?.lastName ?? ""}
+        placeholder={recipientName?.lastName ? "" : "Please enter last name"}
+        onChange={handleChange}
+      />
       <ContinueButton continueAction={handleContinue} />
     </div>
   );
