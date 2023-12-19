@@ -18,10 +18,29 @@ export enum TransferStep {
   SelectRecipient = 1,
   SelectAmount = 2,
   SelectDeliveryMethod = 3,
-  SelectInstitutionStep = 4,
-  EnterRecipientNameStep = 5
+  SelectInstitution = 4,
+  EnterRecipientName = 5,
+  EnterRecipientBankAccount = 6,
+  EnterRecipientAddress = 7,
 }
 
 export type TransferMethod = "card" | "bankAccount";
 
 export type DeliveryMethod = "bankDeposit" | "cashPickup";
+
+export interface Institution {
+  id: number | string;
+  name: string;
+}
+
+export interface Recipient {
+  name: {
+    firstName: string;
+    middleName?: string;
+    lastName: string;
+  };
+  account?: {
+    bank: Institution;
+    accountNumber: number;
+  };
+}

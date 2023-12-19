@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import BoltIcon from "@mui/icons-material/Bolt";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
@@ -22,6 +21,7 @@ import {
   setSendAmount,
   setReceiveAmount,
 } from "../../redux/features/transfer/transferSlice";
+import ContinueButton from "./ContinueButton";
 
 export type TransferMethod = "card" | "bankAccount";
 
@@ -151,7 +151,7 @@ const SelectAmountStep = () => {
         })
       );
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, rate, transfer.transferMethod]);
 
   return transfer.country ? (
@@ -250,14 +250,7 @@ const SelectAmountStep = () => {
         rate={rate}
       />
 
-      <Button
-        variant="contained"
-        fullWidth
-        sx={{ marginTop: "16px", borderRadius: "6px", height: "50px" }}
-        onClick={() => dispatch(goToNextTransferStep())}
-      >
-        Continue
-      </Button>
+      <ContinueButton continueAction={() => dispatch(goToNextTransferStep())} />
     </>
   ) : (
     <Typography variant="h5">

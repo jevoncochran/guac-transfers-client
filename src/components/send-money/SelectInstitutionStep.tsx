@@ -8,6 +8,7 @@ import {
   goToNextTransferStep,
   setInstitution,
 } from "../../redux/features/transfer/transferSlice";
+import CashPickupSitesCard from "./CashPickupSitesCard";
 
 const SelectInstitutionStep = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ const SelectInstitutionStep = () => {
   );
 
   const [banks, setBanks] = useState([]);
+  const [cashPickupSites, setCashPickupSites] = useState([]);
 
   const onSelect = (value: unknown) => {
     dispatch(setInstitution(value));
@@ -38,27 +40,58 @@ const SelectInstitutionStep = () => {
           console.log(res.data);
           setBanks(res.data);
         });
+    } else {
+      axios
+        .get(
+          `${import.meta.env.VITE_API_URL}/cash-pickup-sites?country=${
+            transferCountry?.code
+          }`
+        )
+        .then((res) => {
+          console.log(res.data);
+          setCashPickupSites(res.data);
+        });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deliveryMethod]);
 
   return (
     <div>
       <Typography variant="transferStepHeading">
-        {deliveryMethod === "bankDeposit" ? "Bank Deposit" : "Cash Pickkup"}
+        {deliveryMethod === "bankDeposit" ? "Bank Deposit" : "Cash Pickup"}
       </Typography>
       <Typography variant="body1">
         {deliveryMethod === "bankDeposit"
           ? "Select your recipient's bank"
           : "Select a cash pickup option"}
       </Typography>
-      {banks.map((bank) => (
-        <OptionCard
-          key={bank.id}
-          label={bank.name}
-          value={bank}
-          handleClick={onSelect}
-        />
-      ))}
+      {deliveryMethod === "bankDeposit" ? (
+        <>
+          {banks?.map((bank) => (
+            <OptionCard
+              key={bank.id}
+              label={bank.name}
+              value={bank}
+              handleClick={onSelect}
+            />
+          ))}
+        </>
+      ) : (
+        <>
+          <Typography>Banks</Typography>
+          {cashPickupSites?.banks?.map((bank) => (
+            <OptionCard
+              key={bank.id}
+              label={bank.name}
+              value={bank}
+              handleClick={onSelect}
+            />
+          ))}
+
+          <Typography>Other Locations</Typography>
+          <CashPickupSitesCard sites={cashPickupSites?.otherSites} />
+        </>
+      )}
     </div>
   );
 };

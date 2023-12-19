@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Country, DeliveryMethod, TransferStep } from "../../../types";
+import {
+  Country,
+  DeliveryMethod,
+  Institution,
+  Recipient,
+  TransferStep,
+} from "../../../types";
 import { TransferMethod } from "../../../types";
-
-interface Institution {
-  id: number | string;
-  name: string;
-}
 
 export interface TransferState {
   country: Country | null;
@@ -17,6 +18,7 @@ export interface TransferState {
   transferMethod: TransferMethod;
   deliveryMethod: DeliveryMethod | null;
   institution: Institution | null;
+  recipient: Recipient | null;
 }
 
 const initialState: TransferState = {
@@ -29,6 +31,7 @@ const initialState: TransferState = {
   transferMethod: "card",
   deliveryMethod: null,
   institution: null,
+  recipient: null,
 };
 
 export const transferSlice = createSlice({
@@ -43,6 +46,9 @@ export const transferSlice = createSlice({
     },
     goToPreviousTransferStep: (state) => {
       state.step -= 1;
+    },
+    setTransferStep: (state, action) => {
+      state.step = action.payload;
     },
     setTransferAmount: (state, action) => {
       state.sendAmount = action.payload.sendAmount;
@@ -70,6 +76,12 @@ export const transferSlice = createSlice({
     setInstitution: (state, action) => {
       state.institution = action.payload;
     },
+    setRecipientName: (state, action) => {
+      state.recipient = {
+        ...state.recipient,
+        name: action.payload,
+      };
+    },
   },
 });
 
@@ -77,6 +89,7 @@ export const {
   setTransferCountry,
   goToNextTransferStep,
   goToPreviousTransferStep,
+  setTransferStep,
   setTransferAmount,
   setSendAmount,
   setReceiveAmount,
@@ -84,6 +97,7 @@ export const {
   setTransferMethod,
   setDeliveryMethod,
   setInstitution,
+  setRecipientName
 } = transferSlice.actions;
 
 export default transferSlice.reducer;
