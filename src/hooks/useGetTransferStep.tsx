@@ -5,6 +5,7 @@ import EnterRecipientPhoneNumberStep from "../components/send-money/EnterRecipie
 import SelectAmountStep from "../components/send-money/SelectAmountStep";
 import SelectDeliveryMethodStep from "../components/send-money/SelectDeliveryMethodStep";
 import SelectInstitutionStep from "../components/send-money/SelectInstitutionStep";
+import SelectPaymentMethodStep from "../components/send-money/SelectPaymentMethodStep";
 import SelectRecipientStep from "../components/send-money/SelectRecipientStep";
 import { TransferStep } from "../types";
 
@@ -26,6 +27,8 @@ const useGetTransferStep = (step: TransferStep) => {
       return { component: <EnterRecipientAddressStep /> };
     case TransferStep.EnterRecipientPhoneNumber:
       return { component: <EnterRecipientPhoneNumberStep /> };
+    case TransferStep.SelectPaymentMethod:
+      return { component: <SelectPaymentMethodStep /> };
   }
 };
 
