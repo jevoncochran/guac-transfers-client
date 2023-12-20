@@ -22,6 +22,7 @@ export enum TransferStep {
   EnterRecipientName = 5,
   EnterRecipientBankAccount = 6,
   EnterRecipientAddress = 7,
+  EnterRecipientPhoneNumber = 8,
 }
 
 export type TransferMethod = "card" | "bankAccount";
@@ -44,6 +45,7 @@ export interface Recipient {
     accountNumber?: string;
   };
   address?: Address;
+  phone?: string;
 }
 
 export interface Address {

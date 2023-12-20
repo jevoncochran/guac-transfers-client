@@ -104,6 +104,11 @@ export const transferSlice = createSlice({
         state.recipient.address = action.payload;
       }
     },
+    setRecipientPhoneNum: (state, action) => {
+      if (state.recipient) {
+        state.recipient.phone = action.payload;
+      }
+    },
   },
 });
 
@@ -122,6 +127,7 @@ export const {
   setRecipientName,
   setRecipientBankAccount,
   setRecipientAddress,
+  setRecipientPhoneNum
 } = transferSlice.actions;
 
 export default transferSlice.reducer;
