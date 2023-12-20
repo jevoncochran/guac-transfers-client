@@ -34,13 +34,20 @@ export interface Institution {
 }
 
 export interface Recipient {
-  name: {
+  name?: {
     firstName: string;
     middleName?: string;
     lastName: string;
   };
   account?: {
-    bank: Institution;
-    accountNumber: number;
+    bank?: Institution;
+    accountNumber?: string;
   };
+  address?: Address;
+}
+
+export interface Address {
+  streetAddress: string;
+  city: string;
+  department: string;
 }

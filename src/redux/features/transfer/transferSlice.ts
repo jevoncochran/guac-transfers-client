@@ -75,12 +75,34 @@ export const transferSlice = createSlice({
     },
     setInstitution: (state, action) => {
       state.institution = action.payload;
+      if (state.deliveryMethod === "bankDeposit") {
+        state.recipient = {
+          ...state.recipient,
+          account: {
+            ...state.recipient?.account,
+            bank: action.payload,
+          },
+        };
+      }
     },
     setRecipientName: (state, action) => {
       state.recipient = {
         ...state.recipient,
         name: action.payload,
       };
+    },
+    setRecipientBankAccount: (state, action) => {
+      if (state.recipient) {
+        state.recipient.account = {
+          ...state.recipient?.account,
+          accountNumber: action.payload,
+        };
+      }
+    },
+    setRecipientAddress: (state, action) => {
+      if (state.recipient) {
+        state.recipient.address = action.payload;
+      }
     },
   },
 });
@@ -97,7 +119,9 @@ export const {
   setTransferMethod,
   setDeliveryMethod,
   setInstitution,
-  setRecipientName
+  setRecipientName,
+  setRecipientBankAccount,
+  setRecipientAddress,
 } = transferSlice.actions;
 
 export default transferSlice.reducer;
