@@ -10,7 +10,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import "../../App.css";
-import TransferInputField from "./TransferInputField";
+import InputGroup from "../InputGroup";
 import ContinueButton from "./ContinueButton";
 import { StripeCardNumberElement } from "@stripe/stripe-js";
 import axios from "axios";
@@ -105,7 +105,7 @@ const EnterCardDetailsStep = () => {
           </Box>
         </Box>
 
-        <TransferInputField
+        <InputGroup
           inputName="postalCode"
           label="Postal Code"
           value={postalCode}
@@ -113,7 +113,7 @@ const EnterCardDetailsStep = () => {
           onChange={(e) => setPostalCode(e.target.value)}
         />
 
-        <TransferInputField
+        <InputGroup
           inputName="customerName"
           label="Your Name (as it appears on card)"
           value={customerName}

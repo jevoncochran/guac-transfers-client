@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import TransferInputField from "./TransferInputField";
+import InputGroup from "../InputGroup";
 import {
   goToNextTransferStep,
   setRecipientAddress,
@@ -36,7 +36,7 @@ const EnterRecipientAddressStep = () => {
         } account ending in ${recipientAccount?.accountNumber?.slice(-4)}`}
       </Typography>
 
-      <TransferInputField
+      <InputGroup
         inputName="streetAddress"
         label="Street Address"
         value={recipientAddress?.streetAddress ?? ""}
@@ -44,7 +44,7 @@ const EnterRecipientAddressStep = () => {
         onChange={handleChange}
       />
 
-      <TransferInputField
+      <InputGroup
         inputName="city"
         label="City"
         value={recipientAddress?.city ?? ""}
@@ -52,7 +52,7 @@ const EnterRecipientAddressStep = () => {
         onChange={handleChange}
       />
 
-      <TransferInputField
+      <InputGroup
         inputName="department"
         label="Department"
         value={recipientAddress?.department ?? ""}

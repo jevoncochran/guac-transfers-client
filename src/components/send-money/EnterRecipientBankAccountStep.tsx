@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
-import TransferInputField from "./TransferInputField";
+import InputGroup from "../InputGroup";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import {
@@ -25,7 +25,7 @@ const EnterRecipientBankAccountStep = () => {
       </Typography>
       <Typography>Enter your recipient's bank account number</Typography>
 
-      <TransferInputField
+      <InputGroup
         inputName="accountNumber"
         label="Account Number"
         value={recipientBankAccount ?? ""}

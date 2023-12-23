@@ -7,7 +7,7 @@ import {
 } from "../../redux/features/transfer/transferSlice";
 import ContinueButton from "./ContinueButton";
 import { TransferStep } from "../../types";
-import TransferInputField from "./TransferInputField";
+import InputGroup from "../InputGroup";
 
 const EnterRecipientNameStep = () => {
   const dispatch = useAppDispatch();
@@ -48,14 +48,14 @@ const EnterRecipientNameStep = () => {
             : "government-issued ID"
         }`}
       </Typography>
-      <TransferInputField
+      <InputGroup
         inputName="firstName"
         label="First Name"
         value={recipientName?.firstName ?? ""}
         placeholder={recipientName?.firstName ? "" : "Please enter first name"}
         onChange={handleChange}
       />
-      <TransferInputField
+      <InputGroup
         inputName="middleName"
         label="Middle Name"
         value={recipientName?.middleName ?? ""}
@@ -64,7 +64,7 @@ const EnterRecipientNameStep = () => {
         }
         onChange={handleChange}
       />
-      <TransferInputField
+      <InputGroup
         inputName="lastName"
         label="Last Name"
         value={recipientName?.lastName ?? ""}

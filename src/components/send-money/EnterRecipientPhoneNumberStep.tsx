@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
-import TransferInputField from "./TransferInputField";
+import InputGroup from "../InputGroup";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import {
@@ -23,7 +23,7 @@ const EnterRecipientPhoneNumberStep = () => {
         Enter your recipient's phone numnber if you would like us to text them
         transfer updates
       </Typography>
-      <TransferInputField
+      <InputGroup
         inputName="phone"
         label="Recipient Mobile Number (optional)"
         value={recipientPhoneNum ?? ""}

@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import AuthDialogButton from "./AuthDialogButton";
@@ -14,6 +13,7 @@ import {
   getCountryByCode,
   getLanguageByCode,
 } from "../../utils/getLanguageAndCountry";
+import InputGroup from "../InputGroup";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -59,31 +59,30 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
-        name="email"
-        label={credentials.email ? "" : "Email Address"}
+      <InputGroup
+        inputName="email"
+        label="Email Address"
+        value={credentials.email}
         type="email"
-        variant="outlined"
-        fullWidth
-        InputLabelProps={{ shrink: false }}
+        placeholder="Please enter your email address"
         onChange={handleChange}
       />
-      <TextField
-        name="password"
-        label={credentials.password ? "" : "Password"}
+
+      <InputGroup
+        inputName="password"
+        label="Password"
+        value={credentials.password}
         type="password"
-        variant="outlined"
-        fullWidth
-        InputLabelProps={{ shrink: false }}
+        placeholder="Please enter your password"
         onChange={handleChange}
       />
-      <TextField
-        name="passwordConfirm"
-        label={credentials.passwordConfirm ? "" : "Confirm Password"}
+
+      <InputGroup
+        inputName="passwordConfirm"
+        label="Confirm Password"
+        value={credentials.passwordConfirm}
         type="password"
-        variant="outlined"
-        fullWidth
-        InputLabelProps={{ shrink: false }}
+        placeholder="Please confirm your password"
         onChange={handleChange}
       />
       <AuthDialogButton label="Join Now" />
