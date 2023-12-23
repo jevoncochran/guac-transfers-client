@@ -40,3 +40,26 @@
 .read-the-docs {
   color: #888;
 } */
+
+.card-input {
+  box-sizing: border-box;
+  border: 1px solid #c4c4c4;
+  /* width: 100%; */
+  height: 56px;
+  padding: 16.5px 14px;
+  color: black;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.card-input-small {
+  width: 100%;
+}
+
+.card-input:hover {
+  border: 1px solid #000;
+}
+
+.card-input:focus-within {
+  outline: 1px solid red;
+}

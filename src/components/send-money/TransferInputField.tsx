@@ -18,7 +18,7 @@ const TransferInputField = ({
   onChange,
 }: Props) => {
   return (
-    <Box>
+    <Box sx={{ marginBottom: "16px" }}>
       <InputLabel>{label}</InputLabel>
       <TextField
         name={inputName}

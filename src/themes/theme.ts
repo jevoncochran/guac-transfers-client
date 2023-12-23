@@ -68,7 +68,7 @@ export const appTheme = createTheme({
     },
     MuiTextField: {
       styleOverrides: {
-        root: { backgroundColor: "#fff", marginBottom: "16px" },
+        root: { backgroundColor: "#fff" },
       },
     },
     MuiPaper: {

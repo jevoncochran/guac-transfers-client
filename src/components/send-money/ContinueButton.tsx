@@ -1,16 +1,18 @@
 import Button from "@mui/material/Button";
 
 interface Props {
-  continueAction: () => void;
+  continueAction?: () => void;
+  submitBtn?: boolean;
 }
 
-const ContinueButton = ({ continueAction }: Props) => {
+const ContinueButton = ({ continueAction, submitBtn }: Props) => {
   return (
     <Button
       variant="contained"
       fullWidth
       sx={{ marginTop: "16px", borderRadius: "6px", height: "50px" }}
-      onClick={continueAction}
+      onClick={submitBtn ? undefined : continueAction}
+      type={submitBtn ? "submit" : "button"}
     >
       Continue
     </Button>
