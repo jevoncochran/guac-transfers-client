@@ -7,6 +7,7 @@ export interface AuthState {
     email?: string;
     language?: Language;
     country?: Country;
+    stripeCustomerId?: string;
   } | null;
   isLoggedIn: boolean;
 }

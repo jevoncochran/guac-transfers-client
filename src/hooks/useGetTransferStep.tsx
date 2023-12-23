@@ -1,3 +1,4 @@
+import ConfirmTransferStep from "../components/send-money/ConfirmTransferStep";
 import EnterCardDetailsStep from "../components/send-money/EnterCardDetailsStep";
 import EnterRecipientAddressStep from "../components/send-money/EnterRecipientAddressStep";
 import EnterRecipientBankAccountStep from "../components/send-money/EnterRecipientBankAccountStep";
@@ -32,6 +33,8 @@ const useGetTransferStep = (step: TransferStep) => {
       return { component: <SelectPaymentMethodStep /> };
     case TransferStep.EnterCardDetails:
       return { component: <EnterCardDetailsStep /> };
+    case TransferStep.ConfirmTransfer:
+      return { component: <ConfirmTransferStep /> };
   }
 };
 
