@@ -25,12 +25,17 @@ export enum TransferStep {
   EnterRecipientPhoneNumber = 8,
   SelectPaymentMethod = 9,
   EnterCardDetails = 10,
-  ConfirmTransfer = 11
+  ConfirmTransfer = 11,
 }
 
 export type TransferMethod = "card" | "bankAccount";
 
 export type DeliveryMethod = "bankDeposit" | "cashPickup";
+
+export interface PaymentMethod {
+  type: TransferMethod;
+  stripeId: string;
+}
 
 export interface Institution {
   id: number | string;

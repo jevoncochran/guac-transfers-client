@@ -5,7 +5,8 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 interface Props {
   label: string;
   sublabel?: string;
-  handleClick: (value: unknown) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleClick: (value: any) => void;
   value: unknown;
 }
 

@@ -3,10 +3,11 @@ import {
   Country,
   DeliveryMethod,
   Institution,
+  TransferMethod,
+  PaymentMethod,
   Recipient,
   TransferStep,
 } from "../../../types";
-import { TransferMethod } from "../../../types";
 
 export interface TransferState {
   country: Country | null;
@@ -17,6 +18,7 @@ export interface TransferState {
   standardFee: number | null;
   transferMethod: TransferMethod;
   deliveryMethod: DeliveryMethod | null;
+  paymentMethod: PaymentMethod | null;
   institution: Institution | null;
   recipient: Recipient | null;
 }
@@ -30,6 +32,7 @@ const initialState: TransferState = {
   standardFee: 0,
   transferMethod: "card",
   deliveryMethod: null,
+  paymentMethod: null,
   institution: null,
   recipient: null,
 };
@@ -72,6 +75,9 @@ export const transferSlice = createSlice({
     },
     setDeliveryMethod: (state, action) => {
       state.deliveryMethod = action.payload;
+    },
+    setPaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload;
     },
     setInstitution: (state, action) => {
       state.institution = action.payload;
@@ -123,11 +129,12 @@ export const {
   clearTransferAmount,
   setTransferMethod,
   setDeliveryMethod,
+  setPaymentMethod,
   setInstitution,
   setRecipientName,
   setRecipientBankAccount,
   setRecipientAddress,
-  setRecipientPhoneNum
+  setRecipientPhoneNum,
 } = transferSlice.actions;
 
 export default transferSlice.reducer;

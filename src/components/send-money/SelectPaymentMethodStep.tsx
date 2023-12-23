@@ -2,9 +2,14 @@ import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import OptionCard from "./OptionCard";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { goToNextTransferStep } from "../../redux/features/transfer/transferSlice";
+import {
+  goToNextTransferStep,
+  setPaymentMethod,
+  setTransferStep,
+} from "../../redux/features/transfer/transferSlice";
 import axios from "axios";
 import { RootState } from "../../redux/store";
+import { TransferStep } from "../../types";
 
 const SelectPaymentMethodStep = () => {
   const dispatch = useAppDispatch();
@@ -12,6 +17,11 @@ const SelectPaymentMethodStep = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
 
   const [cards, setCards] = useState([]);
+
+  const handleCardSelect = (value: string) => {
+    dispatch(setPaymentMethod({ type: "card", stripeId: value }));
+    dispatch(setTransferStep(TransferStep.ConfirmTransfer));
+  };
 
   useEffect(() => {
     axios
@@ -29,8 +39,14 @@ const SelectPaymentMethodStep = () => {
   return (
     <div>
       <Typography variant="transferStepHeading">Payment Method</Typography>
-      {cards.map((card) => (
-        <OptionCard label={`•••• •••• •••• ${card.card.last4}`} />
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      {cards.map((card: any) => (
+        <OptionCard
+          label={`•••• •••• •••• ${card.card.last4}`}
+          sublabel={`${card.card.funding} card`.toUpperCase()}
+          value={card.id}
+          handleClick={handleCardSelect}
+        />
       ))}
       <OptionCard
         label="Add New Card"
