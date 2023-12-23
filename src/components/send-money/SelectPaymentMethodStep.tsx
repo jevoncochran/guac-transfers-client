@@ -10,6 +10,8 @@ import {
 import axios from "axios";
 import { RootState } from "../../redux/store";
 import { TransferStep } from "../../types";
+import { CARD_BRAND_IMG } from "../../constants";
+import addCardImg from "../../assets/add_card.svg";
 
 const SelectPaymentMethodStep = () => {
   const dispatch = useAppDispatch();
@@ -46,12 +48,16 @@ const SelectPaymentMethodStep = () => {
           sublabel={`${card.card.funding} card`.toUpperCase()}
           value={card.id}
           handleClick={handleCardSelect}
+          startAdornment={
+            CARD_BRAND_IMG[card.card.brand as "visa" | "mastercard"]
+          }
         />
       ))}
       <OptionCard
         label="Add New Card"
         value={undefined}
         handleClick={() => dispatch(goToNextTransferStep())}
+        startAdornment={addCardImg}
       />
     </div>
   );

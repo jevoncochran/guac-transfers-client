@@ -1,3 +1,6 @@
+import visa from "./assets/visa.svg";
+import mastercard from "./assets/mastercard.svg";
+
 const SITE_PADDING_X = "200px";
 
 const USER_COUNTRIES = [
@@ -639,6 +642,11 @@ const THIRD_PARTY_CHARGES = {
   bankAccount: 0.015,
 };
 
+const CARD_BRAND_IMG = {
+  visa,
+  mastercard,
+};
+
 export {
   SITE_PADDING_X,
   USER_COUNTRIES,
@@ -646,4 +654,5 @@ export {
   LANGUAGES,
   CURRENCIES,
   THIRD_PARTY_CHARGES,
+  CARD_BRAND_IMG,
 };
