@@ -155,7 +155,9 @@ const ConfirmTransferStep = () => {
       <ConfirmationSection label="Sender Details">
         <>
           <ConfirmationOptionCard
-            confirmationItems={[{ label: "Name", line1: "Jevon Cochran" }]}
+            confirmationItems={[
+              { label: "Name", line1: `${user?.firstName} ${user?.lastName}` },
+            ]}
             canEdit={false}
           />
           {/* <ConfirmationOptionCard
@@ -172,7 +174,7 @@ const ConfirmTransferStep = () => {
             confirmationItems={[
               {
                 label: "Phone Number",
-                line1: "+1 510 4248976",
+                line1: user?.phone as string,
               },
             ]}
             canEdit={false}
