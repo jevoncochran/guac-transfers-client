@@ -4,6 +4,8 @@ import { Language, Country } from "../../../types";
 export interface AuthState {
   user: {
     id?: number;
+    firstName?: string;
+    lastName?: string;
     email?: string;
     language?: Language;
     country?: Country;

@@ -21,6 +21,8 @@ const SignUpForm = () => {
   const dispatch = useAppDispatch();
 
   const [credentials, setCredentials] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     passwordConfirm: "",
@@ -61,6 +63,24 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <InputGroup
+        inputName="firstName"
+        label="First Name"
+        value={credentials.firstName}
+        type="text"
+        placeholder="Please enter your your first name"
+        onChange={handleChange}
+      />
+
+      <InputGroup
+        inputName="lastName"
+        label="Last Name"
+        value={credentials.lastName}
+        type="text"
+        placeholder="Please enter your your last name"
+        onChange={handleChange}
+      />
+
       <InputGroup
         inputName="email"
         label="Email Address"

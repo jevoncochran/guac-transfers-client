@@ -37,7 +37,7 @@ const AuthDialog = ({ open, handleClose, type }: Props) => {
         style: {
           backgroundColor: "#fcfbe6",
           borderRadius: "16px",
-          minWidth: "500px",
+          minWidth: type === "signIn" ? "500px" : "700px",
         },
       }}
     >
