@@ -20,8 +20,18 @@ const SelectPaymentMethodStep = () => {
 
   const [cards, setCards] = useState([]);
 
-  const handleCardSelect = (value: string) => {
-    dispatch(setPaymentMethod({ type: "card", stripeId: value }));
+  const handleCardSelect = (value: any) => {
+    dispatch(
+      setPaymentMethod({
+        type: "card",
+        method: {
+          stripeId: value.id,
+          type: value.card.funding,
+          brand: value.card.brand,
+          last4: value.card.last4,
+        },
+      })
+    );
     dispatch(setTransferStep(TransferStep.ConfirmTransfer));
   };
 
@@ -46,7 +56,7 @@ const SelectPaymentMethodStep = () => {
         <OptionCard
           label={`•••• •••• •••• ${card.card.last4}`}
           sublabel={`${card.card.funding} card`.toUpperCase()}
-          value={card.id}
+          value={card}
           handleClick={handleCardSelect}
           startAdornment={
             CARD_BRAND_IMG[card.card.brand as "visa" | "mastercard"]

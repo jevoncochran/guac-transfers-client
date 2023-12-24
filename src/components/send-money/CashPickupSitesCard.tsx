@@ -16,7 +16,9 @@ const CashPickupSitesCard = ({ sites }: Props) => {
   const dispatch = useAppDispatch();
 
   const onSelect = () => {
-    dispatch(setInstitution(null));
+    dispatch(
+      setInstitution({ id: 0, name: sites.map((site) => site.name).join(", ") })
+    );
     dispatch(goToNextTransferStep());
   };
 

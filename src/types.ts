@@ -34,7 +34,7 @@ export type DeliveryMethod = "bankDeposit" | "cashPickup";
 
 export interface PaymentMethod {
   type: TransferMethod;
-  stripeId: string;
+  method: Card | BankAccount;
 }
 
 export interface Institution {
@@ -61,3 +61,22 @@ export interface Address {
   city: string;
   department: string;
 }
+
+interface Card {
+  stripeId: string;
+  type: CardType;
+  brand: CardBrand;
+  last4: string;
+}
+
+interface BankAccount {
+  stripeId: string;
+  type: BankAccountType;
+  last4: string;
+}
+
+type CardBrand = "visa" | "mastercard";
+
+type CardType = "debit" | "credit";
+
+type BankAccountType = "checking" | "savings";
