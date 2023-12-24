@@ -34,7 +34,11 @@ const AuthDialog = ({ open, handleClose, type }: Props) => {
       onClose={handleClose}
       PaperProps={{
         variant: "dialog",
-        style: { backgroundColor: "#fcfbe6", borderRadius: "16px" },
+        style: {
+          backgroundColor: "#fcfbe6",
+          borderRadius: "16px",
+          minWidth: type === "signIn" ? "500px" : "700px",
+        },
       }}
     >
       <Box display={"flex"} justifyContent={"flex-end"}>

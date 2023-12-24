@@ -13,6 +13,10 @@ import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import PageLayout from "./components/PageLayout.tsx";
 import TransferHistory from "./views/TransferHistory.tsx";
 import ReferFriends from "./views/ReferFriends.tsx";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const stripe = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const router = createBrowserRouter([
   {
@@ -56,7 +60,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={appTheme}>
-          <RouterProvider router={router} />
+          <Elements stripe={stripe}>
+            <RouterProvider router={router} />
+          </Elements>
         </ThemeProvider>
       </PersistGate>
     </Provider>

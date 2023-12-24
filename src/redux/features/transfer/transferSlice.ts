@@ -1,6 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Country, TransferStep } from "../../../types";
-import { TransferMethod } from "../../../types";
+import {
+  Country,
+  DeliveryMethod,
+  Institution,
+  TransferMethod,
+  PaymentMethod,
+  Recipient,
+  TransferStep,
+} from "../../../types";
 
 export interface TransferState {
   country: Country | null;
@@ -10,7 +17,12 @@ export interface TransferState {
   thirdPartyCharge: number | null;
   standardFee: number | null;
   transferMethod: TransferMethod;
+  deliveryMethod: DeliveryMethod | null;
+  paymentMethod: PaymentMethod | null;
+  institution: Institution | null;
+  recipient: Recipient | null;
 }
+
 const initialState: TransferState = {
   country: null,
   step: 1,
@@ -19,6 +31,10 @@ const initialState: TransferState = {
   thirdPartyCharge: null,
   standardFee: 0,
   transferMethod: "card",
+  deliveryMethod: null,
+  paymentMethod: null,
+  institution: null,
+  recipient: null,
 };
 
 export const transferSlice = createSlice({
@@ -34,11 +50,13 @@ export const transferSlice = createSlice({
     goToPreviousTransferStep: (state) => {
       state.step -= 1;
     },
+    setTransferStep: (state, action) => {
+      state.step = action.payload;
+    },
     setTransferAmount: (state, action) => {
       state.sendAmount = action.payload.sendAmount;
       state.receiveAmount = action.payload.receiveAmount;
       state.thirdPartyCharge = action.payload.thirdPartyCharge;
-      // state.standardFee = action.payload.standardFee;
     },
     setSendAmount: (state, action) => {
       state.sendAmount = action.payload;
@@ -55,6 +73,48 @@ export const transferSlice = createSlice({
     setTransferMethod: (state, action) => {
       state.transferMethod = action.payload;
     },
+    setDeliveryMethod: (state, action) => {
+      state.deliveryMethod = action.payload;
+    },
+    setPaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload;
+    },
+    setInstitution: (state, action) => {
+      state.institution = action.payload;
+      if (state.deliveryMethod === "bankDeposit") {
+        state.recipient = {
+          ...state.recipient,
+          account: {
+            ...state.recipient?.account,
+            bank: action.payload,
+          },
+        };
+      }
+    },
+    setRecipientName: (state, action) => {
+      state.recipient = {
+        ...state.recipient,
+        name: action.payload,
+      };
+    },
+    setRecipientBankAccount: (state, action) => {
+      if (state.recipient) {
+        state.recipient.account = {
+          ...state.recipient?.account,
+          accountNumber: action.payload,
+        };
+      }
+    },
+    setRecipientAddress: (state, action) => {
+      if (state.recipient) {
+        state.recipient.address = action.payload;
+      }
+    },
+    setRecipientPhoneNum: (state, action) => {
+      if (state.recipient) {
+        state.recipient.phone = action.payload;
+      }
+    },
   },
 });
 
@@ -62,11 +122,19 @@ export const {
   setTransferCountry,
   goToNextTransferStep,
   goToPreviousTransferStep,
+  setTransferStep,
   setTransferAmount,
   setSendAmount,
   setReceiveAmount,
   clearTransferAmount,
   setTransferMethod,
+  setDeliveryMethod,
+  setPaymentMethod,
+  setInstitution,
+  setRecipientName,
+  setRecipientBankAccount,
+  setRecipientAddress,
+  setRecipientPhoneNum,
 } = transferSlice.actions;
 
 export default transferSlice.reducer;

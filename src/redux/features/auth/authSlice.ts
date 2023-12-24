@@ -4,9 +4,13 @@ import { Language, Country } from "../../../types";
 export interface AuthState {
   user: {
     id?: number;
+    firstName?: string;
+    lastName?: string;
     email?: string;
     language?: Language;
     country?: Country;
+    stripeCustomerId?: string;
+    phone?: string;
   } | null;
   isLoggedIn: boolean;
 }
@@ -40,10 +44,21 @@ export const authSlice = createSlice({
         country: action.payload,
       };
     },
+    setUserPhoneNum: (state, action) => {
+      state.user = {
+        ...state.user,
+        phone: action.payload,
+      };
+    },
   },
 });
 
-export const { retrieveUser, logout, updateLanguage, updateCountry } =
-  authSlice.actions;
+export const {
+  retrieveUser,
+  logout,
+  updateLanguage,
+  updateCountry,
+  setUserPhoneNum,
+} = authSlice.actions;
 
 export default authSlice.reducer;

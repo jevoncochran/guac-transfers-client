@@ -10,6 +10,9 @@ declare module "@mui/material/Paper" {
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     transferStepHeading: true;
+    sectionLabel: true;
+    finePrint: true;
+    finePrintImportant: true;
   }
 }
 
@@ -37,7 +40,32 @@ export const appTheme = createTheme({
           style: {
             fontWeight: 700,
             marginBottom: "16px",
-            fontSize: "1.25rem",
+            fontSize: "24px",
+            fontFamily: "Roboto",
+          },
+        },
+        {
+          props: { variant: "sectionLabel" },
+          style: {
+            fontWeight: 700,
+            fontSize: "16px",
+            fontFamily: "Roboto",
+          },
+        },
+        {
+          props: { variant: "finePrint" },
+          style: {
+            color: "#609000",
+            display: "block",
+            fontSize: "14px",
+            fontFamily: "Roboto",
+          },
+        },
+        {
+          props: { variant: "finePrintImportant" },
+          style: {
+            display: "block",
+            fontSize: "14px",
             fontFamily: "Roboto",
           },
         },
@@ -68,7 +96,7 @@ export const appTheme = createTheme({
     },
     MuiTextField: {
       styleOverrides: {
-        root: { backgroundColor: "#fff", marginBottom: "16px" },
+        root: { backgroundColor: "#fff" },
       },
     },
     MuiPaper: {
