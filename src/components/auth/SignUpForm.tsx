@@ -49,6 +49,8 @@ const SignUpForm = () => {
               ...res.data,
               language: userLang,
               country: userCountry,
+              stripeCustomerId: res.data.stripe_customer_id,
+              stripe_customer_id: undefined,
             })
           );
           dispatch(closeAuthModal());

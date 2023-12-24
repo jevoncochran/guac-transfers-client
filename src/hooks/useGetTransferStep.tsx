@@ -1,4 +1,4 @@
-import ConfirmTransferStep from "../components/send-money/ConfirmTransferStep";
+import ConfirmTransferStep from "../components/send-money/ConfirmTransferStep/ConfirmTransferStep";
 import EnterCardDetailsStep from "../components/send-money/EnterCardDetailsStep";
 import EnterRecipientAddressStep from "../components/send-money/EnterRecipientAddressStep";
 import EnterRecipientBankAccountStep from "../components/send-money/EnterRecipientBankAccountStep";
