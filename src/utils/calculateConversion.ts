@@ -6,37 +6,39 @@ export const calculateConversion = (
   reverse: boolean = false
 ) => {
   if (!reverse) {
-    // Get third party fee
-    let charges = amount * charge;
-    // Remove excess decimals
-    charges = removeExcessDecimals(charges);
-
     // Get amount of send currency to convert to receive currency
-    const toConvert = amount - charges - standardFee;
+    const toConvert = amount - standardFee;
 
     // Convert to send currency
     let converted = toConvert * rate;
     // Remove excess decimals
     converted = removeExcessDecimals(converted);
 
+    // Get third party fee
+    let charges = converted * charge;
+    // Remove excess decimals
+    charges = removeExcessDecimals(charges);
+
+    const receiveAmount = converted - charges;
+
     return {
       sendAmount: amount,
-      receiveAmount: converted,
+      receiveAmount,
       thirdPartyCharge: charges,
     };
   } else {
     // Backwards convert from receive amount to send amount
-
-    let converted = amount / rate;
+    let converted = amount / (1 - charge);
     // Remove excess decimals
     converted = removeExcessDecimals(converted);
 
-    let sendAmountWithoutCharges = converted / (1 - charge);
+    // Get third party fee
+    let charges = converted - amount;
+    charges = removeExcessDecimals(charges);
+
+    let sendAmountWithoutCharges = converted / rate;
     // Remove excess decimals
     sendAmountWithoutCharges = removeExcessDecimals(sendAmountWithoutCharges);
-
-    // Get third party fee
-    const charges = sendAmountWithoutCharges - converted;
 
     // Tack on standard fee
     sendAmountWithoutCharges = sendAmountWithoutCharges + standardFee;

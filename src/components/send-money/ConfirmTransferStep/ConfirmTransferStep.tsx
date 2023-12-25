@@ -5,11 +5,16 @@ import masterCard from "../../../assets/mastercard.svg";
 import ConfirmationSection from "./ConfirmationSection";
 import ConfirmationOptionCard from "./ConfirmationOptionCard";
 import { TransferStep } from "../../../types";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
 import { getCurrencyCode } from "../../../utils/getCurrencyCode";
+import ContinueButton from "../ContinueButton";
+import axios from "axios";
+import { goToNextTransferStep } from "../../../redux/features/transfer/transferSlice";
 
 const ConfirmTransferStep = () => {
+  const dispatch = useAppDispatch();
+
   const user = useAppSelector((state: RootState) => state.auth.user);
   const transfer = useAppSelector((state: RootState) => state.transfer);
 
@@ -17,6 +22,37 @@ const ConfirmTransferStep = () => {
   const recipientCurrencyCode = getCurrencyCode(
     transfer.country?.code as string
   );
+
+  const transferData = {
+    sent: Date.now(),
+    senderId: user?.id,
+    senderCountry: user?.country?.code,
+    paymentMethod: transfer.paymentMethod?.type,
+    paymentMethodStripeId: transfer.paymentMethod?.method.stripeId,
+    deliveryMethod: transfer.deliveryMethod,
+    institutionId: transfer.institution?.id,
+    institution: transfer.institution?.name,
+    recipientFirstName: transfer.recipient?.name?.firstName,
+    recipientLastName: transfer.recipient?.name?.lastName,
+    transferCountry: transfer.country?.code,
+    recipientPhone: transfer.recipient?.phone,
+    recipientStreetAddress: transfer.recipient?.address?.streetAddress,
+    recipientCity: transfer.recipient?.address?.city,
+    recipientState: transfer.recipient?.address?.department,
+    recipientAccountNumber: transfer.recipient?.account?.accountNumber,
+    sendAmount: transfer.sendAmount,
+    standardFee: transfer.standardFee ?? 0,
+    thirdPartyCharge: transfer.thirdPartyCharge,
+    receiveAmount: transfer.receiveAmount,
+  };
+
+  const handleSubmit = () => {
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/send-money`, transferData)
+      .then(() => {
+        dispatch(goToNextTransferStep());
+      });
+  };
 
   const PaymentCard = (
     <Box display="flex" alignItems="center">
@@ -181,6 +217,8 @@ const ConfirmTransferStep = () => {
           />
         </>
       </ConfirmationSection>
+
+      <ContinueButton text="Send" continueAction={handleSubmit} />
     </div>
   );
 };

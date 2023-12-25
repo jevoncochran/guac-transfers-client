@@ -27,6 +27,7 @@ export enum TransferStep {
   SelectPaymentMethod = 10,
   EnterCardDetails = 11,
   ConfirmTransfer = 12,
+  Success = 13
 }
 
 export type TransferMethod = "card" | "bankAccount";

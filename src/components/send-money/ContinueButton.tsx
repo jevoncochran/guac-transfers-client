@@ -1,11 +1,16 @@
 import Button from "@mui/material/Button";
 
 interface Props {
+  text?: string;
   continueAction?: () => void;
   submitBtn?: boolean;
 }
 
-const ContinueButton = ({ continueAction, submitBtn }: Props) => {
+const ContinueButton = ({
+  text = "Continue",
+  continueAction,
+  submitBtn,
+}: Props) => {
   return (
     <Button
       variant="contained"
@@ -14,7 +19,7 @@ const ContinueButton = ({ continueAction, submitBtn }: Props) => {
       onClick={submitBtn ? undefined : continueAction}
       type={submitBtn ? "submit" : "button"}
     >
-      Continue
+      {text}
     </Button>
   );
 };
