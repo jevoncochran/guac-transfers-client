@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import { SITE_PADDING_X } from "../constants";
 import { Typography, useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import useGetTransferStep from "../hooks/useGetTransferStep";
@@ -18,38 +17,26 @@ const SendMoney = () => {
   );
 
   return (
-    <Box>
-      <Box sx={{ paddingX: SITE_PADDING_X, paddingTop: "32px" }}>
-        <Box
+    <>
+      {transferStep > 1 && (
+        <Button
           sx={{
-            width: "100%",
-            minHeight: "600px",
-            border: `1px solid ${theme.palette.secondary.light}`,
             borderRadius: "6px",
-            padding: "24px",
+            padding: "12px",
+            "&:hover": {
+              backgroundColor: theme.palette.primary.light,
+            },
           }}
+          onClick={() => dispatch(goToPreviousTransferStep())}
         >
-          {transferStep > 1 && (
-            <Button
-              sx={{
-                borderRadius: "6px",
-                padding: "12px",
-                "&:hover": {
-                  backgroundColor: theme.palette.primary.light,
-                },
-              }}
-              onClick={() => dispatch(goToPreviousTransferStep())}
-            >
-              <ArrowBackIcon />
-              <Typography>Back</Typography>
-            </Button>
-          )}
-          <Box sx={{ paddingX: "280px", paddingY: "24px" }}>
-            {useGetTransferStep(transferStep).component}
-          </Box>
-        </Box>
+          <ArrowBackIcon />
+          <Typography>Back</Typography>
+        </Button>
+      )}
+      <Box sx={{ paddingX: "280px", paddingY: "24px" }}>
+        {useGetTransferStep(transferStep).component}
       </Box>
-    </Box>
+    </>
   );
 };
 
