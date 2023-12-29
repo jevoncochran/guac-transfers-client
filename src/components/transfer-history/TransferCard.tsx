@@ -5,6 +5,7 @@ import { Transfer } from "../../types";
 import { getCurrencyCode } from "../../utils/getCurrencyCode";
 import { useTheme } from "@mui/material";
 import { formatAmount } from "../../utils/formatAmount";
+import dayjs from "dayjs";
 
 interface Props {
   transfer: Transfer;
@@ -38,7 +39,9 @@ const TransferCard = ({ transfer }: Props) => {
           )} ${getCurrencyCode(transfer.transferCountry)}`}</Typography>
         </Box>
       </Box>
-      <Typography variant="cardDate">SENT ON DEC 22, 2023</Typography>
+      <Typography variant="cardDate">{`Sent on ${dayjs(transfer.sent).format(
+        "MMM DD, YYYY"
+      )}`}</Typography>
     </Card>
   );
 };

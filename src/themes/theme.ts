@@ -95,7 +95,7 @@ export const appTheme = createTheme({
           props: { variant: "cardDate" },
           style: {
             display: "block",
-            fontSize: "14px",
+            fontSize: "16px",
             fontFamily: "Roboto",
           },
         },
