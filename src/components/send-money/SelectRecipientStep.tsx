@@ -12,6 +12,7 @@ import OptionCard from "./OptionCard";
 import axios from "axios";
 import { RootState } from "../../redux/store";
 import { DeliveryMethod, PreviousTransferRecipient } from "../../types";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 const SelectRecipientStep = () => {
   const theme = useTheme();
@@ -43,6 +44,7 @@ const SelectRecipientStep = () => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/recipients?senderId=${user?.id}`)
       .then((res) => {
+        console.log(res.data);
         setRecipients(res.data);
       });
   }, []);
@@ -61,13 +63,12 @@ const SelectRecipientStep = () => {
           display: "flex",
           alignItems: "center",
           paddingX: "16px",
+          cursor: "pointer",
+          justifyContent: "space-between",
         }}
+        onClick={() => dispatch(goToNextTransferStep())}
       >
-        <Box
-          display={"flex"}
-          sx={{ cursor: "pointer" }}
-          onClick={() => dispatch(goToNextTransferStep())}
-        >
+        <Box display={"flex"}>
           <PersonAddIcon
             sx={{
               marginRight: "8px",
@@ -77,6 +78,7 @@ const SelectRecipientStep = () => {
           />
           <Typography>New Recipient</Typography>
         </Box>
+        <NavigateNextIcon />
       </Box>
       {recipients.map((recipient) => (
         <OptionCard
