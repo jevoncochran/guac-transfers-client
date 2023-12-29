@@ -24,8 +24,11 @@ import {
 } from "../../redux/features/transfer/transferSlice";
 import ContinueButton from "./ContinueButton";
 import { TransferStep } from "../../types";
+import { formatAmount } from "../../utils/formatAmount";
 
 export type TransferMethod = "card" | "bankAccount";
+
+type AmountInput = "sendAmount" | "receiveAmount";
 
 const SelectAmountStep = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +37,9 @@ const SelectAmountStep = () => {
   const transfer = useAppSelector((state: RootState) => state.transfer);
 
   const [rate, setRate] = useState(0);
+  const [manuallyChangedInput, setManuallyChangedInput] = useState<
+    "sendAmount" | "receiveAmount" | null
+  >(null);
 
   const userCurrency = CURRENCIES[user?.country?.code]?.code;
   const transferCurrency = CURRENCIES[transfer.country?.code]?.code;
@@ -41,6 +47,7 @@ const SelectAmountStep = () => {
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    setManuallyChangedInput(e.target.name as AmountInput);
     // If there is no value in the input, set the send and receive amounts to null
     if (!e.target.value) {
       dispatch(clearTransferAmount());
@@ -162,7 +169,12 @@ const SelectAmountStep = () => {
         <InputLabel>You send</InputLabel>
         <TextField
           name="sendAmount"
-          value={transfer.sendAmount?.toLocaleString() ?? ""}
+          value={
+            manuallyChangedInput === "sendAmount"
+              ? transfer.sendAmount ?? ""
+              : formatAmount(transfer.sendAmount)
+          }
+          type={manuallyChangedInput === "sendAmount" ? "number" : "text"}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
@@ -197,7 +209,12 @@ const SelectAmountStep = () => {
         <InputLabel>They receive</InputLabel>
         <TextField
           name="receiveAmount"
-          value={transfer.receiveAmount?.toLocaleString() ?? ""}
+          value={
+            manuallyChangedInput === "receiveAmount"
+              ? transfer.receiveAmount ?? ""
+              : formatAmount(transfer.receiveAmount)
+          }
+          type={manuallyChangedInput === "receiveAmount" ? "number" : "text"}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
