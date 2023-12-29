@@ -15,7 +15,12 @@ const ContinueButton = ({
     <Button
       variant="contained"
       fullWidth
-      sx={{ marginTop: "16px", borderRadius: "6px", height: "50px" }}
+      sx={{
+        marginTop: "16px",
+        borderRadius: "6px",
+        height: "50px",
+        cursor: "pointer",
+      }}
       onClick={submitBtn ? undefined : continueAction}
       type={submitBtn ? "submit" : "button"}
     >

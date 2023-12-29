@@ -16,9 +16,11 @@ const SendMoney = () => {
     (state: RootState) => state.transfer.step
   );
 
+  const canGoBack = transferStep > 1 && transferStep < 13;
+
   return (
     <>
-      {transferStep > 1 && (
+      {canGoBack && (
         <Button
           sx={{
             borderRadius: "6px",
