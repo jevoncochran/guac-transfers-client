@@ -49,8 +49,10 @@ const OptionCard = ({
           )}
 
           <Box marginLeft="12px">
-            <Typography>{label}</Typography>
-            {sublabel && <Typography>{sublabel}</Typography>}
+            <Typography variant="cardLabel">{label}</Typography>
+            {sublabel && (
+              <Typography variant="cardSubLabel">{sublabel}</Typography>
+            )}
           </Box>
         </Box>
 

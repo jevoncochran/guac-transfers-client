@@ -13,6 +13,11 @@ declare module "@mui/material/Typography" {
     sectionLabel: true;
     finePrint: true;
     finePrintImportant: true;
+    cardLabel: true;
+    cardSubLabel: true;
+    cardDate: true;
+    cardSent: true;
+    cardReceived: true;
   }
 }
 
@@ -63,6 +68,47 @@ export const appTheme = createTheme({
         },
         {
           props: { variant: "finePrintImportant" },
+          style: {
+            display: "block",
+            fontSize: "14px",
+            fontFamily: "Roboto",
+          },
+        },
+        {
+          props: { variant: "cardLabel" },
+          style: {
+            display: "block",
+            fontWeight: 700,
+            fontSize: "16px",
+            fontFamily: "Roboto",
+          },
+        },
+        {
+          props: { variant: "cardSubLabel" },
+          style: {
+            display: "block",
+            fontSize: "14px",
+            fontFamily: "Roboto",
+          },
+        },
+        {
+          props: { variant: "cardDate" },
+          style: {
+            display: "block",
+            fontSize: "14px",
+            fontFamily: "Roboto",
+          },
+        },
+        {
+          props: { variant: "cardSent" },
+          style: {
+            display: "block",
+            fontSize: "16px",
+            fontFamily: "Roboto",
+          },
+        },
+        {
+          props: { variant: "cardReceived" },
           style: {
             display: "block",
             fontSize: "14px",

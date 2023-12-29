@@ -28,17 +28,17 @@ const TransferCard = ({ transfer }: Props) => {
       }}
     >
       <Box display="flex" justifyContent="space-between">
-        <Typography>{`${transfer.recipientFirstName} ${transfer.recipientLastName}`}</Typography>
-        <Box>
-          <Typography>{`${formatAmount(transfer.sendAmount)} ${getCurrencyCode(
-            transfer.senderCountry
-          )}`}</Typography>
-          <Typography>{`${formatAmount(
+        <Typography variant="cardLabel">{`${transfer.recipientFirstName} ${transfer.recipientLastName}`}</Typography>
+        <Box display="flex" flexDirection="column" alignItems="flex-end">
+          <Typography variant="cardSent">{`${formatAmount(
+            transfer.sendAmount
+          )} ${getCurrencyCode(transfer.senderCountry)}`}</Typography>
+          <Typography variant="cardReceived">{`${formatAmount(
             transfer.receiveAmount
           )} ${getCurrencyCode(transfer.transferCountry)}`}</Typography>
         </Box>
       </Box>
-      <Typography>SENT ON DEC 22, 2023</Typography>
+      <Typography variant="cardDate">SENT ON DEC 22, 2023</Typography>
     </Card>
   );
 };
