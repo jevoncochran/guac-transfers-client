@@ -102,7 +102,7 @@ const Navbar = () => {
         paddingY: "12px",
         display: "flex",
         alignItems: "center",
-        height: "68px",
+        height: "92px",
       }}
     >
       {/* LOGO */}

@@ -21,7 +21,7 @@ const OptionCard = ({
   return (
     <Box
       sx={{
-        height: "60px",
+        height: "68px",
         border: "1px solid black",
         borderRadius: "6px",
         display: "flex",

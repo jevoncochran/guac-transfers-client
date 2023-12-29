@@ -58,6 +58,17 @@ export interface Recipient {
   phone?: string;
 }
 
+export interface PreviousTransferRecipient {
+  id: number;
+  senderId: number;
+  firstName: string;
+  lastName: string;
+  deliveryMethod: DeliveryMethod;
+  institutionId: number;
+  institution: string;
+  accountNumber?: string;
+}
+
 export interface Address {
   streetAddress: string;
   city: string;
