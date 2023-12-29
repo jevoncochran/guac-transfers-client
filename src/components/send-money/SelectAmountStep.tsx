@@ -20,8 +20,10 @@ import {
   setTransferAmount,
   setSendAmount,
   setReceiveAmount,
+  setTransferStep,
 } from "../../redux/features/transfer/transferSlice";
 import ContinueButton from "./ContinueButton";
+import { TransferStep } from "../../types";
 
 export type TransferMethod = "card" | "bankAccount";
 
@@ -250,7 +252,13 @@ const SelectAmountStep = () => {
         rate={rate}
       />
 
-      <ContinueButton continueAction={() => dispatch(goToNextTransferStep())} />
+      <ContinueButton
+        continueAction={
+          transfer.recipient?.id
+            ? () => dispatch(setTransferStep(TransferStep.SelectPaymentMethod))
+            : () => dispatch(goToNextTransferStep())
+        }
+      />
     </>
   ) : (
     <Typography variant="h5">

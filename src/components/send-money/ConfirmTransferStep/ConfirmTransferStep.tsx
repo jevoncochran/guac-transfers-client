@@ -32,6 +32,7 @@ const ConfirmTransferStep = () => {
     deliveryMethod: transfer.deliveryMethod,
     institutionId: transfer.institution?.id,
     institution: transfer.institution?.name,
+    recipientId: transfer.recipient?.id,
     recipientFirstName: transfer.recipient?.name?.firstName,
     recipientLastName: transfer.recipient?.name?.lastName,
     transferCountry: transfer.country?.code,

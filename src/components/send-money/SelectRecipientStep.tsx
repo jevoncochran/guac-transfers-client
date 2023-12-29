@@ -4,7 +4,10 @@ import Typography from "@mui/material/Typography";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useTheme } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { goToNextTransferStep } from "../../redux/features/transfer/transferSlice";
+import {
+  goToNextTransferStep,
+  selectPreviousRecipient,
+} from "../../redux/features/transfer/transferSlice";
 import OptionCard from "./OptionCard";
 import axios from "axios";
 import { RootState } from "../../redux/store";
@@ -29,6 +32,11 @@ const SelectRecipientStep = () => {
     } else {
       return `Cash pickup at ${institution}`;
     }
+  };
+
+  const handleSelect = (value: unknown) => {
+    dispatch(selectPreviousRecipient(value));
+    dispatch(goToNextTransferStep());
   };
 
   useEffect(() => {
@@ -79,6 +87,8 @@ const SelectRecipientStep = () => {
             recipient.institution,
             recipient.accountNumber
           )}
+          handleClick={handleSelect}
+          value={recipient}
         />
       ))}
     </>

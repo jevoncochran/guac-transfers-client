@@ -45,6 +45,7 @@ export interface Institution {
 }
 
 export interface Recipient {
+  id?: number;
   name?: {
     firstName: string;
     middleName?: string;
@@ -67,6 +68,10 @@ export interface PreviousTransferRecipient {
   institutionId: number;
   institution: string;
   accountNumber?: string;
+  phone: string;
+  streetAddress: string;
+  city: string;
+  state: string;
 }
 
 export interface Address {

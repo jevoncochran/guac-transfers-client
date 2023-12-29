@@ -115,6 +115,45 @@ export const transferSlice = createSlice({
         state.recipient.phone = action.payload;
       }
     },
+    selectPreviousRecipient: (state, action) => {
+      // Previous delivery method to recipient
+      state.deliveryMethod = action.payload.deliveryMethod;
+      state.recipient = {
+        ...state.recipient,
+        // ID of previous recipient
+        id: action.payload.id,
+        // Name of previous recipient
+        name: {
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+        },
+        // If the previous delivery method was bank deposit or cash pickup via bank, set the relevant bank
+        // Otherwise, leave the bank info undefined
+        account:
+          action.payload.delivery === "bankDeposit" ||
+          action.payload.institutionId !== 0
+            ? {
+                bank: {
+                  id: action.payload.institutionId,
+                  name: action.payload.institution,
+                },
+                accountNumber: action.payload.accountNumber,
+              }
+            : undefined,
+        // Address of previous recipient
+        address: {
+          streetAddress: action.payload.streetAddress,
+          city: action.payload.city,
+          department: action.payload.state,
+        },
+        phone: action.payload.phone,
+      };
+      // Institution of previous recipient (i.e. bank or various cash pickup locations)
+      state.institution = {
+        id: action.payload.institutionId,
+        name: action.payload.institution,
+      };
+    },
   },
 });
 
@@ -135,6 +174,7 @@ export const {
   setRecipientBankAccount,
   setRecipientAddress,
   setRecipientPhoneNum,
+  selectPreviousRecipient,
 } = transferSlice.actions;
 
 export default transferSlice.reducer;
