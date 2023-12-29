@@ -5,6 +5,7 @@ import { clearTransfer } from "../../redux/features/transfer/transferSlice";
 import { RootState } from "../../redux/store";
 import { getCurrencyCode } from "../../utils/getCurrencyCode";
 import { DeliveryMethod, Institution } from "../../types";
+import { formatAmount } from "../../utils/formatAmount";
 
 const SuccessStep = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +30,7 @@ const SuccessStep = () => {
   return (
     <div>
       <Typography variant="transferStepHeading">Successful Transfer</Typography>
-      <Typography>{`${transfer.receiveAmount} ${getCurrencyCode(
+      <Typography>{`${formatAmount(transfer.receiveAmount)} ${getCurrencyCode(
         transfer.country?.code as string
       )}`}</Typography>
       <Typography>{`Received by ${transfer.recipient?.name?.firstName} ${transfer.recipient?.name?.lastName}`}</Typography>

@@ -11,6 +11,7 @@ import { getCurrencyCode } from "../../../utils/getCurrencyCode";
 import ContinueButton from "../ContinueButton";
 import axios from "axios";
 import { goToNextTransferStep } from "../../../redux/features/transfer/transferSlice";
+import { formatAmount } from "../../../utils/formatAmount";
 
 const ConfirmTransferStep = () => {
   const dispatch = useAppDispatch();
@@ -85,23 +86,25 @@ const ConfirmTransferStep = () => {
             confirmationItems={[
               {
                 label: "Amount Converted",
-                line1: `${
+                line1: `${formatAmount(
                   (transfer.sendAmount ?? 0) - (transfer.standardFee ?? 0)
-                } ${userCurrencyCode}`,
+                )} ${userCurrencyCode}`,
               },
               {
                 label: "Transfer Fee",
-                line1: `${transfer.standardFee ?? 0} ${recipientCurrencyCode}`,
+                line1: `${transfer.standardFee ?? `0.00`} ${userCurrencyCode}`,
               },
               {
                 label: "Total Cost",
-                line1: `${
+                line1: `${formatAmount(
                   (transfer.sendAmount ?? 0) + (transfer.standardFee ?? 0)
-                } ${userCurrencyCode}`,
+                )} ${userCurrencyCode}`,
               },
               {
                 label: "Total to Recipient",
-                line1: `${transfer.receiveAmount} ${recipientCurrencyCode}`,
+                line1: `${formatAmount(
+                  transfer.receiveAmount
+                )} ${recipientCurrencyCode}`,
               },
             ]}
             step={TransferStep.SelectAmount}

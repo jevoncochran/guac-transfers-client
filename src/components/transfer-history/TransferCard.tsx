@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import { Transfer } from "../../types";
 import { getCurrencyCode } from "../../utils/getCurrencyCode";
 import { useTheme } from "@mui/material";
+import { formatAmount } from "../../utils/formatAmount";
 
 interface Props {
   transfer: Transfer;
@@ -29,12 +30,12 @@ const TransferCard = ({ transfer }: Props) => {
       <Box display="flex" justifyContent="space-between">
         <Typography>{`${transfer.recipientFirstName} ${transfer.recipientLastName}`}</Typography>
         <Box>
-          <Typography>{`${transfer.sendAmount} ${getCurrencyCode(
+          <Typography>{`${formatAmount(transfer.sendAmount)} ${getCurrencyCode(
             transfer.senderCountry
           )}`}</Typography>
-          <Typography>{`${transfer.receiveAmount} ${getCurrencyCode(
-            transfer.transferCountry
-          )}`}</Typography>
+          <Typography>{`${formatAmount(
+            transfer.receiveAmount
+          )} ${getCurrencyCode(transfer.transferCountry)}`}</Typography>
         </Box>
       </Box>
       <Typography>SENT ON DEC 22, 2023</Typography>

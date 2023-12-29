@@ -166,6 +166,17 @@ export const transferSlice = createSlice({
       state.institution = null;
       state.recipient = null;
     },
+    clearRecipient: (state) => {
+      state.sendAmount = null;
+      state.receiveAmount = null;
+      state.thirdPartyCharge = null;
+      state.standardFee = null;
+      state.transferMethod = "card";
+      state.deliveryMethod = null;
+      state.paymentMethod = null;
+      state.institution = null;
+      state.recipient = null;
+    },
   },
 });
 
@@ -188,6 +199,7 @@ export const {
   setRecipientPhoneNum,
   selectPreviousRecipient,
   clearTransfer,
+  clearRecipient
 } = transferSlice.actions;
 
 export default transferSlice.reducer;

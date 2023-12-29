@@ -5,6 +5,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useTheme } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
+  clearRecipient,
   goToNextTransferStep,
   selectPreviousRecipient,
 } from "../../redux/features/transfer/transferSlice";
@@ -66,7 +67,10 @@ const SelectRecipientStep = () => {
           cursor: "pointer",
           justifyContent: "space-between",
         }}
-        onClick={() => dispatch(goToNextTransferStep())}
+        onClick={() => {
+          dispatch(clearRecipient());
+          dispatch(goToNextTransferStep());
+        }}
       >
         <Box display={"flex"}>
           <PersonAddIcon
