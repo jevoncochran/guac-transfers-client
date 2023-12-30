@@ -60,7 +60,7 @@ const SelectInstitutionStep = () => {
       <Typography variant="transferStepHeading">
         {deliveryMethod === "bankDeposit" ? "Bank Deposit" : "Cash Pickup"}
       </Typography>
-      <Typography variant="body1">
+      <Typography variant="subtitle1">
         {deliveryMethod === "bankDeposit"
           ? "Select your recipient's bank"
           : "Select a cash pickup option"}

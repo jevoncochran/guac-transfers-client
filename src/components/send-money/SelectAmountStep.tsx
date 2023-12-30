@@ -165,7 +165,7 @@ const SelectAmountStep = () => {
 
   return transfer.country ? (
     <>
-      <Box>
+      <Box sx={{ marginBottom: "16px" }}>
         <InputLabel>You send</InputLabel>
         <TextField
           name="sendAmount"
@@ -205,7 +205,7 @@ const SelectAmountStep = () => {
         />
       </Box>
 
-      <Box>
+      <Box sx={{ marginBottom: "16px" }}>
         <InputLabel>They receive</InputLabel>
         <TextField
           name="receiveAmount"

@@ -50,6 +50,13 @@ export const appTheme = createTheme({
           },
         },
         {
+          props: { variant: "subtitle1" },
+          style: {
+            marginTop: "-12px",
+            marginBottom: "24px",
+          },
+        },
+        {
           props: { variant: "sectionLabel" },
           style: {
             fontWeight: 700,

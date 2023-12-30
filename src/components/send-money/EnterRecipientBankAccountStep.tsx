@@ -23,7 +23,9 @@ const EnterRecipientBankAccountStep = () => {
       <Typography variant="transferStepHeading">
         Recipient Bank Account
       </Typography>
-      <Typography>Enter your recipient's bank account number</Typography>
+      <Typography variant="subtitle1">
+        Enter your recipient's bank account number
+      </Typography>
 
       <InputGroup
         inputName="accountNumber"
