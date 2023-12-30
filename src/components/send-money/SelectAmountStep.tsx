@@ -20,10 +20,15 @@ import {
   setTransferAmount,
   setSendAmount,
   setReceiveAmount,
+  setTransferStep,
 } from "../../redux/features/transfer/transferSlice";
 import ContinueButton from "./ContinueButton";
+import { TransferStep } from "../../types";
+import { formatAmount } from "../../utils/formatAmount";
 
 export type TransferMethod = "card" | "bankAccount";
+
+type AmountInput = "sendAmount" | "receiveAmount";
 
 const SelectAmountStep = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +37,9 @@ const SelectAmountStep = () => {
   const transfer = useAppSelector((state: RootState) => state.transfer);
 
   const [rate, setRate] = useState(0);
+  const [manuallyChangedInput, setManuallyChangedInput] = useState<
+    "sendAmount" | "receiveAmount" | null
+  >(null);
 
   const userCurrency = CURRENCIES[user?.country?.code]?.code;
   const transferCurrency = CURRENCIES[transfer.country?.code]?.code;
@@ -39,6 +47,7 @@ const SelectAmountStep = () => {
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    setManuallyChangedInput(e.target.name as AmountInput);
     // If there is no value in the input, set the send and receive amounts to null
     if (!e.target.value) {
       dispatch(clearTransferAmount());
@@ -156,11 +165,16 @@ const SelectAmountStep = () => {
 
   return transfer.country ? (
     <>
-      <Box>
+      <Box sx={{ marginBottom: "16px" }}>
         <InputLabel>You send</InputLabel>
         <TextField
           name="sendAmount"
-          value={transfer.sendAmount?.toLocaleString() ?? ""}
+          value={
+            manuallyChangedInput === "sendAmount"
+              ? transfer.sendAmount ?? ""
+              : formatAmount(transfer.sendAmount)
+          }
+          type={manuallyChangedInput === "sendAmount" ? "number" : "text"}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
@@ -191,11 +205,16 @@ const SelectAmountStep = () => {
         />
       </Box>
 
-      <Box>
+      <Box sx={{ marginBottom: "16px" }}>
         <InputLabel>They receive</InputLabel>
         <TextField
           name="receiveAmount"
-          value={transfer.receiveAmount?.toLocaleString() ?? ""}
+          value={
+            manuallyChangedInput === "receiveAmount"
+              ? transfer.receiveAmount ?? ""
+              : formatAmount(transfer.receiveAmount)
+          }
+          type={manuallyChangedInput === "receiveAmount" ? "number" : "text"}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: false }}
@@ -226,7 +245,7 @@ const SelectAmountStep = () => {
         />
       </Box>
 
-      <Typography variant="transferStepHeading">Delivery Speed</Typography>
+      <Typography variant="mainHeading">Delivery Speed</Typography>
 
       <TransferMethodCard
         label="Express"
@@ -250,7 +269,13 @@ const SelectAmountStep = () => {
         rate={rate}
       />
 
-      <ContinueButton continueAction={() => dispatch(goToNextTransferStep())} />
+      <ContinueButton
+        continueAction={
+          transfer.recipient?.id
+            ? () => dispatch(setTransferStep(TransferStep.SelectPaymentMethod))
+            : () => dispatch(goToNextTransferStep())
+        }
+      />
     </>
   ) : (
     <Typography variant="h5">

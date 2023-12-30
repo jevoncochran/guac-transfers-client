@@ -76,7 +76,7 @@ const EnterCardDetailsStep = () => {
 
   return (
     <div>
-      <Typography variant="transferStepHeading">Add New Card</Typography>
+      <Typography variant="mainHeading">Add New Card</Typography>
       <form onSubmit={handleSubmit}>
         <Box sx={{ marginBottom: "16px" }}>
           <InputLabel>Card Number</InputLabel>

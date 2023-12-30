@@ -17,7 +17,7 @@ const EnterSenderPhoneNumberStep = () => {
   return (
     <div>
       <div>
-        <Typography variant="transferStepHeading">Your Phone Number</Typography>
+        <Typography variant="mainHeading">Your Phone Number</Typography>
         <InputGroup
           inputName="phone"
           label="Your Mobile Number"

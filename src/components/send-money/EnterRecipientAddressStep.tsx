@@ -29,8 +29,8 @@ const EnterRecipientAddressStep = () => {
 
   return (
     <div>
-      <Typography variant="transferStepHeading">Recipient Address</Typography>
-      <Typography>
+      <Typography variant="mainHeading">Recipient Address</Typography>
+      <Typography variant="subtitle1">
         {`Enter the address associated with the ${
           recipientAccount?.bank?.name
         } account ending in ${recipientAccount?.accountNumber?.slice(-4)}`}

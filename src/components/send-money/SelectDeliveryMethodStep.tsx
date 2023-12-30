@@ -16,7 +16,7 @@ const SelectDeliveryMethodStep = () => {
 
   return (
     <div>
-      <Typography variant="transferStepHeading">Delivery Method</Typography>
+      <Typography variant="mainHeading">Delivery Method</Typography>
       <Typography variant="subtitle1">
         How would you like the money delivered?
       </Typography>

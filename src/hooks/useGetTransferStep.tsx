@@ -10,6 +10,7 @@ import SelectDeliveryMethodStep from "../components/send-money/SelectDeliveryMet
 import SelectInstitutionStep from "../components/send-money/SelectInstitutionStep";
 import SelectPaymentMethodStep from "../components/send-money/SelectPaymentMethodStep";
 import SelectRecipientStep from "../components/send-money/SelectRecipientStep";
+import SuccessStep from "../components/send-money/SuccessStep";
 import { TransferStep } from "../types";
 
 const useGetTransferStep = (step: TransferStep) => {
@@ -38,6 +39,8 @@ const useGetTransferStep = (step: TransferStep) => {
       return { component: <EnterCardDetailsStep /> };
     case TransferStep.ConfirmTransfer:
       return { component: <ConfirmTransferStep /> };
+    case TransferStep.Success:
+      return { component: <SuccessStep /> };
   }
 };
 

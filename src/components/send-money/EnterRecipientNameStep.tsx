@@ -40,7 +40,7 @@ const EnterRecipientNameStep = () => {
 
   return (
     <div>
-      <Typography variant="transferStepHeading">Recipient Name</Typography>
+      <Typography variant="mainHeading">Recipient Name</Typography>
       <Typography variant="subtitle1">
         {`This information should match the name on your recipient's ${
           deliveryMethod === "bankDeposit"

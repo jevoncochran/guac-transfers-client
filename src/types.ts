@@ -27,6 +27,7 @@ export enum TransferStep {
   SelectPaymentMethod = 10,
   EnterCardDetails = 11,
   ConfirmTransfer = 12,
+  Success = 13,
 }
 
 export type TransferMethod = "card" | "bankAccount";
@@ -44,6 +45,7 @@ export interface Institution {
 }
 
 export interface Recipient {
+  id?: number;
   name?: {
     firstName: string;
     middleName?: string;
@@ -55,6 +57,21 @@ export interface Recipient {
   };
   address?: Address;
   phone?: string;
+}
+
+export interface PreviousTransferRecipient {
+  id: number;
+  senderId: number;
+  firstName: string;
+  lastName: string;
+  deliveryMethod: DeliveryMethod;
+  institutionId: number;
+  institution: string;
+  accountNumber?: string;
+  phone: string;
+  streetAddress: string;
+  city: string;
+  state: string;
 }
 
 export interface Address {
@@ -81,3 +98,27 @@ type CardBrand = "visa" | "mastercard";
 type CardType = "debit" | "credit";
 
 type BankAccountType = "checking" | "savings";
+
+export interface Transfer {
+  id: number;
+  sent: Date;
+  senderId: number;
+  senderCountry: string;
+  paymentMethod: TransferMethod;
+  paymentMethodStripeId: string;
+  deliveryMethod: DeliveryMethod;
+  institutionId: number;
+  institution: string;
+  recipientFirstName: string;
+  recipientLastName: string;
+  transferCountry: string;
+  recipientPhone: string;
+  recipientStreetAddress: string;
+  recipientCity: string;
+  recipientState: string;
+  recipientAccountNumber: string;
+  sendAmount: number;
+  standardFee: number;
+  thirdPartyCharge: number;
+  receiveAmount: number;
+}

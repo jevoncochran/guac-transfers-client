@@ -5,11 +5,17 @@ import masterCard from "../../../assets/mastercard.svg";
 import ConfirmationSection from "./ConfirmationSection";
 import ConfirmationOptionCard from "./ConfirmationOptionCard";
 import { TransferStep } from "../../../types";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
 import { getCurrencyCode } from "../../../utils/getCurrencyCode";
+import ContinueButton from "../ContinueButton";
+import axios from "axios";
+import { goToNextTransferStep } from "../../../redux/features/transfer/transferSlice";
+import { formatAmount } from "../../../utils/formatAmount";
 
 const ConfirmTransferStep = () => {
+  const dispatch = useAppDispatch();
+
   const user = useAppSelector((state: RootState) => state.auth.user);
   const transfer = useAppSelector((state: RootState) => state.transfer);
 
@@ -17,6 +23,38 @@ const ConfirmTransferStep = () => {
   const recipientCurrencyCode = getCurrencyCode(
     transfer.country?.code as string
   );
+
+  const transferData = {
+    sent: Date.now(),
+    senderId: user?.id,
+    senderCountry: user?.country?.code,
+    paymentMethod: transfer.paymentMethod?.type,
+    paymentMethodStripeId: transfer.paymentMethod?.method.stripeId,
+    deliveryMethod: transfer.deliveryMethod,
+    institutionId: transfer.institution?.id,
+    institution: transfer.institution?.name,
+    recipientId: transfer.recipient?.id,
+    recipientFirstName: transfer.recipient?.name?.firstName,
+    recipientLastName: transfer.recipient?.name?.lastName,
+    transferCountry: transfer.country?.code,
+    recipientPhone: transfer.recipient?.phone,
+    recipientStreetAddress: transfer.recipient?.address?.streetAddress,
+    recipientCity: transfer.recipient?.address?.city,
+    recipientState: transfer.recipient?.address?.department,
+    recipientAccountNumber: transfer.recipient?.account?.accountNumber,
+    sendAmount: transfer.sendAmount,
+    standardFee: transfer.standardFee ?? 0,
+    thirdPartyCharge: transfer.thirdPartyCharge,
+    receiveAmount: transfer.receiveAmount,
+  };
+
+  const handleSubmit = () => {
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/transfers/send`, transferData)
+      .then(() => {
+        dispatch(goToNextTransferStep());
+      });
+  };
 
   const PaymentCard = (
     <Box display="flex" alignItems="center">
@@ -38,7 +76,7 @@ const ConfirmTransferStep = () => {
 
   return (
     <div>
-      <Typography variant="transferStepHeading" marginBottom="32px">
+      <Typography variant="mainHeading" marginBottom="32px">
         Confirm and Send
       </Typography>
 
@@ -48,23 +86,25 @@ const ConfirmTransferStep = () => {
             confirmationItems={[
               {
                 label: "Amount Converted",
-                line1: `${
+                line1: `${formatAmount(
                   (transfer.sendAmount ?? 0) - (transfer.standardFee ?? 0)
-                } ${userCurrencyCode}`,
+                )} ${userCurrencyCode}`,
               },
               {
                 label: "Transfer Fee",
-                line1: `${transfer.standardFee ?? 0} ${recipientCurrencyCode}`,
+                line1: `${transfer.standardFee ?? `0.00`} ${userCurrencyCode}`,
               },
               {
                 label: "Total Cost",
-                line1: `${
+                line1: `${formatAmount(
                   (transfer.sendAmount ?? 0) + (transfer.standardFee ?? 0)
-                } ${userCurrencyCode}`,
+                )} ${userCurrencyCode}`,
               },
               {
                 label: "Total to Recipient",
-                line1: `${transfer.receiveAmount} ${recipientCurrencyCode}`,
+                line1: `${formatAmount(
+                  transfer.receiveAmount
+                )} ${recipientCurrencyCode}`,
               },
             ]}
             step={TransferStep.SelectAmount}
@@ -181,6 +221,8 @@ const ConfirmTransferStep = () => {
           />
         </>
       </ConfirmationSection>
+
+      <ContinueButton text="Send" continueAction={handleSubmit} />
     </div>
   );
 };

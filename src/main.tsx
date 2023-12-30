@@ -15,6 +15,7 @@ import TransferHistory from "./views/TransferHistory.tsx";
 import ReferFriends from "./views/ReferFriends.tsx";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const stripe = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <CssBaseline />
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={appTheme}>
