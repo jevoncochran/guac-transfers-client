@@ -76,7 +76,7 @@ const ConfirmTransferStep = () => {
 
   return (
     <div>
-      <Typography variant="transferStepHeading" marginBottom="32px">
+      <Typography variant="mainHeading" marginBottom="32px">
         Confirm and Send
       </Typography>
 

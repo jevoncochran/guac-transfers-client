@@ -50,7 +50,7 @@ const SelectPaymentMethodStep = () => {
 
   return (
     <div>
-      <Typography variant="transferStepHeading">Payment Method</Typography>
+      <Typography variant="mainHeading">Payment Method</Typography>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {cards.map((card: any) => (
         <OptionCard

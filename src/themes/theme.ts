@@ -9,7 +9,7 @@ declare module "@mui/material/Paper" {
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
-    transferStepHeading: true;
+    mainHeading: true;
     sectionLabel: true;
     finePrint: true;
     finePrintImportant: true;
@@ -38,10 +38,10 @@ export const appTheme = createTheme({
   },
   components: {
     MuiTypography: {
-      defaultProps: { variantMapping: { transferStepHeading: "p" } },
+      defaultProps: { variantMapping: { mainHeading: "p" } },
       variants: [
         {
-          props: { variant: "transferStepHeading" },
+          props: { variant: "mainHeading" },
           style: {
             fontWeight: 700,
             marginBottom: "16px",

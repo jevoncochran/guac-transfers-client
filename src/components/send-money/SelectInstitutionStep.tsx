@@ -57,7 +57,7 @@ const SelectInstitutionStep = () => {
 
   return (
     <div>
-      <Typography variant="transferStepHeading">
+      <Typography variant="mainHeading">
         {deliveryMethod === "bankDeposit" ? "Bank Deposit" : "Cash Pickup"}
       </Typography>
       <Typography variant="subtitle1">

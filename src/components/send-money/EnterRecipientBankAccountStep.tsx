@@ -20,9 +20,7 @@ const EnterRecipientBankAccountStep = () => {
   };
   return (
     <div>
-      <Typography variant="transferStepHeading">
-        Recipient Bank Account
-      </Typography>
+      <Typography variant="mainHeading">Recipient Bank Account</Typography>
       <Typography variant="subtitle1">
         Enter your recipient's bank account number
       </Typography>

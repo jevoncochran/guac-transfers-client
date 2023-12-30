@@ -16,9 +16,7 @@ const EnterRecipientPhoneNumberStep = () => {
 
   return (
     <div>
-      <Typography variant="transferStepHeading">
-        Recipient Phone Number
-      </Typography>
+      <Typography variant="mainHeading">Recipient Phone Number</Typography>
       <Typography variant="subtitle1">
         Enter your recipient's phone numnber if you would like us to text them
         transfer updates

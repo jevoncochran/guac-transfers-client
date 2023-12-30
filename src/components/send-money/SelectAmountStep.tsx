@@ -245,7 +245,7 @@ const SelectAmountStep = () => {
         />
       </Box>
 
-      <Typography variant="transferStepHeading">Delivery Speed</Typography>
+      <Typography variant="mainHeading">Delivery Speed</Typography>
 
       <TransferMethodCard
         label="Express"

@@ -22,7 +22,12 @@ const TransferHistory = () => {
 
   return (
     <div>
-      <Typography sx={{ marginBottom: "16px" }}>Your Transfers</Typography>
+      <Typography
+        variant="mainHeading"
+        sx={{ marginBottom: "16px", textAlign: "center" }}
+      >
+        Your Transfers
+      </Typography>
       <Box
         sx={{
           display: "flex",

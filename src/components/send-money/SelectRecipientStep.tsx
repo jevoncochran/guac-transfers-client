@@ -52,7 +52,7 @@ const SelectRecipientStep = () => {
 
   return (
     <>
-      <Typography variant="transferStepHeading">
+      <Typography variant="mainHeading">
         Select a recipient to send money to:
       </Typography>
       <Box
