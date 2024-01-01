@@ -61,12 +61,21 @@
             "substring1": "Money delivered in",
             "substring2": "3-5 days"
           },
-          
+
           "method": {
             "substring1": "Pay with",
             "substring2": "bank account"
           }
         }
+      }
+    },
+
+    "selectDeliveryMethod": {
+      "mainHeading": "Delivery Method",
+      "subtitle": "How would you like the money delivered?",
+      "methods": {
+        "bankDeposit": "Bank Deposit",
+        "cashPickup": "Cash Pickup"
       }
     }
   }

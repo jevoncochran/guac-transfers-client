@@ -64,6 +64,15 @@
           }
         }
       }
+    },
+
+    "selectDeliveryMethod": {
+      "mainHeading": "Método de envío",
+      "subtitle": "¿Cómo quieres que se entregue el dinero?",
+      "methods": {
+        "bankDeposit": "Depósito bancario",
+        "cashPickup": "Retiro de efectivo"
+      }
     }
   }
 }
