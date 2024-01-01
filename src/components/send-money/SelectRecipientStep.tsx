@@ -21,6 +21,7 @@ const SelectRecipientStep = () => {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state: RootState) => state.auth.user);
+  const transfer = useAppSelector((state: RootState) => state.transfer);
 
   const [recipients, setRecipients] = useState<PreviousTransferRecipient[]>([]);
 
@@ -43,12 +44,15 @@ const SelectRecipientStep = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/recipients?senderId=${user?.id}`)
+      .get(
+        `${import.meta.env.VITE_API_URL}/recipients?senderId=${
+          user?.id
+        }&country=${transfer.country?.code}`
+      )
       .then((res) => {
-        console.log(res.data);
         setRecipients(res.data);
       });
-  }, []);
+  }, [transfer.country?.code, user?.id]);
 
   return (
     <>

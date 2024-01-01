@@ -16,7 +16,10 @@ import { StripeCardNumberElement } from "@stripe/stripe-js";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import { goToNextTransferStep } from "../../redux/features/transfer/transferSlice";
+import {
+  goToNextTransferStep,
+  setPaymentMethod,
+} from "../../redux/features/transfer/transferSlice";
 
 const EnterCardDetailsStep = () => {
   const dispatch = useAppDispatch();
@@ -64,8 +67,20 @@ const EnterCardDetailsStep = () => {
           tokenId: token?.id,
         })
         .then((res) => {
+          const { data } = res.data;
           console.log(res.data);
           if (res.data.success) {
+            dispatch(
+              setPaymentMethod({
+                type: "card",
+                method: {
+                  stripeId: data.id,
+                  type: data.funding,
+                  brand: data.brand,
+                  last4: data.last4,
+                },
+              })
+            );
             dispatch(goToNextTransferStep());
           }
         });
