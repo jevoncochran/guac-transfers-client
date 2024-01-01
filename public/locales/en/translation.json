@@ -6,7 +6,9 @@
       "tab2": "Transfer History",
       "tab3": "Refer Friends"
     },
+
     "welcome": "Welcome",
+
     "accountMenu": {
       "settings": "Settings",
       "redeem": "Redeem Offer",
@@ -18,6 +20,10 @@
   "divider": { "send": "Send money to" },
 
   "sendMoney": {
+    "backButton": "Back",
+
+    "continueButtonDefault": "Continue",
+
     "selectRecipient": {
       "mainHeading": "Select a recipient to send money to:",
       "newRecipient": "New Recipient",
@@ -25,6 +31,41 @@
         "bankDeposit": {
           "substring1": "",
           "substring2": "account ending in"
+        }
+      }
+    },
+
+    "selectAmount": {
+      "mainHeading": "Delivery Speed",
+      "send": "You send",
+      "receive": "They receive",
+      "transferMethod": {
+        "card": {
+          "label": "Express",
+
+          "time": {
+            "substring1": "Money delivered in",
+            "substring2": "minutes"
+          },
+
+          "method": {
+            "substring1": "Pay with",
+            "substring2": "debit/credit card"
+          }
+        },
+
+        "bankAccount": {
+          "label": "Economy",
+
+          "time": {
+            "substring1": "Money delivered in",
+            "substring2": "3-5 days"
+          },
+          
+          "method": {
+            "substring1": "Pay with",
+            "substring2": "bank account"
+          }
         }
       }
     }

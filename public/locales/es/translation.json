@@ -1,12 +1,15 @@
 {
   "navBar": {
     "motto": "Tu dinero, rápido",
+
     "tabs": {
       "tab1": "Enviar dinero",
       "tab2": "Historial de transferencias",
       "tab3": "Compartir con amigos"
     },
+
     "welcome": "Bienvenido",
+
     "accountMenu": {
       "settings": "Ajustes",
       "redeem": "Reclamar oferta",
@@ -18,6 +21,10 @@
   "divider": { "send": "Enviar dinero a" },
 
   "sendMoney": {
+    "backButton": "Regresar",
+
+    "continueButtonDefault": "Continuar",
+
     "selectRecipient": {
       "mainHeading": "Seleccionar al destinatario para enviar dinero:",
       "newRecipient": "Nuevo destinatario",
@@ -25,6 +32,36 @@
         "bankDeposit": {
           "substring1": "Cuenta de",
           "substring2": "terminada en"
+        }
+      }
+    },
+
+    "selectAmount": {
+      "mainHeading": "Tiempo de entrega",
+      "send": "Tú envías",
+      "receive": "El destinatario recibe",
+      "transferMethod": {
+        "card": {
+          "label": "Express",
+          "time": {
+            "substring1": "El dinero se entrega en",
+            "substring2": "minutos"
+          },
+          "method": {
+            "substring1": "Pago con",
+            "substring2": "tarjeta de débito o crédito"
+          }
+        },
+        "bankAccount": {
+          "label": "Económico",
+          "time": {
+            "substring1": "El dinero se entrega en",
+            "substring2": "3-5 días"
+          },
+          "method": {
+            "substring1": "Pago con",
+            "substring2": "cuenta bancaria"
+          }
         }
       }
     }

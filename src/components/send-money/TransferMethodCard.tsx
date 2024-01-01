@@ -8,6 +8,8 @@ import { RootState } from "../../redux/store";
 import { CURRENCIES } from "../../constants";
 import { calculateConversion } from "../../utils/calculateConversion";
 import { setTransferMethod } from "../../redux/features/transfer/transferSlice";
+import { useTranslation } from "react-i18next";
+import useFormatAmount from "../../hooks/useFormatAmout";
 
 interface Props {
   label: string;
@@ -43,6 +45,10 @@ const TransferMethodCard = ({
   const transferMethod = useAppSelector(
     (state: RootState) => state.transfer.transferMethod
   );
+
+  const { t } = useTranslation();
+
+  const { formatAmount } = useFormatAmount();
 
   const userCurrency = CURRENCIES[userCountry.code].code;
   const transferCurrency = CURRENCIES[transferCountry.code].code;
@@ -94,11 +100,16 @@ const TransferMethodCard = ({
         </Typography>
         <Box display="flex" sx={{ marginBottom: "4px" }}>
           <Box sx={{ marginRight: "6px" }}>{speedIcon}</Box>
-          <Typography>Money delivered in {` ${speed}`}</Typography>
+          <Typography>
+            {t("sendMoney.selectAmount.transferMethod.card.time.substring1")}
+            {` ${speed}`}
+          </Typography>
         </Box>
         <Box display="flex" sx={{ marginBottom: "4px" }}>
           <Box sx={{ marginRight: "6px" }}>{paymentIcon}</Box>
-          <Typography>{`Pay with ${payment}`}</Typography>
+          <Typography>{`${t(
+            "sendMoney.selectAmount.transferMethod.card.method.substring1"
+          )} ${payment}`}</Typography>
         </Box>
         <Typography fontSize="18px">
           <span
@@ -108,12 +119,9 @@ const TransferMethodCard = ({
             style={{ color: theme.palette.primary.main, fontWeight: "bold" }}
           >
             {" "}
-            {calculateConversion(
-              1,
-              rate,
-              charge,
-              0
-            ).receiveAmount.toLocaleString()}{" "}
+            {formatAmount(
+              calculateConversion(1, rate, charge, 0).receiveAmount
+            )}{" "}
             {transferCurrency}
           </span>
         </Typography>
