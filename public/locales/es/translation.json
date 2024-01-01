@@ -85,8 +85,30 @@
         "mainHeading": "Retiro de efectivo",
         "subtitle": "Elige una opción de retiro de efectivo",
         "options": {
-            "banks": "Bancos",
-            "other": "Otros locales"
+          "banks": "Bancos",
+          "other": "Otros locales"
+        }
+      }
+    },
+
+    "enterRecipientName": {
+      "mainHeading": "Nombre del destinatario",
+      "subtitle": {
+        "bank": "Esta información debe coincidir con el nombre registrado en la cuenta bancaria del destinatario",
+        "cash": "Esta información debe coincidir con los datos en la identificación del destinatario"
+      },
+      "inputs": {
+        "firstName": {
+          "label": "Nombre",
+          "placeholder": "Por favor, escribe tu nombre"
+        },
+        "middleName": {
+          "label": "Segundo Nombre",
+          "placeholder": "Por favor, escribe tu segundo nombre (opcional)"
+        },
+        "lastName": {
+          "label": "Apellido",
+          "placeholder": "Por favor, escribe tu apellido"
         }
       }
     }
