@@ -126,6 +126,24 @@
           "placeholder": "e.g. 123456789"
         }
       }
+    },
+
+    "enterRecipientAddress": {
+      "mainHeading": "Recipient Address",
+      "subtitle": {
+        "substring1": "Enter the address associated with the",
+        "substring2": "account ending in"
+      },
+      "inputs": {
+        "streetAddress": {
+          "label": "Street Address",
+          "placeholder": "Please enter street address of recipient"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "Please enter city of recipient"
+        }
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ import {
   setRecipientAddress,
 } from "../../redux/features/transfer/transferSlice";
 import ContinueButton from "./ContinueButton";
+import { useTranslation } from "react-i18next";
 
 const EnterRecipientAddressStep = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,8 @@ const EnterRecipientAddressStep = () => {
   const recipientAddress = useAppSelector(
     (state: RootState) => state.transfer.recipient?.address
   );
+
+  const { t } = useTranslation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
@@ -29,26 +32,34 @@ const EnterRecipientAddressStep = () => {
 
   return (
     <div>
-      <Typography variant="mainHeading">Recipient Address</Typography>
+      <Typography variant="mainHeading">
+        {t("sendMoney.enterRecipientAddress.mainHeading")}
+      </Typography>
       <Typography variant="subtitle1">
-        {`Enter the address associated with the ${
+        {`${t("sendMoney.enterRecipientAddress.subtitle.substring1")} ${
           recipientAccount?.bank?.name
-        } account ending in ${recipientAccount?.accountNumber?.slice(-4)}`}
+        } ${t(
+          "sendMoney.enterRecipientAddress.subtitle.substring2"
+        )} ${recipientAccount?.accountNumber?.slice(-4)}`}
       </Typography>
 
       <InputGroup
         inputName="streetAddress"
-        label="Street Address"
+        label={t("sendMoney.enterRecipientAddress.inputs.streetAddress.label")}
         value={recipientAddress?.streetAddress ?? ""}
-        placeholder="Please enter street address of recipient"
+        placeholder={t(
+          "sendMoney.enterRecipientAddress.inputs.streetAddress.placeholder"
+        )}
         onChange={handleChange}
       />
 
       <InputGroup
         inputName="city"
-        label="City"
+        label={t("sendMoney.enterRecipientAddress.inputs.city.label")}
         value={recipientAddress?.city ?? ""}
-        placeholder="Please enter city of recipient"
+        placeholder={t(
+          "sendMoney.enterRecipientAddress.inputs.city.placeholder"
+        )}
         onChange={handleChange}
       />
 

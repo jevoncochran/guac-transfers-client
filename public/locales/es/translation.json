@@ -122,6 +122,24 @@
           "placeholder": "Por favor, ingresa el número de la cuenta bancaria del destinatario"
         }
       }
+    },
+
+    "enterRecipientAddress": {
+      "mainHeading": "Dirección del destinatario",
+      "subtitle": {
+        "substring1": "Ingresa la dirección de facturación de la cuenta de",
+        "substring2": "terminada en in"
+      },
+      "inputs": {
+        "streetAddress": {
+          "label": "Dirección",
+          "placeholder": "Por favor, ingresa la dirección del destinatario"
+        },
+        "city": {
+          "label": "Ciudad",
+          "placeholder": "Por favor, ingresa la ciudad del destinatario"
+        }
+      }
     }
   }
 }
