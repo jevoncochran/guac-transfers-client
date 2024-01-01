@@ -111,6 +111,17 @@
           "placeholder": "Por favor, escribe tu apellido"
         }
       }
+    },
+
+    "enterRecipientBankAccount": {
+      "mainHeading": "Datos bancarios del destinatario",
+      "subtitle": "Ingresa el número de la cuenta bancaria del destinatario",
+      "inputs": {
+        "accountNumber": {
+          "label": "Número de cuenta bancaria",
+          "placeholder": "Por favor, ingresa el número de la cuenta bancaria del destinatario"
+        }
+      }
     }
   }
 }

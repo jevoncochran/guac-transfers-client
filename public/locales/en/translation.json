@@ -115,6 +115,17 @@
           "placeholder": "Please provide your last name"
         }
       }
+    },
+
+    "enterRecipientBankAccount": {
+      "mainHeading": "Recipient Bank Account",
+      "subtitle": "Enter your recipient's bank account number",
+      "inputs": {
+        "accountNumber": {
+          "label": "Account Number",
+          "placeholder": "e.g. 123456789"
+        }
+      }
     }
   }
 }
