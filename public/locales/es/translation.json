@@ -1,0 +1,32 @@
+{
+  "navBar": {
+    "motto": "Tu dinero, rápido",
+    "tabs": {
+      "tab1": "Enviar dinero",
+      "tab2": "Historial de transferencias",
+      "tab3": "Compartir con amigos"
+    },
+    "welcome": "Bienvenido",
+    "accountMenu": {
+      "settings": "Ajustes",
+      "redeem": "Reclamar oferta",
+      "help": "Ayuda",
+      "logout": "Salir"
+    }
+  },
+
+  "divider": { "send": "Enviar dinero a" },
+
+  "sendMoney": {
+    "selectRecipient": {
+      "mainHeading": "Seleccionar al destinatario para enviar dinero:",
+      "newRecipient": "Nuevo destinatario",
+      "previousRecipient": {
+        "bankDeposit": {
+          "substring1": "Cuenta de",
+          "substring2": "terminada en"
+        }
+      }
+    }
+  }
+}

@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { LANGUAGES, USER_COUNTRIES } from "../constants";
 import { RootState } from "../redux/store";
 import axios from "axios";
+import i18n from "../i18n";
+import { useTranslation } from "react-i18next";
 
 export const useMenuItems = () => {
   const navigate = useNavigate();
@@ -22,12 +24,14 @@ export const useMenuItems = () => {
     (state: RootState) => state.auth.isLoggedIn
   );
 
+  const { t } = useTranslation();
+
   const accountMenuItems = [
     {
       item: (
         <>
           <Settings fontSize="small" sx={{ marginRight: "6px" }} />
-          Settings
+          {t("navBar.accountMenu.settings")}
         </>
       ),
     },
@@ -35,7 +39,7 @@ export const useMenuItems = () => {
       item: (
         <>
           <RedeemIcon fontSize="small" sx={{ marginRight: "6px" }} />
-          Redeem Offer
+          {t("navBar.accountMenu.redeem")}
         </>
       ),
     },
@@ -43,7 +47,7 @@ export const useMenuItems = () => {
       item: (
         <>
           <HelpIcon fontSize="small" sx={{ marginRight: "6px" }} />
-          Help
+          {t("navBar.accountMenu.help")}
         </>
       ),
     },
@@ -51,7 +55,7 @@ export const useMenuItems = () => {
       item: (
         <>
           <LogoutIcon fontSize="small" sx={{ marginRight: "6px" }} />
-          Logout
+          {t("navBar.accountMenu.logout")}
         </>
       ),
       onSelect: () => {
@@ -75,6 +79,8 @@ export const useMenuItems = () => {
       localStorage.setItem("language", JSON.stringify(language));
       // Update language in Redux store
       dispatch(updateLanguage(language));
+      // Update i18n language
+      i18n.changeLanguage(language.code);
     },
   }));
 

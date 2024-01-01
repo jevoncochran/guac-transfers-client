@@ -1,0 +1,32 @@
+{
+  "navBar": {
+    "motto": "Your Money, Fast",
+    "tabs": {
+      "tab1": "Send Money",
+      "tab2": "Transfer History",
+      "tab3": "Refer Friends"
+    },
+    "welcome": "Welcome",
+    "accountMenu": {
+      "settings": "Settings",
+      "redeem": "Redeem Offer",
+      "help": "Help",
+      "logout": "Logout"
+    }
+  },
+
+  "divider": { "send": "Send money to" },
+
+  "sendMoney": {
+    "selectRecipient": {
+      "mainHeading": "Select a recipient to send money to:",
+      "newRecipient": "New Recipient",
+      "previousRecipient": {
+        "bankDeposit": {
+          "substring1": "",
+          "substring2": "account ending in"
+        }
+      }
+    }
+  }
+}

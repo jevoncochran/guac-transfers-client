@@ -17,6 +17,7 @@ import Menu from "./Menu";
 import { useMenuItems } from "../hooks/useMenuItems";
 import { NavLink } from "react-router-dom";
 import { Country, Language } from "../types";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +37,8 @@ const Navbar = () => {
     useState<null | HTMLElement>(null);
 
   const theme = useTheme();
+
+  const { t } = useTranslation();
 
   const isAccountMenuOpen = Boolean(accountMenuAnchorEl);
   const isLanguageMenuOpen = Boolean(languageMenuAnchorEl);
@@ -118,7 +121,7 @@ const Navbar = () => {
             Guac
           </Typography>
           <Typography fontFamily={"Barlow Condensed"} color={"#c0b517"}>
-            Your Money, Fast
+            {t("navBar.motto")}
           </Typography>
         </Box>
       </Box>
@@ -145,7 +148,7 @@ const Navbar = () => {
             >
               {({ isActive }) => (
                 <Box position={"relative"}>
-                  Send Money
+                  {t("navBar.tabs.tab1")}
                   <Box
                     sx={{
                       display: isActive ? "block" : "none",
@@ -171,7 +174,7 @@ const Navbar = () => {
           >
             {({ isActive }) => (
               <Box position={"relative"}>
-                Transfer History
+                {t("navBar.tabs.tab2")}
                 <Box
                   sx={{
                     display: isActive ? "block" : "none",
@@ -196,7 +199,7 @@ const Navbar = () => {
           >
             {({ isActive }) => (
               <Box position={"relative"}>
-                Refer Friends
+                {t("navBar.tabs.tab3")}
                 <Box
                   sx={{
                     display: isActive ? "block" : "none",
@@ -311,7 +314,9 @@ const Navbar = () => {
               alignItems="center"
               onClick={handleAccountMenuClick}
             >
-              <Typography sx={{ marginX: "8px" }}>Welcome</Typography>
+              <Typography sx={{ marginX: "8px" }}>
+                {t("navBar.welcome")}
+              </Typography>
               <ExpandMoreOutlinedIcon />
             </Box>
             {/* Account Menu */}
