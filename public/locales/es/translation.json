@@ -73,6 +73,22 @@
         "bankDeposit": "Depósito bancario",
         "cashPickup": "Retiro de efectivo"
       }
+    },
+
+    "selectInstitution": {
+      "bank": {
+        "mainHeading": "Depósito bancario",
+        "subtitle": "Elige el banco del destinatario"
+      },
+
+      "cash": {
+        "mainHeading": "Retiro de efectivo",
+        "subtitle": "Elige una opción de retiro de efectivo",
+        "options": {
+            "banks": "Bancos",
+            "other": "Otros locales"
+        }
+      }
     }
   }
 }

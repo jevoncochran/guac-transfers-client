@@ -77,6 +77,22 @@
         "bankDeposit": "Bank Deposit",
         "cashPickup": "Cash Pickup"
       }
+    },
+
+    "selectInstitution": {
+      "bank": {
+        "mainHeading": "Bank Deposit",
+        "subtitle": "Select your recipient's bank"
+      },
+
+      "cash": {
+        "mainHeading": "Cash Pickup",
+        "subtitle": "Select a cash pickup option",
+        "options": {
+          "banks": "Banks",
+          "other": "Other Locations"
+        }
+      }
     }
   }
 }

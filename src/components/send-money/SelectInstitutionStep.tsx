@@ -9,6 +9,7 @@ import {
   setInstitution,
 } from "../../redux/features/transfer/transferSlice";
 import CashPickupSitesCard from "./CashPickupSitesCard";
+import { useTranslation } from "react-i18next";
 
 const SelectInstitutionStep = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +23,8 @@ const SelectInstitutionStep = () => {
 
   const [banks, setBanks] = useState([]);
   const [cashPickupSites, setCashPickupSites] = useState([]);
+
+  const { t } = useTranslation();
 
   const onSelect = (value: unknown) => {
     dispatch(setInstitution(value));
@@ -58,12 +61,14 @@ const SelectInstitutionStep = () => {
   return (
     <div>
       <Typography variant="mainHeading">
-        {deliveryMethod === "bankDeposit" ? "Bank Deposit" : "Cash Pickup"}
+        {deliveryMethod === "bankDeposit"
+          ? t("sendMoney.selectInstitution.bank.mainHeading")
+          : t("sendMoney.selectInstitution.cash.mainHeading")}
       </Typography>
       <Typography variant="subtitle1">
         {deliveryMethod === "bankDeposit"
-          ? "Select your recipient's bank"
-          : "Select a cash pickup option"}
+          ? t("sendMoney.selectInstitution.bank.subtitle")
+          : t("sendMoney.selectInstitution.cash.subtitle")}
       </Typography>
       {deliveryMethod === "bankDeposit" ? (
         <>
@@ -78,7 +83,9 @@ const SelectInstitutionStep = () => {
         </>
       ) : (
         <>
-          <Typography>Banks</Typography>
+          <Typography>
+            {t("sendMoney.selectInstitution.cash.options.banks")}
+          </Typography>
           {cashPickupSites?.banks?.map((bank) => (
             <OptionCard
               key={bank.id}
@@ -88,7 +95,10 @@ const SelectInstitutionStep = () => {
             />
           ))}
 
-          <Typography>Other Locations</Typography>
+          <Typography>
+            {" "}
+            {t("sendMoney.selectInstitution.cash.options.other")}
+          </Typography>
           <CashPickupSitesCard sites={cashPickupSites?.otherSites} />
         </>
       )}
