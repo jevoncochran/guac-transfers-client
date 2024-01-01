@@ -140,6 +140,17 @@
           "placeholder": "Por favor, ingresa la ciudad del destinatario"
         }
       }
+    },
+
+    "enterRecipientPhoneNumber": {
+      "mainHeading": "Número de teléfono del destinatario",
+      "subtitle": "Ingresa el número de teléfono celular del destinatario para que podamos enviarle mensajes sobre los envíos",
+      "inputs": {
+        "phone": {
+          "label": "Número de teléfono del destinatario",
+          "placeholder": "Por favor, ingresa el número de teléfono del destinatario"
+        }
+      }
     }
   }
 }

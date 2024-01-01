@@ -144,6 +144,17 @@
           "placeholder": "Please enter city of recipient"
         }
       }
+    },
+
+    "enterRecipientPhoneNumber": {
+      "mainHeading": "Recipient Phone Number",
+      "subtitle": "Enter your recipient's phone number so that we can text them transfer updates",
+      "inputs": {
+        "phone": {
+          "label": "Recipient Mobile Number",
+          "placeholder": "Please enter your recpient's phone number"
+        }
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ import {
   setRecipientPhoneNum,
 } from "../../redux/features/transfer/transferSlice";
 import ContinueButton from "./ContinueButton";
+import { useTranslation } from "react-i18next";
 
 const EnterRecipientPhoneNumberStep = () => {
   const dispatch = useAppDispatch();
@@ -14,18 +15,23 @@ const EnterRecipientPhoneNumberStep = () => {
     (state: RootState) => state.transfer.recipient?.phone
   );
 
+  const { t } = useTranslation();
+
   return (
     <div>
-      <Typography variant="mainHeading">Recipient Phone Number</Typography>
+      <Typography variant="mainHeading">
+        {t("sendMoney.enterRecipientPhoneNumber.mainHeading")}
+      </Typography>
       <Typography variant="subtitle1">
-        Enter your recipient's phone numnber if you would like us to text them
-        transfer updates
+        {t("sendMoney.enterRecipientPhoneNumber.subtitle")}
       </Typography>
       <InputGroup
         inputName="phone"
-        label="Recipient Mobile Number (optional)"
+        label={t("sendMoney.enterRecipientPhoneNumber.inputs.phone.label")}
         value={recipientPhoneNum ?? ""}
-        placeholder="Please enter your recpient's phone number"
+        placeholder={t(
+          "sendMoney.enterRecipientPhoneNumber.inputs.phone.placeholder"
+        )}
         onChange={(e) => dispatch(setRecipientPhoneNum(e.target.value))}
       />
       <ContinueButton continueAction={() => dispatch(goToNextTransferStep())} />
