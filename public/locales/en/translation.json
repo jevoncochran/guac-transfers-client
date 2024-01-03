@@ -155,6 +155,16 @@
           "placeholder": "Please enter your recpient's phone number"
         }
       }
+    },
+
+    "enterSenderPhoneNumber": {
+      "mainHeading": "Your Phone Number",
+      "inputs": {
+        "phone": {
+          "label": "Your Mobile Number",
+          "placeholder": "Please enter your phone number"
+        }
+      }
     }
   }
 }

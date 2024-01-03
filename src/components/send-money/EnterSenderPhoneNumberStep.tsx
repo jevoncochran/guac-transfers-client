@@ -6,6 +6,7 @@ import ContinueButton from "./ContinueButton";
 import { setUserPhoneNum } from "../../redux/features/auth/authSlice";
 import { goToNextTransferStep } from "../../redux/features/transfer/transferSlice";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const EnterSenderPhoneNumberStep = () => {
   const dispatch = useAppDispatch();
@@ -14,15 +15,21 @@ const EnterSenderPhoneNumberStep = () => {
     (state: RootState) => state.auth.user?.phone
   );
 
+  const { t } = useTranslation();
+
   return (
     <div>
       <div>
-        <Typography variant="mainHeading">Your Phone Number</Typography>
+        <Typography variant="mainHeading">
+          {t("sendMoney.enterSenderPhoneNumber.mainHeading")}
+        </Typography>
         <InputGroup
           inputName="phone"
-          label="Your Mobile Number"
+          label={t("sendMoney.enterSenderPhoneNumber.inputs.phone.label")}
           value={senderPhoneNum ?? ""}
-          placeholder="Please enter your phone number"
+          placeholder={t(
+            "sendMoney.enterSenderPhoneNumber.inputs.phone.placeholder"
+          )}
           onChange={(e) => dispatch(setUserPhoneNum(e.target.value))}
         />
         <ContinueButton

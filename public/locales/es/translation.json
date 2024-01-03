@@ -151,6 +151,16 @@
           "placeholder": "Por favor, ingresa el número de teléfono del destinatario"
         }
       }
+    },
+
+    "enterSenderPhoneNumber": {
+      "mainHeading": "Tu número de teléfono",
+      "inputs": {
+        "phone": {
+          "label": "Tu número de teléfono celular",
+          "placeholder": "Por favor, ingresa tu número de teléfono"
+        }
+      }
     }
   }
 }
