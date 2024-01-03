@@ -161,6 +161,21 @@
           "placeholder": "Por favor, ingresa tu número de teléfono"
         }
       }
+    },
+
+    "selectPaymentMethod": {
+      "mainHeading": "Método de pago",
+      "options": {
+        "savedCard": {
+          "sublabel": {
+            "debit": "tarjeta de débito",
+            "credit": "tarjeta de crédito"
+          }
+        },
+        "newCard": {
+          "label": "Agregar una nueva tarjeta"
+        }
+      }
     }
   }
 }

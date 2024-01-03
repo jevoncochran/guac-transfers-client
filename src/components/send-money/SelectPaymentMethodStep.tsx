@@ -12,6 +12,7 @@ import { RootState } from "../../redux/store";
 import { TransferStep } from "../../types";
 import { CARD_BRAND_IMG } from "../../constants";
 import addCardImg from "../../assets/add_card.svg";
+import { useTranslation } from "react-i18next";
 
 const SelectPaymentMethodStep = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,8 @@ const SelectPaymentMethodStep = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
 
   const [cards, setCards] = useState([]);
+
+  const { t } = useTranslation();
 
   const handleCardSelect = (value: any) => {
     dispatch(
@@ -50,12 +53,22 @@ const SelectPaymentMethodStep = () => {
 
   return (
     <div>
-      <Typography variant="mainHeading">Payment Method</Typography>
+      <Typography variant="mainHeading">
+        {t("sendMoney.selectPaymentMethod.mainHeading")}
+      </Typography>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {cards.map((card: any) => (
         <OptionCard
           label={`•••• •••• •••• ${card.card.last4}`}
-          sublabel={`${card.card.funding} card`.toUpperCase()}
+          sublabel={
+            card.card.funding === "debit"
+              ? t(
+                  "sendMoney.selectPaymentMethod.options.savedCard.sublabel.debit"
+                ).toUpperCase()
+              : t(
+                  "sendMoney.selectPaymentMethod.options.savedCard.sublabel.credit"
+                ).toUpperCase()
+          }
           value={card}
           handleClick={handleCardSelect}
           startAdornment={
@@ -64,7 +77,7 @@ const SelectPaymentMethodStep = () => {
         />
       ))}
       <OptionCard
-        label="Add New Card"
+        label={t("sendMoney.selectPaymentMethod.options.newCard.label")}
         value={undefined}
         handleClick={() => dispatch(goToNextTransferStep())}
         startAdornment={addCardImg}

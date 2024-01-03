@@ -165,6 +165,21 @@
           "placeholder": "Please enter your phone number"
         }
       }
+    },
+
+    "selectPaymentMethod": {
+      "mainHeading": "Payment Method",
+      "options": {
+        "savedCard": {
+          "sublabel": {
+            "debit": "debit card",
+            "credit": "credit card"
+          }
+        },
+        "newCard": {
+          "label": "Add New Card"
+        }
+      }
     }
   }
 }
