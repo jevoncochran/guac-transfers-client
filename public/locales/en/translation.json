@@ -180,6 +180,91 @@
           "label": "Add New Card"
         }
       }
+    },
+
+    "confirmTransfer": {
+      "mainHeading": "Confirm and Send",
+      "continueButton": "Send",
+      "editButton": "Edit",
+      "section": {
+        "amount": {
+          "label": "Amount & Delivery",
+          "subsections": {
+            "converted": {
+              "label": "Amount Converted"
+            },
+            "fee": {
+              "label": "Transfer Fee"
+            },
+            "cost": {
+              "label": "Total Cost"
+            },
+            "toRecipient": {
+              "label": "Total to Recipient"
+            },
+            "transferMethod": {
+              "label": "Delivery Speed",
+              "line1": {
+                "card": "Express",
+                "bankAccount": "Economy"
+              }
+            },
+            "deliveryMethod": {
+              "label": "Delivery Method",
+              "line1": {
+                "bank": "Bank Deposit",
+                "cash": "Cash Pickup"
+              }
+            },
+            "cashPickup": {
+              "label": "Cash Pickup Location(s)"
+            }
+          }
+        },
+
+        "payment": {
+          "label": "Payment Details",
+          "subsections": {
+            "method": {
+              "label": "Payment Method",
+              "line1": {
+                "debit": "debit",
+                "credit": "credit"
+              }
+            },
+            "billingAddress": {
+              "label": "Billing Address"
+            }
+          }
+        },
+
+        "recipient": {
+          "label": "Recipient Details",
+          "subsections": {
+            "name": {
+              "label": "Name"
+            },
+            "address": {
+              "label": "Address"
+            },
+            "phone": {
+              "label": "Phone Number"
+            }
+          }
+        },
+
+        "sender": {
+          "label": "Your Details",
+          "subsections": {
+            "name": {
+              "label": "Name"
+            },
+            "phone": {
+              "label": "Phone Number"
+            }
+          }
+        }
+      }
     }
   }
 }

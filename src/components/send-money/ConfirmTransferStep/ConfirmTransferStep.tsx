@@ -12,12 +12,15 @@ import ContinueButton from "../ContinueButton";
 import axios from "axios";
 import { goToNextTransferStep } from "../../../redux/features/transfer/transferSlice";
 import { formatAmount } from "../../../utils/formatAmount";
+import { useTranslation } from "react-i18next";
 
 const ConfirmTransferStep = () => {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state: RootState) => state.auth.user);
   const transfer = useAppSelector((state: RootState) => state.transfer);
+
+  const { t } = useTranslation();
 
   const userCurrencyCode = getCurrencyCode(user?.country?.code as string);
   const recipientCurrencyCode = getCurrencyCode(
@@ -67,8 +70,18 @@ const ConfirmTransferStep = () => {
         height={20}
         style={{ marginRight: "8px" }}
       />
-      <Typography variant="finePrintImportant" marginRight="8px">
-        {transfer.paymentMethod?.method.type === "debit" ? "Debit" : "Credit"}
+      <Typography
+        variant="finePrintImportant"
+        marginRight="8px"
+        textTransform="capitalize"
+      >
+        {transfer.paymentMethod?.method.type === "debit"
+          ? t(
+              "sendMoney.confirmTransfer.section.payment.subsections.method.line1.debit"
+            )
+          : t(
+              "sendMoney.confirmTransfer.section.payment.subsections.method.line1.credit"
+            )}
       </Typography>
       <Typography variant="finePrintImportant">{`•••• •••• •••• ${transfer.paymentMethod?.method.last4}`}</Typography>
     </Box>
@@ -77,31 +90,41 @@ const ConfirmTransferStep = () => {
   return (
     <div>
       <Typography variant="mainHeading" marginBottom="32px">
-        Confirm and Send
+        {t("sendMoney.confirmTransfer.mainHeading")}
       </Typography>
 
-      <ConfirmationSection label="Amount & Delivery">
+      <ConfirmationSection
+        label={t("sendMoney.confirmTransfer.section.amount.label")}
+      >
         <>
           <ConfirmationOptionCard
             confirmationItems={[
               {
-                label: "Amount Converted",
+                label: t(
+                  "sendMoney.confirmTransfer.section.amount.subsections.converted.label"
+                ),
                 line1: `${formatAmount(
                   (transfer.sendAmount ?? 0) - (transfer.standardFee ?? 0)
                 )} ${userCurrencyCode}`,
               },
               {
-                label: "Transfer Fee",
+                label: t(
+                  "sendMoney.confirmTransfer.section.amount.subsections.fee.label"
+                ),
                 line1: `${transfer.standardFee ?? `0.00`} ${userCurrencyCode}`,
               },
               {
-                label: "Total Cost",
+                label: t(
+                  "sendMoney.confirmTransfer.section.amount.subsections.cost.label"
+                ),
                 line1: `${formatAmount(
                   (transfer.sendAmount ?? 0) + (transfer.standardFee ?? 0)
                 )} ${userCurrencyCode}`,
               },
               {
-                label: "Total to Recipient",
+                label: t(
+                  "sendMoney.confirmTransfer.section.amount.subsections.toRecipient.label"
+                ),
                 line1: `${formatAmount(
                   transfer.receiveAmount
                 )} ${recipientCurrencyCode}`,
@@ -112,9 +135,17 @@ const ConfirmTransferStep = () => {
           <ConfirmationOptionCard
             confirmationItems={[
               {
-                label: "Delivery Speed",
+                label: t(
+                  "sendMoney.confirmTransfer.section.amount.subsections.transferMethod.label"
+                ),
                 line1: `${
-                  transfer.transferMethod === "card" ? "Express" : "Economy"
+                  transfer.transferMethod === "card"
+                    ? t(
+                        "sendMoney.confirmTransfer.section.amount.subsections.transferMethod.line1.card"
+                      )
+                    : t(
+                        "sendMoney.confirmTransfer.section.amount.subsections.transferMethod.line1.bankAccount"
+                      )
                 }`,
               },
             ]}
@@ -123,34 +154,53 @@ const ConfirmTransferStep = () => {
           <ConfirmationOptionCard
             confirmationItems={[
               {
-                label: "Delivery Method",
+                label: t(
+                  "sendMoney.confirmTransfer.section.amount.subsections.deliveryMethod.label"
+                ),
                 line1: `${
                   transfer.deliveryMethod === "bankDeposit"
-                    ? "Bank Deposit"
-                    : "Cash Pickup"
+                    ? t(
+                        "sendMoney.confirmTransfer.section.amount.subsections.deliveryMethod.line1.bank"
+                      )
+                    : t(
+                        "sendMoney.confirmTransfer.section.amount.subsections.deliveryMethod.line1.cash"
+                      )
                 }`,
               },
             ]}
             step={TransferStep.SelectDeliveryMethod}
           />
-          <ConfirmationOptionCard
-            confirmationItems={[
-              {
-                label: "Cash Pickup Location(s)",
-                line1: transfer.institution?.name as string,
-              },
-            ]}
-            step={TransferStep.SelectInstitution}
-          />
+          {transfer.deliveryMethod === "cashPickup" && (
+            <ConfirmationOptionCard
+              confirmationItems={[
+                {
+                  label: t(
+                    "sendMoney.confirmTransfer.section.amount.subsections.cashPickup.label"
+                  ),
+                  line1: transfer.institution?.name as string,
+                },
+              ]}
+              step={TransferStep.SelectInstitution}
+            />
+          )}
         </>
       </ConfirmationSection>
 
-      <ConfirmationSection label="Payment Details">
+      <ConfirmationSection
+        label={t("sendMoney.confirmTransfer.section.payment.label")}
+      >
         <ConfirmationOptionCard
           confirmationItems={[
-            { label: "Payment Method", line1: PaymentCard },
             {
-              label: "Billing Address",
+              label: t(
+                "sendMoney.confirmTransfer.section.payment.subsections.method.label"
+              ),
+              line1: PaymentCard,
+            },
+            {
+              label: t(
+                "sendMoney.confirmTransfer.section.payment.subsections.billingAddress.label"
+              ),
               line1: "5542 Foothill Blvd",
               line2: "Oakland, CA 94605",
             },
@@ -159,12 +209,16 @@ const ConfirmTransferStep = () => {
         />
       </ConfirmationSection>
 
-      <ConfirmationSection label="Recipient Details">
+      <ConfirmationSection
+        label={t("sendMoney.confirmTransfer.section.recipient.label")}
+      >
         <>
           <ConfirmationOptionCard
             confirmationItems={[
               {
-                label: "Name",
+                label: t(
+                  "sendMoney.confirmTransfer.section.recipient.subsections.name.label"
+                ),
                 line1: `${transfer.recipient?.name?.firstName} ${transfer.recipient?.name?.lastName}`,
               },
             ]}
@@ -173,7 +227,9 @@ const ConfirmTransferStep = () => {
           <ConfirmationOptionCard
             confirmationItems={[
               {
-                label: "Address",
+                label: t(
+                  "sendMoney.confirmTransfer.section.recipient.subsections.address.label"
+                ),
                 line1: transfer.recipient?.address?.streetAddress as string,
                 line2: `${transfer.recipient?.address?.city}, ${transfer.recipient?.address?.department}`,
               },
@@ -183,7 +239,9 @@ const ConfirmTransferStep = () => {
           <ConfirmationOptionCard
             confirmationItems={[
               {
-                label: "Phone Number",
+                label: t(
+                  "sendMoney.confirmTransfer.section.recipient.subsections.phone.label"
+                ),
                 line1: transfer.recipient?.phone as string,
               },
             ]}
@@ -192,11 +250,18 @@ const ConfirmTransferStep = () => {
         </>
       </ConfirmationSection>
 
-      <ConfirmationSection label="Sender Details">
+      <ConfirmationSection
+        label={t("sendMoney.confirmTransfer.section.sender.label")}
+      >
         <>
           <ConfirmationOptionCard
             confirmationItems={[
-              { label: "Name", line1: `${user?.firstName} ${user?.lastName}` },
+              {
+                label: t(
+                  "sendMoney.confirmTransfer.section.sender.subsections.name.label"
+                ),
+                line1: `${user?.firstName} ${user?.lastName}`,
+              },
             ]}
             canEdit={false}
           />
@@ -213,7 +278,9 @@ const ConfirmTransferStep = () => {
           <ConfirmationOptionCard
             confirmationItems={[
               {
-                label: "Phone Number",
+                label: t(
+                  "sendMoney.confirmTransfer.section.sender.subsections.phone.label"
+                ),
                 line1: user?.phone as string,
               },
             ]}
@@ -222,7 +289,11 @@ const ConfirmTransferStep = () => {
         </>
       </ConfirmationSection>
 
-      <ContinueButton text="Send" continueAction={handleSubmit} />
+      <ContinueButton
+        text={t("sendMoney.confirmTransfer.continueButton")}
+        continueAction={handleSubmit}
+        isDefault={false}
+      />
     </div>
   );
 };

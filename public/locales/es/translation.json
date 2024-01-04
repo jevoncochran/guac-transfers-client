@@ -176,6 +176,91 @@
           "label": "Agregar una nueva tarjeta"
         }
       }
+    },
+
+    "confirmTransfer": {
+      "mainHeading": "Confirmar y Enviar",
+      "continueButton": "Enviar",
+      "editButton": "Editar",
+      "section": {
+        "amount": {
+          "label": "Cantidad y entrega",
+          "subsections": {
+            "converted": {
+              "label": "Cantidad cambiada"
+            },
+            "fee": {
+              "label": "Cargo de transferencia"
+            },
+            "cost": {
+              "label": "Costo total"
+            },
+            "toRecipient": {
+              "label": "Total que recebirá el destinatario"
+            },
+            "transferMethod": {
+              "label": "Tiempo de entrega",
+              "line1": {
+                "card": "Express",
+                "bankAccount": "Económico"
+              }
+            },
+            "deliveryMethod": {
+              "label": "Método de envío",
+              "line1": {
+                "bank": "Depósito bancario",
+                "cash": "Retiro de efectivo"
+              }
+            },
+            "cashPickup": {
+              "label": "Local(es) para retirar el efectivo"
+            }
+          }
+        },
+
+        "payment": {
+          "label": "Detalles del pago",
+          "subsections": {
+            "method": {
+              "label": "Método de pago",
+              "line1": {
+                "debit": "débito",
+                "credit": "crédito"
+              }
+            },
+            "billingAddress": {
+              "label": "Dirección de facturación"
+            }
+          }
+        },
+
+        "recipient": {
+          "label": "Información del destinatario",
+          "subsections": {
+            "name": {
+              "label": "Nombre"
+            },
+            "address": {
+              "label": "Dirección"
+            },
+            "phone": {
+              "label": "Número de teléfono"
+            }
+          }
+        },
+
+        "sender": {
+          "label": "Tu información",
+          "subsections": {
+            "name": {
+              "label": "Nombre"
+            },
+            "phone": {
+              "label": "Número de teléfono"
+            }
+          }
+        }
+      }
     }
   }
 }
