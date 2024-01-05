@@ -282,6 +282,22 @@
           }
         }
       }
+    },
+
+    "success": {
+      "mainHeading": "Transferencia exitosa",
+      "received": "Recibido por",
+      "confirmation": {
+        "bankDeposit": {
+          "line1": "Hemos confirmado que los fondos fueron depositados en la cuenta de",
+          "line2": "de su destinatario."
+        },
+        "cash": {
+          "line1": "Hemos confirmado que los fondos están disponibles para retiro de efectivo en",
+          "line2": "los siguientes locales:"
+        },
+        "complete": "Su transacción está completa y esperamos verlo de nuevo."
+      }
     }
   }
 }

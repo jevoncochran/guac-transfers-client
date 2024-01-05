@@ -286,6 +286,22 @@
           }
         }
       }
+    },
+
+    "success": {
+      "mainHeading": "Successful Transfer",
+      "received": "Received by",
+      "confirmation": {
+        "bankDeposit": {
+          "line1": "We have confirmed your funds were deposited to your recipient's",
+          "line2": "account."
+        },
+        "cash": {
+          "line1": "We have confirmed your funds are available for cash pickup at",
+          "line2": "the following locations:"
+        },
+        "complete": "Your transaction is complete and we hope to see you again."
+      }
     }
   }
 }
