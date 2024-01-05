@@ -182,6 +182,27 @@
       }
     },
 
+    "enterCardDetails": {
+      "label": "Add New Card",
+      "inputs": {
+        "cardNumber": {
+          "label": "Card Number"
+        },
+        "cardExpiration": {
+          "label": "Expiration Date"
+        },
+        "cvc": { "label": "Security Code" },
+        "zip": {
+          "label": "Postal Code",
+          "placeholder": "Please enter your postal code"
+        },
+        "name": {
+          "label": "Your Name (as it appears on card)",
+          "placeholder": "Please enter your name as it appears on card"
+        }
+      }
+    },
+
     "confirmTransfer": {
       "mainHeading": "Confirm and Send",
       "continueButton": "Send",

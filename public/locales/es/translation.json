@@ -178,6 +178,27 @@
       }
     },
 
+    "enterCardDetails": {
+      "label": "Agregar una nueva tarjeta",
+      "inputs": {
+        "cardNumber": {
+          "label": "Número de tarjeta"
+        },
+        "cardExpiration": {
+          "label": "Fecha de vencimiento"
+        },
+        "cvc": { "label": "Código de seguridad" },
+        "zip": {
+          "label": "Código postal",
+          "placeholder": "Por favor, ingresa tu código postal"
+        },
+        "name": {
+          "label": "Tu nombre (como aparece en la tarjeta)",
+          "placeholder": "Por favor, ingresa tu nombre tal cual como aparece en la tarjeta"
+        }
+      }
+    },
+
     "confirmTransfer": {
       "mainHeading": "Confirmar y Enviar",
       "continueButton": "Enviar",
