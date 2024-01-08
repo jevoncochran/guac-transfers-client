@@ -35,8 +35,39 @@
       },
       "submitButton": "Inicia sesión",
       "register": {
-        "text": "Necesitas una cuenta?",
+        "text": "Necesitas un perfil?",
         "clickable": "Unirse ahora"
+      }
+    },
+
+    "register": {
+      "label": "Crea un perfil",
+      "inputs": {
+        "firstName": {
+          "label": "Nombre",
+          "placeholder": "Por favor, ingresa tu nombre"
+        },
+        "lastName": {
+          "label": "Apellido",
+          "placeholder": "Por favor, ingresa tu apellido"
+        },
+        "email": {
+          "label": "Correo electrónico",
+          "placeholder": "Por favor, ingresa tu correo electrónico"
+        },
+        "password": {
+          "label": "Contraseña",
+          "placeholder": "Por favor, ingresa tu contraseña"
+        },
+        "passwordConfirm": {
+          "label": "Confirmar contraseña",
+          "placeholder": "Por favor, ingresa tu contraseña de nuevo"
+        }
+      },
+      "submitButton": "Unirse ahora",
+      "login": {
+        "text": "Ya tienes un perfil?",
+        "clickable": "Iniciar sesión"
       }
     }
   },

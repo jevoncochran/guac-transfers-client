@@ -23,7 +23,7 @@ const AuthDialog = ({ open, handleClose, type }: Props) => {
   const getAuthDialog = (type: string | null) => {
     switch (type) {
       case "signUp":
-        return { component: <SignUpForm />, label: "Create an account" };
+        return { component: <SignUpForm />, label: t("auth.register.label") };
       case "signIn":
         return { component: <LoginForm />, label: t("auth.login.label") };
       default:

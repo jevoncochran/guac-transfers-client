@@ -14,6 +14,7 @@ import {
   getLanguageByCode,
 } from "../../utils/getLanguageAndCountry";
 import InputGroup from "../InputGroup";
+import { useTranslation } from "react-i18next";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ const SignUpForm = () => {
     password: "",
     passwordConfirm: "",
   });
+
+  const { t } = useTranslation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -65,51 +68,51 @@ const SignUpForm = () => {
     <form onSubmit={handleSubmit}>
       <InputGroup
         inputName="firstName"
-        label="First Name"
+        label={t("auth.register.inputs.firstName.label")}
         value={credentials.firstName}
         type="text"
-        placeholder="Please enter your your first name"
+        placeholder={t("auth.register.inputs.firstName.placeholder")}
         onChange={handleChange}
       />
 
       <InputGroup
         inputName="lastName"
-        label="Last Name"
+        label={t("auth.register.inputs.lastName.label")}
         value={credentials.lastName}
         type="text"
-        placeholder="Please enter your your last name"
+        placeholder={t("auth.register.inputs.lastName.placeholder")}
         onChange={handleChange}
       />
 
       <InputGroup
         inputName="email"
-        label="Email Address"
+        label={t("auth.register.inputs.email.label")}
         value={credentials.email}
         type="email"
-        placeholder="Please enter your email address"
+        placeholder={t("auth.register.inputs.email.placeholder")}
         onChange={handleChange}
       />
 
       <InputGroup
         inputName="password"
-        label="Password"
+        label={t("auth.register.inputs.password.label")}
         value={credentials.password}
         type="password"
-        placeholder="Please enter your password"
+        placeholder={t("auth.register.inputs.password.placeholder")}
         onChange={handleChange}
       />
 
       <InputGroup
         inputName="passwordConfirm"
-        label="Confirm Password"
+        label={t("auth.register.inputs.passwordConfirm.label")}
         value={credentials.passwordConfirm}
         type="password"
-        placeholder="Please confirm your password"
+        placeholder={t("auth.register.inputs.passwordConfirm.placeholder")}
         onChange={handleChange}
       />
-      <AuthDialogButton label="Join Now" />
+      <AuthDialogButton label={t("auth.register.submitButton")} />
       <Typography>
-        Already have an account?{" "}
+        {t("auth.register.login.text")}{" "}
         <span
           style={{
             color: "#609000",
@@ -118,7 +121,7 @@ const SignUpForm = () => {
           }}
           onClick={() => dispatch(openLoginModal())}
         >
-          Sign In
+          {t("auth.register.login.clickable")}
         </span>
       </Typography>
     </form>

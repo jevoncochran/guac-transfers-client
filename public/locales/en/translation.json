@@ -37,6 +37,37 @@
         "text": "Need an account?",
         "clickable": "Join Now"
       }
+    },
+
+    "register": {
+      "label": "Create an account",
+      "inputs": {
+        "firstName": {
+          "label": "First Name",
+          "placeholder": "Please enter your first name"
+        },
+        "lastName": {
+          "label": "Last Name",
+          "placeholder": "Please enter your last name"
+        },
+        "email": {
+          "label": "Email Address",
+          "placeholder": "Please enter your email address"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Please enter your password"
+        },
+        "passwordConfirm": {
+          "label": "Confirm Password",
+          "placeholder": "Please confirm your password"
+        }
+      },
+      "submitButton": "Join Now",
+      "login": {
+        "text": "Already have an account?",
+        "clickable": "Sign In"
+      }
     }
   },
 
