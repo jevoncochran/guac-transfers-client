@@ -2,8 +2,11 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import families from "../../assets/families.png";
+import { useTranslation } from "react-i18next";
 
 const HeroSection = () => {
+  const { t } = useTranslation();
+
   return (
     <Box
       display={"flex"}
@@ -23,13 +26,13 @@ const HeroSection = () => {
           color={"#609000"}
           textAlign={"center"}
         >
-          Hassle-free transfers when and where you need them
+          {t("landing.hero.tagline")}
         </Typography>
         <Button
           variant="contained"
           sx={{ marginTop: "24px", marginX: "auto", width: "150px" }}
         >
-          Learn More
+          {t("landing.hero.moreInfoButton")}
         </Button>
       </Box>
       <Box

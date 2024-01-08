@@ -7,6 +7,8 @@
       "tab3": "Refer Friends"
     },
 
+    "auth": { "login": "Sign In", "register": "Join Now" },
+
     "welcome": "Welcome",
 
     "accountMenu": {
@@ -18,6 +20,13 @@
   },
 
   "divider": { "send": "Send money to" },
+
+  "landing": {
+    "hero": {
+      "tagline": "Hassle-free transfers when and where you need them",
+      "moreInfoButton": "Learn More"
+    }
+  },
 
   "auth": {
     "login": {

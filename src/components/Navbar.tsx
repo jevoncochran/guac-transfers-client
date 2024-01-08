@@ -289,7 +289,7 @@ const Navbar = () => {
               display={"flex"}
               justifyContent={"flex-end"}
               sx={{
-                width: "270px",
+                width: "350px",
               }}
             >
               <Button
@@ -297,13 +297,13 @@ const Navbar = () => {
                 sx={{ mr: "16px" }}
                 onClick={() => dispatch(openLoginModal())}
               >
-                Sign In
+                {t("navBar.auth.login")}
               </Button>
               <Button
                 variant="contained"
                 onClick={() => dispatch(openRegisterModal())}
               >
-                Join Now
+                {t("navBar.auth.register")}
               </Button>
             </Box>
           )}

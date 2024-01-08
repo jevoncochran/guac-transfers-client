@@ -8,6 +8,8 @@
       "tab3": "Compartir con amigos"
     },
 
+    "auth": { "login": "Inicia sesión", "register": "Regístrate" },
+
     "welcome": "Bienvenido",
 
     "accountMenu": {
@@ -19,6 +21,13 @@
   },
 
   "divider": { "send": "Enviar dinero a" },
+
+  "landing": {
+    "hero": {
+      "tagline": "Transferencias sin problemas cuando y donde las necesites",
+      "moreInfoButton": "Aprende más"
+    }
+  },
 
   "auth": {
     "login": {
