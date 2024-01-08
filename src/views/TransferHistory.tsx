@@ -5,11 +5,14 @@ import { RootState } from "../redux/store";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TransferCard from "../components/transfer-history/TransferCard";
+import { useTranslation } from "react-i18next";
 
 const TransferHistory = () => {
   const userId = useAppSelector((state: RootState) => state.auth.user?.id);
 
   const [transfers, setTransfers] = useState([]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     axios
@@ -26,7 +29,7 @@ const TransferHistory = () => {
         variant="mainHeading"
         sx={{ marginBottom: "16px", textAlign: "center" }}
       >
-        Your Transfers
+        {t("transferHistory.mainHeading")}
       </Typography>
       <Box
         sx={{

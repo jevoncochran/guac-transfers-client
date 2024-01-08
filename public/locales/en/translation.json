@@ -303,5 +303,13 @@
         "complete": "Your transaction is complete and we hope to see you again."
       }
     }
+  },
+
+  "transferHistory": {
+    "mainHeading": "Your Transfers",
+
+    "transferCard": {
+      "sent": "Sent on"
+    }
   }
 }

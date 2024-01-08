@@ -4,8 +4,10 @@ import Box from "@mui/material/Box";
 import { Transfer } from "../../types";
 import { getCurrencyCode } from "../../utils/getCurrencyCode";
 import { useTheme } from "@mui/material";
-import { formatAmount } from "../../utils/formatAmount";
-import dayjs from "dayjs";
+import useFormatAmount from "../../hooks/useFormatAmout";
+import i18n from "../../i18n";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "../../utils/formatDate";
 
 interface Props {
   transfer: Transfer;
@@ -13,6 +15,10 @@ interface Props {
 
 const TransferCard = ({ transfer }: Props) => {
   const theme = useTheme();
+
+  const { t } = useTranslation();
+
+  const { formatAmount } = useFormatAmount();
 
   return (
     <Card
@@ -39,9 +45,9 @@ const TransferCard = ({ transfer }: Props) => {
           )} ${getCurrencyCode(transfer.transferCountry)}`}</Typography>
         </Box>
       </Box>
-      <Typography variant="cardDate">{`Sent on ${dayjs(transfer.sent).format(
-        "MMM DD, YYYY"
-      )}`}</Typography>
+      <Typography variant="cardDate">{`${t(
+        "transferHistory.transferCard.sent"
+      )} ${formatDate(transfer.sent, i18n.language)}`}</Typography>
     </Card>
   );
 };

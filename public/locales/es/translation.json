@@ -299,5 +299,13 @@
         "complete": "Su transacción está completa y esperamos verlo de nuevo."
       }
     }
+  },
+
+  "transferHistory": {
+    "mainHeading": "Tus transferencias",
+
+    "transferCard": {
+      "sent": "Enviado"
+    }
   }
 }
