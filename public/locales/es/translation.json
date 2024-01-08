@@ -20,6 +20,27 @@
 
   "divider": { "send": "Enviar dinero a" },
 
+  "auth": {
+    "login": {
+      "label": "Hola de nuevo",
+      "inputs": {
+        "email": {
+          "label": "Correo electrónico",
+          "placeholder": "Por favor, ingresa tu correo electrónico"
+        },
+        "password": {
+          "label": "Contraseña",
+          "placeholder": "Por favor, ingresa tu contraseña"
+        }
+      },
+      "submitButton": "Inicia sesión",
+      "register": {
+        "text": "Necesitas una cuenta?",
+        "clickable": "Unirse ahora"
+      }
+    }
+  },
+
   "sendMoney": {
     "backButton": "Regresar",
 

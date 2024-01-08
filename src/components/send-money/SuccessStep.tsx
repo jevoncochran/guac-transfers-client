@@ -6,7 +6,7 @@ import { clearTransfer } from "../../redux/features/transfer/transferSlice";
 import { RootState } from "../../redux/store";
 import { getCurrencyCode } from "../../utils/getCurrencyCode";
 import { DeliveryMethod, Institution } from "../../types";
-import { formatAmount } from "../../utils/formatAmount";
+import useFormatAmount from "../../hooks/useFormatAmout";
 import { useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +18,8 @@ const SuccessStep = () => {
   const transfer = useAppSelector((state: RootState) => state.transfer);
 
   const { t } = useTranslation();
+
+  const { formatAmount } = useFormatAmount();
 
   const parseConfirmationMessage = (
     deliveryMethod: DeliveryMethod,

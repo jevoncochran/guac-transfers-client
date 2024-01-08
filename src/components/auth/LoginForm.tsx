@@ -14,12 +14,15 @@ import {
   getCountryByCode,
 } from "../../utils/getLanguageAndCountry";
 import InputGroup from "../InputGroup";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+
+  const { t } = useTranslation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -60,23 +63,23 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit}>
       <InputGroup
         inputName="email"
-        label="Email Address"
+        label={t("auth.login.inputs.email.label")}
         value={credentials.email}
         type="email"
-        placeholder="Please enter your email address"
+        placeholder={t("auth.login.inputs.email.placeholder")}
         onChange={handleChange}
       />
       <InputGroup
         inputName="password"
-        label="Password"
+        label={t("auth.login.inputs.password.label")}
         value={credentials.password}
         type="password"
-        placeholder="Please enter your password"
+        placeholder={t("auth.login.inputs.password.placeholder")}
         onChange={handleChange}
       />
-      <AuthDialogButton label="Sign In" />
+      <AuthDialogButton label={t("auth.login.submitButton")} />
       <Typography>
-        Need an account?{" "}
+        {t("auth.login.register.text")}{" "}
         <span
           style={{
             color: "#609000",
@@ -85,7 +88,7 @@ const LoginForm = () => {
           }}
           onClick={handleJoinNow}
         >
-          Join Now
+          {t("auth.login.register.clickable")}
         </span>
       </Typography>
     </form>
