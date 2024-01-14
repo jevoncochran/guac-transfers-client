@@ -13,6 +13,7 @@ import axios from "axios";
 import { goToNextTransferStep } from "../../../redux/features/transfer/transferSlice";
 import { formatAmount } from "../../../utils/formatAmount";
 import { useTranslation } from "react-i18next";
+import { PHONE_PREFIXES } from "../../../constants";
 
 const ConfirmTransferStep = () => {
   const dispatch = useAppDispatch();
@@ -40,9 +41,10 @@ const ConfirmTransferStep = () => {
     recipientFirstName: transfer.recipient?.name?.firstName,
     recipientLastName: transfer.recipient?.name?.lastName,
     transferCountry: transfer.country?.code,
-    recipientPhoneIso: transfer.recipient?.phone?.iso,
+    recipientPhoneIso: transfer.recipient?.phone?.iso ?? transfer.country?.code,
     recipientPhoneNum: `+${
-      transfer.recipient?.phone?.prefix
+      transfer.recipient?.phone?.prefix ??
+      PHONE_PREFIXES[transfer.country?.code]
     } ${transfer.recipient?.phone?.body.replace(/\s+/g, "")}`,
     recipientStreetAddress: transfer.recipient?.address?.streetAddress,
     recipientCity: transfer.recipient?.address?.city,
@@ -246,7 +248,8 @@ const ConfirmTransferStep = () => {
                   "sendMoney.confirmTransfer.section.recipient.subsections.phone.label"
                 ),
                 line1: `+${
-                  transfer.recipient?.phone?.prefix
+                  transfer.recipient?.phone?.prefix?.replace("+", "") ??
+                  PHONE_PREFIXES[transfer.country?.code]
                 } ${transfer.recipient?.phone?.body.replace(/\s+/g, "")}`,
               },
             ]}
@@ -286,10 +289,10 @@ const ConfirmTransferStep = () => {
                 label: t(
                   "sendMoney.confirmTransfer.section.sender.subsections.phone.label"
                 ),
-                line1: `+${user?.phone?.prefix} ${user?.phone?.body.replace(
-                  /\s+/g,
+                line1: `+${user?.phone?.prefix?.replace(
+                  "+",
                   ""
-                )}`,
+                )} ${user?.phone?.body.replace(/\s+/g, "")}`,
               },
             ]}
             canEdit={false}

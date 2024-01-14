@@ -18,6 +18,7 @@ import { useMenuItems } from "../hooks/useMenuItems";
 import { NavLink } from "react-router-dom";
 import { Country, Language } from "../types";
 import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -246,7 +247,7 @@ const Navbar = () => {
               />
               {userCountry && (
                 <Typography sx={{ marginX: "8px" }}>
-                  {userCountry.name}
+                  {userCountry.name[i18n.language]}
                 </Typography>
               )}
               <ExpandMoreOutlinedIcon />

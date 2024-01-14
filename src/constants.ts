@@ -4,17 +4,17 @@ import mastercard from "./assets/mastercard.svg";
 const SITE_PADDING_X = "200px";
 
 const USER_COUNTRIES = [
-  { code: "AT", name: "Austria" },
-  { code: "AU", name: "Australia" },
-  { code: "BE", name: "Belgium" },
-  { code: "CA", name: "Canada" },
-  { code: "ES", name: "Spain" },
-  { code: "CH", name: "Switzerland" },
-  { code: "DE", name: "Germany" },
-  { code: "DK", name: "Denmark" },
-  { code: "FR", name: "France" },
-  { code: "GB", name: "United Kingdom" },
-  { code: "US", name: "United States" },
+  { code: "AT", name: { en: "Austria", es: "Austria" } },
+  { code: "AU", name: { en: "Australia", es: "Australia" } },
+  { code: "BE", name: { en: "Belgium", es: "Bélgica" } },
+  { code: "CA", name: { en: "Canada", es: "Canadá" } },
+  { code: "ES", name: { en: "Spain", es: "España" } },
+  { code: "CH", name: { en: "Switzerland", es: "Suiza" } },
+  { code: "DE", name: { en: "Germany", es: "Alemania" } },
+  { code: "DK", name: { en: "Denmark", es: "Dinamarca" } },
+  { code: "FR", name: { en: "France", es: "Francia" } },
+  { code: "GB", name: { en: "United Kingdom", es: "Reino Unido" } },
+  { code: "US", name: { en: "United States", es: "Estados Unidos" } },
 ];
 
 // const TRANSFER_COUNTRIES = [

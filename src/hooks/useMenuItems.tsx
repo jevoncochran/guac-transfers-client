@@ -85,7 +85,7 @@ export const useMenuItems = () => {
   }));
 
   const userCountryMenuitems = USER_COUNTRIES.map((country) => ({
-    item: country.name,
+    item: country.name[i18n.language],
     onSelect: () => {
       if (user && isLoggedIn) {
         // Update country in database (only send country code)
