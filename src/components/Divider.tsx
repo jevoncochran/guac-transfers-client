@@ -7,6 +7,7 @@ import { useTheme } from "@mui/material";
 import { useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 const Divider = () => {
   const theme = useTheme();
@@ -61,7 +62,7 @@ const Divider = () => {
               style={{ marginRight: "8px" }}
             />
             <Typography color={theme.palette.secondary.contrastText}>
-              {transferCountry?.name}
+              {transferCountry?.name[i18n.language]}
             </Typography>
           </>
         ) : (

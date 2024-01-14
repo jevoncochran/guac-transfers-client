@@ -92,7 +92,8 @@
         "bankDeposit": {
           "substring1": "",
           "substring2": "account ending in"
-        }
+        },
+        "cashPickup": "Cash pickup at"
       }
     },
 

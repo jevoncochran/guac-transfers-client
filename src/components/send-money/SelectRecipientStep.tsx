@@ -40,7 +40,9 @@ const SelectRecipientStep = () => {
         "sendMoney.selectRecipient.previousRecipient.bankDeposit.substring2"
       )} ${accountNumber?.slice(-4)}`;
     } else {
-      return `Cash pickup at ${institution}`;
+      return `${t(
+        "sendMoney.selectRecipient.previousRecipient.cashPickup"
+      )} ${institution}`;
     }
   };
 

@@ -93,7 +93,8 @@
         "bankDeposit": {
           "substring1": "Cuenta de",
           "substring2": "terminada en"
-        }
+        },
+        "cashPickup": "Retiro de efectivo en"
       }
     },
 
