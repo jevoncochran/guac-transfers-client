@@ -98,6 +98,7 @@
 
     "selectAmount": {
       "mainHeading": "Delivery Speed",
+      "selectCountry": "Please select a country to transfer money to.",
       "send": "You send",
       "receive": "They receive",
       "transferMethod": {
@@ -351,6 +352,7 @@
 
     "success": {
       "mainHeading": "Successful Transfer",
+      "continueButton": "New Transfer",
       "received": "Received by",
       "confirmation": {
         "bankDeposit": {

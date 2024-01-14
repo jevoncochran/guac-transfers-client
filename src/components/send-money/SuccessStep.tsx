@@ -66,8 +66,9 @@ const SuccessStep = () => {
         {t("sendMoney.success.confirmation.complete")}
       </Typography>
       <ContinueButton
-        text="New Transfer"
+        text={t("sendMoney.success.continueButton")}
         continueAction={() => dispatch(clearTransfer())}
+        isDefault={false}
       />
     </div>
   );

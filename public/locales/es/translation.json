@@ -16,7 +16,7 @@
       "settings": "Ajustes",
       "redeem": "Reclamar oferta",
       "help": "Ayuda",
-      "logout": "Salir"
+      "logout": "Cerrar sesión"
     }
   },
 
@@ -99,6 +99,7 @@
 
     "selectAmount": {
       "mainHeading": "Tiempo de entrega",
+      "selectCountry": "Por favor, selecciona el país del destinatario.",
       "send": "Tú envías",
       "receive": "El destinatario recibe",
       "transferMethod": {
@@ -347,6 +348,7 @@
 
     "success": {
       "mainHeading": "Transferencia exitosa",
+      "continueButton": "Nueva transferencia",
       "received": "Recibido por",
       "confirmation": {
         "bankDeposit": {

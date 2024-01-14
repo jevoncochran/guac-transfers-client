@@ -40,7 +40,10 @@ const ConfirmTransferStep = () => {
     recipientFirstName: transfer.recipient?.name?.firstName,
     recipientLastName: transfer.recipient?.name?.lastName,
     transferCountry: transfer.country?.code,
-    recipientPhone: transfer.recipient?.phone,
+    recipientPhoneIso: transfer.recipient?.phone?.iso,
+    recipientPhoneNum: `+${
+      transfer.recipient?.phone?.prefix
+    } ${transfer.recipient?.phone?.body.replace(/\s+/g, "")}`,
     recipientStreetAddress: transfer.recipient?.address?.streetAddress,
     recipientCity: transfer.recipient?.address?.city,
     recipientState: transfer.recipient?.address?.department,
@@ -242,7 +245,9 @@ const ConfirmTransferStep = () => {
                 label: t(
                   "sendMoney.confirmTransfer.section.recipient.subsections.phone.label"
                 ),
-                line1: transfer.recipient?.phone as string,
+                line1: `+${
+                  transfer.recipient?.phone?.prefix
+                } ${transfer.recipient?.phone?.body.replace(/\s+/g, "")}`,
               },
             ]}
             step={TransferStep.EnterRecipientPhoneNumber}
@@ -281,7 +286,10 @@ const ConfirmTransferStep = () => {
                 label: t(
                   "sendMoney.confirmTransfer.section.sender.subsections.phone.label"
                 ),
-                line1: user?.phone as string,
+                line1: `+${user?.phone?.prefix} ${user?.phone?.body.replace(
+                  /\s+/g,
+                  ""
+                )}`,
               },
             ]}
             canEdit={false}

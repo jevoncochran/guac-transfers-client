@@ -292,7 +292,7 @@ const SelectAmountStep = () => {
     </>
   ) : (
     <Typography variant="h5">
-      Please select a country to transfer money to.
+      {t("sendMoney.selectAmount.selectCountry")}
     </Typography>
   );
 };

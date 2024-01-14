@@ -44,6 +44,12 @@ export interface Institution {
   name: string;
 }
 
+export interface Phone {
+  iso: string;
+  prefix: string;
+  body: string;
+}
+
 export interface Recipient {
   id?: number;
   name?: {
@@ -56,7 +62,7 @@ export interface Recipient {
     accountNumber?: string;
   };
   address?: Address;
-  phone?: string;
+  phone?: Phone;
 }
 
 export interface PreviousTransferRecipient {
@@ -68,7 +74,7 @@ export interface PreviousTransferRecipient {
   institutionId: number;
   institution: string;
   accountNumber?: string;
-  phone: string;
+  phone: Phone;
   streetAddress: string;
   city: string;
   state: string;

@@ -9,6 +9,7 @@ interface Props {
   value: string | number;
   type?: HTMLInputTypeAttribute;
   placeholder: string;
+  startAdornment?: JSX.Element;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -18,6 +19,7 @@ const InputGroup = ({
   value,
   type,
   placeholder,
+  startAdornment,
   onChange,
 }: Props) => {
   return (
@@ -29,6 +31,9 @@ const InputGroup = ({
         type={type}
         variant="outlined"
         fullWidth
+        InputProps={{
+          startAdornment,
+        }}
         InputLabelProps={{ shrink: false }}
         placeholder={value ? "" : placeholder}
         onChange={onChange}

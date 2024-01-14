@@ -56,6 +56,16 @@ const SignUpForm = () => {
               country: userCountry,
               stripeCustomerId: res.data.stripe_customer_id,
               stripe_customer_id: undefined,
+              phone:
+                res.data.phoneIso && res.data.phoneNum
+                  ? {
+                      iso: res.data.phoneIso,
+                      prefix: res.data.phoneNum.split(" ")[0],
+                      body: res.data.phoneNum.split(" ")[1],
+                    }
+                  : null,
+              phoneIso: undefined,
+              phoneNum: undefined,
             })
           );
           dispatch(closeAuthModal());
