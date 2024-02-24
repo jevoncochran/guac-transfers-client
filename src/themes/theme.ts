@@ -153,11 +153,11 @@ export const appTheme = createTheme({
       },
     },
     MuiPaper: {
-      styleOverrides: {
-        root: {
-          padding: "12px 24px 24px 24px",
-        },
-      },
+      // styleOverrides: {
+      //   root: {
+      //     padding: "12px 24px 24px 24px",
+      //   },
+      // },
       variants: [
         {
           props: { variant: "dialog" },
@@ -171,6 +171,12 @@ export const appTheme = createTheme({
             padding: 0,
           },
         },
+        // {
+        //   props: { variant: "select" },
+        //   style: {
+        //     padding: 0,
+        //   },
+        // },
       ],
     },
     MuiDialogTitle: {

@@ -3,6 +3,7 @@ import MuiMenuItem from "@mui/material/MenuItem";
 import { TRANSFER_COUNTRIES } from "../constants";
 import { useAppDispatch } from "../redux/hooks";
 import { setTransferCountry } from "../redux/features/transfer/transferSlice";
+import i18n from "../i18n";
 
 interface Props {
   anchorEl: null | HTMLElement;
@@ -57,7 +58,7 @@ const TransferCountryMenu = ({
             src={`https://flagsapi.com/${country.code}/flat/32.png`}
             style={{ marginRight: "8px" }}
           />
-          {country.name}
+          {country.name[i18n.language]}
         </MuiMenuItem>
       ))}
     </MuiMenu>

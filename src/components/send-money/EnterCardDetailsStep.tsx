@@ -16,7 +16,11 @@ import { StripeCardNumberElement } from "@stripe/stripe-js";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import { goToNextTransferStep } from "../../redux/features/transfer/transferSlice";
+import {
+  goToNextTransferStep,
+  setPaymentMethod,
+} from "../../redux/features/transfer/transferSlice";
+import { useTranslation } from "react-i18next";
 
 const EnterCardDetailsStep = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +32,8 @@ const EnterCardDetailsStep = () => {
 
   const [customerName, setCustomerName] = useState("");
   const [postalCode, setPostalCode] = useState("");
+
+  const { t } = useTranslation();
 
   const generateStripeToken = async () => {
     if (!stripe || !elements) {
@@ -64,8 +70,20 @@ const EnterCardDetailsStep = () => {
           tokenId: token?.id,
         })
         .then((res) => {
+          const { data } = res.data;
           console.log(res.data);
           if (res.data.success) {
+            dispatch(
+              setPaymentMethod({
+                type: "card",
+                method: {
+                  stripeId: data.id,
+                  type: data.funding,
+                  brand: data.brand,
+                  last4: data.last4,
+                },
+              })
+            );
             dispatch(goToNextTransferStep());
           }
         });
@@ -76,10 +94,14 @@ const EnterCardDetailsStep = () => {
 
   return (
     <div>
-      <Typography variant="mainHeading">Add New Card</Typography>
+      <Typography variant="mainHeading">
+        {t("sendMoney.enterCardDetails.label")}
+      </Typography>
       <form onSubmit={handleSubmit}>
         <Box sx={{ marginBottom: "16px" }}>
-          <InputLabel>Card Number</InputLabel>
+          <InputLabel>
+            {t("sendMoney.enterCardDetails.inputs.cardNumber.label")}
+          </InputLabel>
           <CardNumberElement id="card-number" className="card-input" />
         </Box>
         <Box
@@ -89,7 +111,9 @@ const EnterCardDetailsStep = () => {
           sx={{ marginBottom: "16px" }} //   border="1px dashed black"
         >
           <Box width="48%">
-            <InputLabel>Expiration Date</InputLabel>
+            <InputLabel>
+              {t("sendMoney.enterCardDetails.inputs.cardExpiration.label")}
+            </InputLabel>
             <CardExpiryElement
               id="card-exp"
               className="card-input card-input-small"
@@ -97,7 +121,9 @@ const EnterCardDetailsStep = () => {
           </Box>
 
           <Box width="48%">
-            <InputLabel>Security Code</InputLabel>
+            <InputLabel>
+              {t("sendMoney.enterCardDetails.inputs.cvc.label")}
+            </InputLabel>
             <CardCvcElement
               id="card-cvc"
               className="card-input card-input-small"
@@ -107,17 +133,17 @@ const EnterCardDetailsStep = () => {
 
         <InputGroup
           inputName="postalCode"
-          label="Postal Code"
+          label={t("sendMoney.enterCardDetails.inputs.zip.label")}
           value={postalCode}
-          placeholder="Please enter your postal code"
+          placeholder={t("sendMoney.enterCardDetails.inputs.zip.placeholder")}
           onChange={(e) => setPostalCode(e.target.value)}
         />
 
         <InputGroup
           inputName="customerName"
-          label="Your Name (as it appears on card)"
+          label={t("sendMoney.enterCardDetails.inputs.name.label")}
           value={customerName}
-          placeholder="Please enter your name as it appears on card"
+          placeholder={t("sendMoney.enterCardDetails.inputs.name.placeholder")}
           onChange={(e) => setCustomerName(e.target.value)}
         />
         <ContinueButton submitBtn />

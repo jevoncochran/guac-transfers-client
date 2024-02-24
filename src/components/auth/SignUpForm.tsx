@@ -14,6 +14,7 @@ import {
   getLanguageByCode,
 } from "../../utils/getLanguageAndCountry";
 import InputGroup from "../InputGroup";
+import { useTranslation } from "react-i18next";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -27,6 +28,9 @@ const SignUpForm = () => {
     password: "",
     passwordConfirm: "",
   });
+  const [loading, setLoading] = useState(false);
+
+  const { t } = useTranslation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -35,6 +39,7 @@ const SignUpForm = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
+    setLoading(true);
     axios
       .post(`${import.meta.env.VITE_API_URL}/auth/register`, {
         ...credentials,
@@ -42,6 +47,7 @@ const SignUpForm = () => {
         country: JSON.parse(localStorage.getItem("country")!).code,
       })
       .then((res) => {
+        setLoading(false);
         if (res.status === 201) {
           // Grab full language object using lang code provided by API call
           const userLang = getLanguageByCode(res.data.language);
@@ -53,6 +59,16 @@ const SignUpForm = () => {
               country: userCountry,
               stripeCustomerId: res.data.stripe_customer_id,
               stripe_customer_id: undefined,
+              phone:
+                res.data.phoneIso && res.data.phoneNum
+                  ? {
+                      iso: res.data.phoneIso,
+                      prefix: res.data.phoneNum.split(" ")[0],
+                      body: res.data.phoneNum.split(" ")[1],
+                    }
+                  : null,
+              phoneIso: undefined,
+              phoneNum: undefined,
             })
           );
           dispatch(closeAuthModal());
@@ -63,53 +79,65 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* First Name */}
       <InputGroup
         inputName="firstName"
-        label="First Name"
+        label={t("auth.register.inputs.firstName.label")}
         value={credentials.firstName}
         type="text"
-        placeholder="Please enter your your first name"
+        placeholder={t("auth.register.inputs.firstName.placeholder")}
         onChange={handleChange}
       />
 
+      {/* Last Name */}
       <InputGroup
         inputName="lastName"
-        label="Last Name"
+        label={t("auth.register.inputs.lastName.label")}
         value={credentials.lastName}
         type="text"
-        placeholder="Please enter your your last name"
+        placeholder={t("auth.register.inputs.lastName.placeholder")}
         onChange={handleChange}
       />
 
+      {/* Email Address */}
       <InputGroup
         inputName="email"
-        label="Email Address"
+        label={t("auth.register.inputs.email.label")}
         value={credentials.email}
         type="email"
-        placeholder="Please enter your email address"
+        placeholder={t("auth.register.inputs.email.placeholder")}
         onChange={handleChange}
       />
 
+      {/* Password */}
       <InputGroup
         inputName="password"
-        label="Password"
+        label={t("auth.register.inputs.password.label")}
         value={credentials.password}
         type="password"
-        placeholder="Please enter your password"
+        placeholder={t("auth.register.inputs.password.placeholder")}
         onChange={handleChange}
       />
 
+      {/* Confirm Password */}
       <InputGroup
         inputName="passwordConfirm"
-        label="Confirm Password"
+        label={t("auth.register.inputs.passwordConfirm.label")}
         value={credentials.passwordConfirm}
         type="password"
-        placeholder="Please confirm your password"
+        placeholder={t("auth.register.inputs.passwordConfirm.placeholder")}
         onChange={handleChange}
       />
-      <AuthDialogButton label="Join Now" />
+
+      {/* Submit Button */}
+      <AuthDialogButton
+        label={t("auth.register.submitButton")}
+        disabled={loading}
+      />
+
+      {/* Sign in instead */}
       <Typography>
-        Already have an account?{" "}
+        {t("auth.register.login.text")}{" "}
         <span
           style={{
             color: "#609000",
@@ -118,7 +146,7 @@ const SignUpForm = () => {
           }}
           onClick={() => dispatch(openLoginModal())}
         >
-          Sign In
+          {t("auth.register.login.clickable")}
         </span>
       </Typography>
     </form>

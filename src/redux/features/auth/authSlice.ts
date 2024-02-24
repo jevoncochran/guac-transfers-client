@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Language, Country } from "../../../types";
+import { Language, Country, Phone } from "../../../types";
 
 export interface AuthState {
   user: {
@@ -10,7 +10,7 @@ export interface AuthState {
     language?: Language;
     country?: Country;
     stripeCustomerId?: string;
-    phone?: string;
+    phone?: Phone;
   } | null;
   isLoggedIn: boolean;
 }

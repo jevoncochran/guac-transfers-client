@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./views/LandingPage.tsx";
@@ -16,6 +16,8 @@ import ReferFriends from "./views/ReferFriends.tsx";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CssBaseline from "@mui/material/CssBaseline";
+import "./i18n";
+import Loading from "./components/Loading.tsx";
 
 const stripe = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -63,7 +65,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={appTheme}>
           <Elements stripe={stripe}>
-            <RouterProvider router={router} />
+            <Suspense fallback={<Loading />}>
+              <RouterProvider router={router} />
+            </Suspense>
           </Elements>
         </ThemeProvider>
       </PersistGate>

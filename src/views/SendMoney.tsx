@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { goToPreviousTransferStep } from "../redux/features/transfer/transferSlice";
+import { useTranslation } from "react-i18next";
 
 const SendMoney = () => {
   const theme = useTheme();
@@ -15,6 +16,8 @@ const SendMoney = () => {
   const transferStep = useAppSelector(
     (state: RootState) => state.transfer.step
   );
+
+  const { t } = useTranslation();
 
   const canGoBack = transferStep > 1 && transferStep < 13;
 
@@ -32,7 +35,7 @@ const SendMoney = () => {
           onClick={() => dispatch(goToPreviousTransferStep())}
         >
           <ArrowBackIcon />
-          <Typography>Back</Typography>
+          <Typography>{t("sendMoney.backButton")}</Typography>
         </Button>
       )}
       <Box sx={{ paddingX: "280px", paddingY: "24px" }}>

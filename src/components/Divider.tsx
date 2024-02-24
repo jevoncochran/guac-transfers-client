@@ -6,6 +6,8 @@ import TransferCountryMenu from "../components/TransferCountryMenu";
 import { useTheme } from "@mui/material";
 import { useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 const Divider = () => {
   const theme = useTheme();
@@ -16,6 +18,8 @@ const Divider = () => {
 
   const [transferCountryMenuAnchorEl, setTransferCountryMenuAnchorEl] =
     useState<null | HTMLElement>(null);
+
+  const { t } = useTranslation();
 
   const isTransferCountryMenuOpen = Boolean(transferCountryMenuAnchorEl);
 
@@ -39,7 +43,7 @@ const Divider = () => {
       sx={{ height: "60px", width: "100%", backgroundColor: "#609000" }}
     >
       <Typography color="#fff" marginRight={"8px"}>
-        Send money to
+        {t("divider.send")}
       </Typography>
       <Box
         display={"flex"}
@@ -58,7 +62,7 @@ const Divider = () => {
               style={{ marginRight: "8px" }}
             />
             <Typography color={theme.palette.secondary.contrastText}>
-              {transferCountry?.name}
+              {transferCountry?.name[i18n.language]}
             </Typography>
           </>
         ) : (

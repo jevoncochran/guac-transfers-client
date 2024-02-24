@@ -14,6 +14,7 @@ import axios from "axios";
 import { RootState } from "../../redux/store";
 import { DeliveryMethod, PreviousTransferRecipient } from "../../types";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { useTranslation } from "react-i18next";
 
 const SelectRecipientStep = () => {
   const theme = useTheme();
@@ -21,8 +22,11 @@ const SelectRecipientStep = () => {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state: RootState) => state.auth.user);
+  const transfer = useAppSelector((state: RootState) => state.transfer);
 
   const [recipients, setRecipients] = useState<PreviousTransferRecipient[]>([]);
+
+  const { t } = useTranslation();
 
   const parseRecipientDeliveryMethod = (
     deliveryMethod: DeliveryMethod,
@@ -30,9 +34,15 @@ const SelectRecipientStep = () => {
     accountNumber: string | null = null
   ) => {
     if (deliveryMethod === "bankDeposit") {
-      return `${institution} account ending in ${accountNumber?.slice(-4)}`;
+      return `${t(
+        "sendMoney.selectRecipient.previousRecipient.bankDeposit.substring1"
+      )} ${institution} ${t(
+        "sendMoney.selectRecipient.previousRecipient.bankDeposit.substring2"
+      )} ${accountNumber?.slice(-4)}`;
     } else {
-      return `Cash pickup at ${institution}`;
+      return `${t(
+        "sendMoney.selectRecipient.previousRecipient.cashPickup"
+      )} ${institution}`;
     }
   };
 
@@ -43,17 +53,20 @@ const SelectRecipientStep = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/recipients?senderId=${user?.id}`)
+      .get(
+        `${import.meta.env.VITE_API_URL}/recipients?senderId=${
+          user?.id
+        }&country=${transfer.country?.code}`
+      )
       .then((res) => {
-        console.log(res.data);
         setRecipients(res.data);
       });
-  }, []);
+  }, [transfer.country?.code, user?.id]);
 
   return (
     <>
       <Typography variant="mainHeading">
-        Select a recipient to send money to:
+        {t("sendMoney.selectRecipient.mainHeading")}
       </Typography>
       <Box
         sx={{
@@ -80,7 +93,7 @@ const SelectRecipientStep = () => {
             }}
             fontSize="medium"
           />
-          <Typography>New Recipient</Typography>
+          <Typography>{t("sendMoney.selectRecipient.newRecipient")}</Typography>
         </Box>
         <NavigateNextIcon />
       </Box>

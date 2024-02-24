@@ -1,16 +1,21 @@
 import Button from "@mui/material/Button";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   text?: string;
   continueAction?: () => void;
   submitBtn?: boolean;
+  isDefault?: boolean;
 }
 
 const ContinueButton = ({
-  text = "Continue",
+  text,
   continueAction,
   submitBtn,
+  isDefault = true,
 }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <Button
       variant="contained"
@@ -24,7 +29,7 @@ const ContinueButton = ({
       onClick={submitBtn ? undefined : continueAction}
       type={submitBtn ? "submit" : "button"}
     >
-      {text}
+      {isDefault ? t("sendMoney.continueButtonDefault") : text}
     </Button>
   );
 };

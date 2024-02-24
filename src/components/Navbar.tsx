@@ -17,6 +17,8 @@ import Menu from "./Menu";
 import { useMenuItems } from "../hooks/useMenuItems";
 import { NavLink } from "react-router-dom";
 import { Country, Language } from "../types";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +38,8 @@ const Navbar = () => {
     useState<null | HTMLElement>(null);
 
   const theme = useTheme();
+
+  const { t } = useTranslation();
 
   const isAccountMenuOpen = Boolean(accountMenuAnchorEl);
   const isLanguageMenuOpen = Boolean(languageMenuAnchorEl);
@@ -87,7 +91,10 @@ const Navbar = () => {
       if (!storedCountry) {
         localStorage.setItem(
           "country",
-          JSON.stringify({ code: "US", name: "United States" })
+          JSON.stringify({
+            code: "US",
+            name: { en: "United States", es: "Estados Unidos" },
+          })
         );
       }
     }
@@ -118,7 +125,7 @@ const Navbar = () => {
             Guac
           </Typography>
           <Typography fontFamily={"Barlow Condensed"} color={"#c0b517"}>
-            Your Money, Fast
+            {t("navBar.motto")}
           </Typography>
         </Box>
       </Box>
@@ -145,7 +152,7 @@ const Navbar = () => {
             >
               {({ isActive }) => (
                 <Box position={"relative"}>
-                  Send Money
+                  {t("navBar.tabs.tab1")}
                   <Box
                     sx={{
                       display: isActive ? "block" : "none",
@@ -171,7 +178,7 @@ const Navbar = () => {
           >
             {({ isActive }) => (
               <Box position={"relative"}>
-                Transfer History
+                {t("navBar.tabs.tab2")}
                 <Box
                   sx={{
                     display: isActive ? "block" : "none",
@@ -196,7 +203,7 @@ const Navbar = () => {
           >
             {({ isActive }) => (
               <Box position={"relative"}>
-                Refer Friends
+                {t("navBar.tabs.tab3")}
                 <Box
                   sx={{
                     display: isActive ? "block" : "none",
@@ -243,7 +250,7 @@ const Navbar = () => {
               />
               {userCountry && (
                 <Typography sx={{ marginX: "8px" }}>
-                  {userCountry.name}
+                  {userCountry.name[i18n.language]}
                 </Typography>
               )}
               <ExpandMoreOutlinedIcon />
@@ -286,7 +293,7 @@ const Navbar = () => {
               display={"flex"}
               justifyContent={"flex-end"}
               sx={{
-                width: "270px",
+                width: "350px",
               }}
             >
               <Button
@@ -294,13 +301,13 @@ const Navbar = () => {
                 sx={{ mr: "16px" }}
                 onClick={() => dispatch(openLoginModal())}
               >
-                Sign In
+                {t("navBar.auth.login")}
               </Button>
               <Button
                 variant="contained"
                 onClick={() => dispatch(openRegisterModal())}
               >
-                Join Now
+                {t("navBar.auth.register")}
               </Button>
             </Box>
           )}
@@ -311,7 +318,9 @@ const Navbar = () => {
               alignItems="center"
               onClick={handleAccountMenuClick}
             >
-              <Typography sx={{ marginX: "8px" }}>Welcome</Typography>
+              <Typography sx={{ marginX: "8px" }}>
+                {t("navBar.welcome")}
+              </Typography>
               <ExpandMoreOutlinedIcon />
             </Box>
             {/* Account Menu */}

@@ -7,6 +7,7 @@ import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   open: boolean;
@@ -14,19 +15,21 @@ interface Props {
   type: string | null;
 }
 
-const getAuthDialog = (type: string | null) => {
-  switch (type) {
-    case "signUp":
-      return { component: <SignUpForm />, label: "Create an account" };
-    case "signIn":
-      return { component: <LoginForm />, label: "Welcome back" };
-    default:
-      return { component: null, label: null };
-  }
-};
-
 const AuthDialog = ({ open, handleClose, type }: Props) => {
   const authDialog = useAppSelector((state: RootState) => state.ui.authDialog);
+
+  const { t } = useTranslation();
+
+  const getAuthDialog = (type: string | null) => {
+    switch (type) {
+      case "signUp":
+        return { component: <SignUpForm />, label: t("auth.register.label") };
+      case "signIn":
+        return { component: <LoginForm />, label: t("auth.login.label") };
+      default:
+        return { component: null, label: null };
+    }
+  };
 
   return authDialog.isOpen ? (
     <Dialog

@@ -1,0 +1,379 @@
+{
+  "navBar": {
+    "motto": "Your Money, Fast",
+    "tabs": {
+      "tab1": "Send Money",
+      "tab2": "Transfer History",
+      "tab3": "Refer Friends"
+    },
+
+    "auth": { "login": "Sign In", "register": "Join Now" },
+
+    "welcome": "Welcome",
+
+    "accountMenu": {
+      "settings": "Settings",
+      "redeem": "Redeem Offer",
+      "help": "Help",
+      "logout": "Logout"
+    }
+  },
+
+  "divider": { "send": "Send money to" },
+
+  "landing": {
+    "hero": {
+      "tagline": "Hassle-free transfers when and where you need them",
+      "moreInfoButton": "Learn More"
+    }
+  },
+
+  "auth": {
+    "login": {
+      "label": "Welcome back",
+      "inputs": {
+        "email": {
+          "label": "Email Address",
+          "placeholder": "Please enter your email address"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Please enter your password"
+        }
+      },
+      "submitButton": "Sign In",
+      "register": {
+        "text": "Need an account?",
+        "clickable": "Join Now"
+      }
+    },
+
+    "register": {
+      "label": "Create an account",
+      "inputs": {
+        "firstName": {
+          "label": "First Name",
+          "placeholder": "Please enter your first name"
+        },
+        "lastName": {
+          "label": "Last Name",
+          "placeholder": "Please enter your last name"
+        },
+        "email": {
+          "label": "Email Address",
+          "placeholder": "Please enter your email address"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Please enter your password"
+        },
+        "passwordConfirm": {
+          "label": "Confirm Password",
+          "placeholder": "Please confirm your password"
+        }
+      },
+      "submitButton": "Join Now",
+      "login": {
+        "text": "Already have an account?",
+        "clickable": "Sign In"
+      }
+    }
+  },
+
+  "sendMoney": {
+    "backButton": "Back",
+
+    "continueButtonDefault": "Continue",
+
+    "selectRecipient": {
+      "mainHeading": "Select a recipient to send money to:",
+      "newRecipient": "New Recipient",
+      "previousRecipient": {
+        "bankDeposit": {
+          "substring1": "",
+          "substring2": "account ending in"
+        },
+        "cashPickup": "Cash pickup at"
+      }
+    },
+
+    "selectAmount": {
+      "mainHeading": "Delivery Speed",
+      "selectCountry": "Please select a country to transfer money to.",
+      "send": "You send",
+      "receive": "They receive",
+      "transferMethod": {
+        "card": {
+          "label": "Express",
+
+          "time": {
+            "substring1": "Money delivered in",
+            "substring2": "minutes"
+          },
+
+          "method": {
+            "substring1": "Pay with",
+            "substring2": "debit/credit card"
+          }
+        },
+
+        "bankAccount": {
+          "label": "Economy",
+
+          "time": {
+            "substring1": "Money delivered in",
+            "substring2": "3-5 days"
+          },
+
+          "method": {
+            "substring1": "Pay with",
+            "substring2": "bank account"
+          }
+        }
+      }
+    },
+
+    "selectDeliveryMethod": {
+      "mainHeading": "Delivery Method",
+      "subtitle": "How would you like the money delivered?",
+      "methods": {
+        "bankDeposit": "Bank Deposit",
+        "cashPickup": "Cash Pickup"
+      }
+    },
+
+    "selectInstitution": {
+      "bank": {
+        "mainHeading": "Bank Deposit",
+        "subtitle": "Select your recipient's bank"
+      },
+
+      "cash": {
+        "mainHeading": "Cash Pickup",
+        "subtitle": "Select a cash pickup option",
+        "options": {
+          "banks": "Banks",
+          "other": "Other Locations"
+        }
+      }
+    },
+
+    "enterRecipientName": {
+      "mainHeading": "Recipient Name",
+      "subtitle": {
+        "bank": "This information should match the name on your recipient's bank account",
+        "cash": "This information should match the name on your recipient's government-issued ID"
+      },
+      "inputs": {
+        "firstName": {
+          "label": "First Name",
+          "placeholder": "Please provide your first name"
+        },
+        "middleName": {
+          "label": "Middle Name",
+          "placeholder": "Please provide your middle name (opcional)"
+        },
+        "lastName": {
+          "label": "Last Name",
+          "placeholder": "Please provide your last name"
+        }
+      }
+    },
+
+    "enterRecipientBankAccount": {
+      "mainHeading": "Recipient Bank Account",
+      "subtitle": "Enter your recipient's bank account number",
+      "inputs": {
+        "accountNumber": {
+          "label": "Account Number",
+          "placeholder": "e.g. 123456789"
+        }
+      }
+    },
+
+    "enterRecipientAddress": {
+      "mainHeading": "Recipient Address",
+      "subtitle": {
+        "substring1": "Enter the address associated with the",
+        "substring2": "account ending in"
+      },
+      "inputs": {
+        "streetAddress": {
+          "label": "Street Address",
+          "placeholder": "Please enter street address of recipient"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "Please enter city of recipient"
+        }
+      }
+    },
+
+    "enterRecipientPhoneNumber": {
+      "mainHeading": "Recipient Phone Number",
+      "subtitle": "Enter your recipient's phone number so that we can text them transfer updates",
+      "inputs": {
+        "phone": {
+          "label": "Recipient Mobile Number",
+          "placeholder": "Please enter your recpient's phone number"
+        }
+      }
+    },
+
+    "enterSenderPhoneNumber": {
+      "mainHeading": "Your Phone Number",
+      "inputs": {
+        "phone": {
+          "label": "Your Mobile Number",
+          "placeholder": "Please enter your phone number"
+        }
+      }
+    },
+
+    "selectPaymentMethod": {
+      "mainHeading": "Payment Method",
+      "options": {
+        "savedCard": {
+          "sublabel": {
+            "debit": "debit card",
+            "credit": "credit card"
+          }
+        },
+        "newCard": {
+          "label": "Add New Card"
+        }
+      }
+    },
+
+    "enterCardDetails": {
+      "label": "Add New Card",
+      "inputs": {
+        "cardNumber": {
+          "label": "Card Number"
+        },
+        "cardExpiration": {
+          "label": "Expiration Date"
+        },
+        "cvc": { "label": "Security Code" },
+        "zip": {
+          "label": "Postal Code",
+          "placeholder": "Please enter your postal code"
+        },
+        "name": {
+          "label": "Your Name (as it appears on card)",
+          "placeholder": "Please enter your name as it appears on card"
+        }
+      }
+    },
+
+    "confirmTransfer": {
+      "mainHeading": "Confirm and Send",
+      "continueButton": "Send",
+      "editButton": "Edit",
+      "section": {
+        "amount": {
+          "label": "Amount & Delivery",
+          "subsections": {
+            "converted": {
+              "label": "Amount Converted"
+            },
+            "fee": {
+              "label": "Transfer Fee"
+            },
+            "cost": {
+              "label": "Total Cost"
+            },
+            "toRecipient": {
+              "label": "Total to Recipient"
+            },
+            "transferMethod": {
+              "label": "Delivery Speed",
+              "line1": {
+                "card": "Express",
+                "bankAccount": "Economy"
+              }
+            },
+            "deliveryMethod": {
+              "label": "Delivery Method",
+              "line1": {
+                "bank": "Bank Deposit",
+                "cash": "Cash Pickup"
+              }
+            },
+            "cashPickup": {
+              "label": "Cash Pickup Location(s)"
+            }
+          }
+        },
+
+        "payment": {
+          "label": "Payment Details",
+          "subsections": {
+            "method": {
+              "label": "Payment Method",
+              "line1": {
+                "debit": "debit",
+                "credit": "credit"
+              }
+            },
+            "billingAddress": {
+              "label": "Billing Address"
+            }
+          }
+        },
+
+        "recipient": {
+          "label": "Recipient Details",
+          "subsections": {
+            "name": {
+              "label": "Name"
+            },
+            "address": {
+              "label": "Address"
+            },
+            "phone": {
+              "label": "Phone Number"
+            }
+          }
+        },
+
+        "sender": {
+          "label": "Your Details",
+          "subsections": {
+            "name": {
+              "label": "Name"
+            },
+            "phone": {
+              "label": "Phone Number"
+            }
+          }
+        }
+      }
+    },
+
+    "success": {
+      "mainHeading": "Successful Transfer",
+      "continueButton": "New Transfer",
+      "received": "Received by",
+      "confirmation": {
+        "bankDeposit": {
+          "line1": "We have confirmed your funds were deposited to your recipient's",
+          "line2": "account."
+        },
+        "cash": {
+          "line1": "We have confirmed your funds are available for cash pickup at",
+          "line2": "the following locations:"
+        },
+        "complete": "Your transaction is complete and we hope to see you again."
+      }
+    }
+  },
+
+  "transferHistory": {
+    "mainHeading": "Your Transfers",
+
+    "transferCard": {
+      "sent": "Sent on"
+    }
+  }
+}

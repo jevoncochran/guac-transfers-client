@@ -24,7 +24,8 @@ import {
 } from "../../redux/features/transfer/transferSlice";
 import ContinueButton from "./ContinueButton";
 import { TransferStep } from "../../types";
-import { formatAmount } from "../../utils/formatAmount";
+import { useTranslation } from "react-i18next";
+import useFormatAmount from "../../hooks/useFormatAmout";
 
 export type TransferMethod = "card" | "bankAccount";
 
@@ -40,6 +41,10 @@ const SelectAmountStep = () => {
   const [manuallyChangedInput, setManuallyChangedInput] = useState<
     "sendAmount" | "receiveAmount" | null
   >(null);
+
+  const { t } = useTranslation();
+
+  const { formatAmount } = useFormatAmount();
 
   const userCurrency = CURRENCIES[user?.country?.code]?.code;
   const transferCurrency = CURRENCIES[transfer.country?.code]?.code;
@@ -166,7 +171,7 @@ const SelectAmountStep = () => {
   return transfer.country ? (
     <>
       <Box sx={{ marginBottom: "16px" }}>
-        <InputLabel>You send</InputLabel>
+        <InputLabel>{t("sendMoney.selectAmount.send")}</InputLabel>
         <TextField
           name="sendAmount"
           value={
@@ -206,7 +211,7 @@ const SelectAmountStep = () => {
       </Box>
 
       <Box sx={{ marginBottom: "16px" }}>
-        <InputLabel>They receive</InputLabel>
+        <InputLabel>{t("sendMoney.selectAmount.receive")}</InputLabel>
         <TextField
           name="receiveAmount"
           value={
@@ -245,26 +250,34 @@ const SelectAmountStep = () => {
         />
       </Box>
 
-      <Typography variant="mainHeading">Delivery Speed</Typography>
+      <Typography variant="mainHeading">
+        {t("sendMoney.selectAmount.mainHeading")}
+      </Typography>
 
       <TransferMethodCard
-        label="Express"
+        label={t("sendMoney.selectAmount.transferMethod.card.label")}
         method="card"
         speedIcon={<BoltIcon />}
-        speed="minutes"
+        speed={t("sendMoney.selectAmount.transferMethod.card.time.substring2")}
         paymentIcon={<CreditCardIcon />}
-        payment="debit/credit card"
+        payment={t(
+          "sendMoney.selectAmount.transferMethod.card.method.substring2"
+        )}
         charge={THIRD_PARTY_CHARGES.card}
         rate={rate}
       />
 
       <TransferMethodCard
-        label="Economy"
+        label={t("sendMoney.selectAmount.transferMethod.bankAccount.label")}
         method="bankAccount"
         speedIcon={<AccessTimeIcon />}
-        speed="3-5 days"
+        speed={t(
+          "sendMoney.selectAmount.transferMethod.bankAccount.time.substring2"
+        )}
         paymentIcon={<AccountBalanceIcon />}
-        payment="bank account"
+        payment={t(
+          "sendMoney.selectAmount.transferMethod.bankAccount.method.substring2"
+        )}
         charge={THIRD_PARTY_CHARGES.bankAccount}
         rate={rate}
       />
@@ -279,7 +292,7 @@ const SelectAmountStep = () => {
     </>
   ) : (
     <Typography variant="h5">
-      Please select a country to transfer money to.
+      {t("sendMoney.selectAmount.selectCountry")}
     </Typography>
   );
 };
