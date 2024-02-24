@@ -12,6 +12,7 @@ import { closePhoneModal } from "../../redux/features/ui/uiSlice";
 import { setUserPhoneNum } from "../../redux/features/auth/authSlice";
 import { Country } from "../../types";
 import { setRecipientPhoneNum } from "../../redux/features/transfer/transferSlice";
+import i18n from "../../i18n";
 
 interface Props {
   type: "recipient" | "sender";
@@ -94,7 +95,7 @@ const PhonePrefixMenu = ({ type }: Props) => {
           >
             <Box display="flex" alignItems="center">
               <Typography sx={{ marginRight: "8px", fontWeight: "bold" }}>
-                {country.name}
+                {country.name[i18n.language]}
               </Typography>
               <Typography>{`(+${PHONE_PREFIXES[country.code]})`}</Typography>
             </Box>

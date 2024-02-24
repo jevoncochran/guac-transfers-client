@@ -14,6 +14,7 @@ import { goToNextTransferStep } from "../../../redux/features/transfer/transferS
 import { formatAmount } from "../../../utils/formatAmount";
 import { useTranslation } from "react-i18next";
 import { PHONE_PREFIXES } from "../../../constants";
+import { removeSpaces } from "../../../utils/removeSpaces";
 
 const ConfirmTransferStep = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ const ConfirmTransferStep = () => {
     recipientPhoneNum: `+${
       transfer.recipient?.phone?.prefix ??
       PHONE_PREFIXES[transfer.country?.code]
-    } ${transfer.recipient?.phone?.body.replace(/\s+/g, "")}`,
+    } ${removeSpaces(transfer.recipient?.phone?.body as string)}`,
     recipientStreetAddress: transfer.recipient?.address?.streetAddress,
     recipientCity: transfer.recipient?.address?.city,
     recipientState: transfer.recipient?.address?.department,
@@ -250,7 +251,7 @@ const ConfirmTransferStep = () => {
                 line1: `+${
                   transfer.recipient?.phone?.prefix?.replace("+", "") ??
                   PHONE_PREFIXES[transfer.country?.code]
-                } ${transfer.recipient?.phone?.body.replace(/\s+/g, "")}`,
+                } ${removeSpaces(transfer.recipient?.phone?.body as string)}`,
               },
             ]}
             step={TransferStep.EnterRecipientPhoneNumber}
@@ -292,7 +293,7 @@ const ConfirmTransferStep = () => {
                 line1: `+${user?.phone?.prefix?.replace(
                   "+",
                   ""
-                )} ${user?.phone?.body.replace(/\s+/g, "")}`,
+                )} ${removeSpaces(user?.phone?.body as string)}`,
               },
             ]}
             canEdit={false}

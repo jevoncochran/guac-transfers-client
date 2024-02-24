@@ -14,6 +14,8 @@ import { RootState } from "../redux/store";
 import axios from "axios";
 import i18n from "../i18n";
 import { useTranslation } from "react-i18next";
+import { setTransferStep } from "../redux/features/transfer/transferSlice";
+import { TransferStep } from "../types";
 
 export const useMenuItems = () => {
   const navigate = useNavigate();
@@ -60,7 +62,7 @@ export const useMenuItems = () => {
       ),
       onSelect: () => {
         dispatch(logout());
-        // handleClose();
+        dispatch(setTransferStep(TransferStep.SelectRecipient));
         navigate("/");
       },
     },

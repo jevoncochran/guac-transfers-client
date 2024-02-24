@@ -39,7 +39,9 @@ const EnterSenderPhoneNumberStep = () => {
             <PhonePrefix
               iso={senderPhoneNum?.iso ?? (sender?.country?.code as string)}
               code={
-                senderPhoneNum?.prefix.replace("+", "") ??
+                // TODO: This needs to be a utility function
+                // This is confusing as hell
+                senderPhoneNum?.prefix?.replace("+", "") ??
                 PHONE_PREFIXES[sender?.country?.code as string]
               }
               onClick={() => dispatch(openSenderPhoneModal())}
@@ -49,8 +51,10 @@ const EnterSenderPhoneNumberStep = () => {
           onChange={(e) =>
             dispatch(
               setUserPhoneNum({
-                iso: senderPhoneNum?.iso,
-                prefix: senderPhoneNum?.prefix,
+                iso: senderPhoneNum?.iso ?? (sender?.country?.code as string),
+                prefix:
+                  senderPhoneNum?.prefix ??
+                  PHONE_PREFIXES[sender?.country?.code as string],
                 body: e.target.value,
               })
             )

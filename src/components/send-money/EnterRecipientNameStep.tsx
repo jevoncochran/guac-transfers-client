@@ -6,7 +6,7 @@ import {
   setTransferStep,
 } from "../../redux/features/transfer/transferSlice";
 import ContinueButton from "./ContinueButton";
-import { TransferStep } from "../../types";
+import { Country, DeliveryMethod, TransferStep } from "../../types";
 import InputGroup from "../InputGroup";
 import { useTranslation } from "react-i18next";
 
@@ -16,9 +16,11 @@ const EnterRecipientNameStep = () => {
   const deliveryMethod = useAppSelector(
     (state: RootState) => state.transfer.deliveryMethod
   );
-
   const recipientName = useAppSelector(
     (state: RootState) => state.transfer.recipient?.name
+  );
+  const transferCountry = useAppSelector(
+    (state: RootState) => state.transfer.country
   );
 
   const { t } = useTranslation();
@@ -32,11 +34,25 @@ const EnterRecipientNameStep = () => {
     );
   };
 
-  const handleContinue = () => {
-    const nextStep =
-      deliveryMethod === "bankDeposit"
-        ? TransferStep.EnterRecipientBankAccount
-        : TransferStep.EnterRecipientAddress;
+  const handleContinue = (
+    deliveryMethod: DeliveryMethod,
+    transferCountry: Country
+  ) => {
+    let nextStep: TransferStep;
+
+    // For bank deposit transfers, the next step is recipient bank account step
+    if (deliveryMethod === "bankDeposit") {
+      nextStep = TransferStep.EnterRecipientBankAccount;
+    } else {
+      // For cash pickup transfers:
+      // Right now, we are only doing addresses if the recipient is in Colombia
+      if (transferCountry.code === "CO") {
+        nextStep = TransferStep.EnterRecipientAddress;
+      } else {
+        // If recipient is outside of Colombia, next step is recipient phone number step
+        nextStep = TransferStep.EnterRecipientPhoneNumber;
+      }
+    }
 
     dispatch(setTransferStep(nextStep));
   };
@@ -84,7 +100,14 @@ const EnterRecipientNameStep = () => {
         }
         onChange={handleChange}
       />
-      <ContinueButton continueAction={handleContinue} />
+      <ContinueButton
+        continueAction={() =>
+          handleContinue(
+            deliveryMethod as DeliveryMethod,
+            transferCountry as Country
+          )
+        }
+      />
     </div>
   );
 };

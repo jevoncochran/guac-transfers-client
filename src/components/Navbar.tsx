@@ -91,7 +91,10 @@ const Navbar = () => {
       if (!storedCountry) {
         localStorage.setItem(
           "country",
-          JSON.stringify({ code: "US", name: "United States" })
+          JSON.stringify({
+            code: "US",
+            name: { en: "United States", es: "Estados Unidos" },
+          })
         );
       }
     }

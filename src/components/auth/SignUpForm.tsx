@@ -28,6 +28,7 @@ const SignUpForm = () => {
     password: "",
     passwordConfirm: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const { t } = useTranslation();
 
@@ -38,6 +39,7 @@ const SignUpForm = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
+    setLoading(true);
     axios
       .post(`${import.meta.env.VITE_API_URL}/auth/register`, {
         ...credentials,
@@ -45,6 +47,7 @@ const SignUpForm = () => {
         country: JSON.parse(localStorage.getItem("country")!).code,
       })
       .then((res) => {
+        setLoading(false);
         if (res.status === 201) {
           // Grab full language object using lang code provided by API call
           const userLang = getLanguageByCode(res.data.language);
@@ -76,6 +79,7 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* First Name */}
       <InputGroup
         inputName="firstName"
         label={t("auth.register.inputs.firstName.label")}
@@ -85,6 +89,7 @@ const SignUpForm = () => {
         onChange={handleChange}
       />
 
+      {/* Last Name */}
       <InputGroup
         inputName="lastName"
         label={t("auth.register.inputs.lastName.label")}
@@ -94,6 +99,7 @@ const SignUpForm = () => {
         onChange={handleChange}
       />
 
+      {/* Email Address */}
       <InputGroup
         inputName="email"
         label={t("auth.register.inputs.email.label")}
@@ -103,6 +109,7 @@ const SignUpForm = () => {
         onChange={handleChange}
       />
 
+      {/* Password */}
       <InputGroup
         inputName="password"
         label={t("auth.register.inputs.password.label")}
@@ -112,6 +119,7 @@ const SignUpForm = () => {
         onChange={handleChange}
       />
 
+      {/* Confirm Password */}
       <InputGroup
         inputName="passwordConfirm"
         label={t("auth.register.inputs.passwordConfirm.label")}
@@ -120,7 +128,14 @@ const SignUpForm = () => {
         placeholder={t("auth.register.inputs.passwordConfirm.placeholder")}
         onChange={handleChange}
       />
-      <AuthDialogButton label={t("auth.register.submitButton")} />
+
+      {/* Submit Button */}
+      <AuthDialogButton
+        label={t("auth.register.submitButton")}
+        disabled={loading}
+      />
+
+      {/* Sign in instead */}
       <Typography>
         {t("auth.register.login.text")}{" "}
         <span
