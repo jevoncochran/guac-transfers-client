@@ -50,8 +50,8 @@ const TransferMethodCard = ({
 
   const { formatAmount } = useFormatAmount();
 
-  const userCurrency = CURRENCIES[userCountry.code].code;
-  const transferCurrency = CURRENCIES[transferCountry.code].code;
+  const userCurrency = CURRENCIES[userCountry?.code as string].code;
+  const transferCurrency = CURRENCIES[transferCountry?.code as string].code;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setTransferMethod(e.target.value));

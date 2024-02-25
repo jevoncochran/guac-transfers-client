@@ -1,9 +1,10 @@
 import visa from "./assets/visa.svg";
 import mastercard from "./assets/mastercard.svg";
+import { Country, Currencies, PhonePrefixes, TransferCountry } from "./types";
 
 const SITE_PADDING_X = "200px";
 
-const USER_COUNTRIES = [
+const USER_COUNTRIES: Country[] = [
   { code: "AT", name: { en: "Austria", es: "Austria" } },
   { code: "AU", name: { en: "Australia", es: "Australia" } },
   { code: "BE", name: { en: "Belgium", es: "Bélgica" } },
@@ -121,177 +122,177 @@ const USER_COUNTRIES = [
 //   { code: "US", name: "United States" },
 // ];
 
-const TRANSFER_COUNTRIES = [
+const TRANSFER_COUNTRIES: TransferCountry[] = [
   {
     code: "AD",
     name: { en: "Andorra", es: "Andorra" },
-    subdivisions: { type: "N/A" },
+    // subdivisions: { type: "N/A" },
   },
   {
     code: "AE",
     name: { en: "United Arab Emirates", es: "Emiratos Árabes Unidos" },
-    subdivisions: { type: "Emirates" },
+    // subdivisions: { type: "Emirates" },
   },
   {
     code: "AF",
     name: { en: "Afghanistan", es: "Afganistán" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "AG",
     name: { en: "Antigua and Barbuda", es: "Antigua y Barbuda" },
-    subdivisions: { type: "Parishes" },
+    // subdivisions: { type: "Parishes" },
   },
   {
     code: "AI",
     name: { en: "Anguilla", es: "Anguila" },
-    subdivisions: { type: "Parishes" },
+    // subdivisions: { type: "Parishes" },
   },
   {
     code: "AL",
     name: { en: "Albania", es: "Albania" },
-    subdivisions: { type: "Counties" },
+    // subdivisions: { type: "Counties" },
   },
   {
     code: "AM",
     name: { en: "Armenia", es: "Armenia" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "AN",
     name: { en: "Netherlands Antilles", es: "Antillas Neerlandesas" },
-    subdivisions: { type: "N/A" },
+    // subdivisions: { type: "N/A" },
   },
   {
     code: "AO",
     name: { en: "Angola", es: "Angola" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   // { code: "AQ", name: "Antarctica" },
   {
     code: "AR",
     name: { en: "Argentina", es: "Argentina" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   // { code: "AS", name: "American Samoa" },
   {
     code: "AT",
     name: { en: "Austria", es: "Austria" },
-    subdivisions: { type: "States" },
+    // subdivisions: { type: "States" },
   },
   {
     code: "AU",
     name: { en: "Australia", es: "Australia" },
-    subdivisions: { type: "States and Territories" },
+    // subdivisions: { type: "States and Territories" },
   },
   {
     code: "AW",
     name: { en: "Aruba", es: "Aruba" },
-    subdivisions: { type: "N/A" },
+    // subdivisions: { type: "N/A" },
   },
   // { code: "AX", name: "Åland Islands" },
   {
     code: "AZ",
     name: { en: "Azerbaijan", es: "Azerbaiyán" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "BA",
     name: { en: "Bosnia and Herzegovina", es: "Bosnia y Herzegovina" },
-    subdivisions: { type: "Entities" },
+    // subdivisions: { type: "Entities" },
   },
   {
     code: "BB",
     name: { en: "Barbados", es: "Barbados" },
-    subdivisions: { type: "Parishes" },
+    // subdivisions: { type: "Parishes" },
   },
   {
     code: "BD",
     name: { en: "Bangladesh", es: "Bangladés" },
-    subdivisions: { type: "Divisions" },
+    // subdivisions: { type: "Divisions" },
   },
   {
     code: "BE",
     name: { en: "Belgium", es: "Bélgica" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "BF",
     name: { en: "Burkina Faso", es: "Burkina Faso" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "BG",
     name: { en: "Bulgaria", es: "Bulgaria" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "BH",
     name: { en: "Bahrain", es: "Baréin" },
-    subdivisions: { type: "Governorates" },
+    // subdivisions: { type: "Governorates" },
   },
   {
     code: "BI",
     name: { en: "Burundi", es: "Burundi" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "BJ",
     name: { en: "Benin", es: "Benín" },
-    subdivisions: { type: "Departments" },
+    // subdivisions: { type: "Departments" },
   },
   // { code: "BL", name: "Saint Barthélemy" },
   {
     code: "BM",
     name: { en: "Bermuda", es: "Bermudas" },
-    subdivisions: { type: "Parishes" },
+    // subdivisions: { type: "Parishes" },
   },
   {
     code: "BN",
     name: { en: "Brunei Darussalam", es: "Brunéi" },
-    subdivisions: { type: "Districts" },
+    // subdivisions: { type: "Districts" },
   },
   {
     code: "BO",
     name: { en: "Bolivia", es: "Bolivia" },
-    subdivisions: { type: "Departments" },
+    // subdivisions: { type: "Departments" },
   },
   // { code: "BQ", name: "Bonaire, Sint Eustatius and Saba" },
   {
     code: "BR",
     name: { en: "Brazil", es: "Brasil" },
-    subdivisions: { type: "States" },
+    // subdivisions: { type: "States" },
   },
   {
     code: "BS",
     name: { en: "Bahamas", es: "Bahamas" },
-    subdivisions: { type: "Islands" },
+    // subdivisions: { type: "Islands" },
   },
   {
     code: "BT",
     name: { en: "Bhutan", es: "Bután" },
-    subdivisions: { type: "Districts" },
+    // subdivisions: { type: "Districts" },
   },
   // { code: "BV", name: "Bouvet Island" },
   {
     code: "BW",
     name: { en: "Botswana", es: "Botsuana" },
-    subdivisions: { type: "Districts" },
+    // subdivisions: { type: "Districts" },
   },
   {
     code: "BY",
     name: { en: "Belarus", es: "Bielorrusia" },
-    subdivisions: { type: "Oblasts" },
+    // subdivisions: { type: "Oblasts" },
   },
   {
     code: "BZ",
     name: { en: "Belize", es: "Belice" },
-    subdivisions: { type: "Districts" },
+    // subdivisions: { type: "Districts" },
   },
   {
     code: "CA",
     name: { en: "Canada", es: "Canadá" },
-    subdivisions: { type: "Provinces and Territories" },
+    // subdivisions: { type: "Provinces and Territories" },
   },
   // { code: "CC", name: "Cocos (Keeling) Islands" },
   {
@@ -300,43 +301,43 @@ const TRANSFER_COUNTRIES = [
       en: "Congo, The Democratic Republic Of The",
       es: "República Democrática del Congo",
     },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "CF",
     name: { en: "Central African Republic", es: "República Centroafricana" },
-    subdivisions: { type: "Prefectures" },
+    // subdivisions: { type: "Prefectures" },
   },
   // { code: "CG", name: "Congo" },
   {
     code: "CH",
     name: { en: "Switzerland", es: "Suiza" },
-    subdivisions: { type: "Cantons" },
+    // subdivisions: { type: "Cantons" },
   },
   {
     code: "CI",
     name: { en: "Côte D'Ivoire", es: "Costa de Marfil" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "CK",
     name: { en: "Cook Islands", es: "Islas Cook" },
-    subdivisions: { type: "Islands" },
+    // subdivisions: { type: "Islands" },
   },
   {
     code: "CL",
     name: { en: "Chile", es: "Chile" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "CM",
     name: { en: "Cameroon", es: "Camerún" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "CN",
     name: { en: "China", es: "China" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "CO",
@@ -382,94 +383,94 @@ const TRANSFER_COUNTRIES = [
   {
     code: "CR",
     name: { en: "Costa Rica", es: "Costa Rica" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "CU",
     name: { en: "Cuba", es: "Cuba" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "CV",
     name: { en: "Cape Verde", es: "Cabo Verde" },
-    subdivisions: { type: "Municipalities" },
+    // subdivisions: { type: "Municipalities" },
   },
   // { code: "CW", name: "Curaçao" },
   {
     code: "CX",
     name: { en: "Christmas Island", es: "Isla de Navidad" },
-    subdivisions: { type: "Shire" },
+    // subdivisions: { type: "Shire" },
   },
   {
     code: "CY",
     name: { en: "Cyprus", es: "Chipre" },
-    subdivisions: { type: "Districts" },
+    // subdivisions: { type: "Districts" },
   },
   {
     code: "CZ",
     name: { en: "Czech Republic", es: "República Checa" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "DE",
     name: { en: "Germany", es: "Alemania" },
-    subdivisions: { type: "States" },
+    // subdivisions: { type: "States" },
   },
   {
     code: "DJ",
     name: { en: "Djibouti", es: "Yibuti" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "DK",
     name: { en: "Denmark", es: "Dinamarca" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "DM",
     name: { en: "Dominica", es: "Dominica" },
-    subdivisions: { type: "Parishes" },
+    // subdivisions: { type: "Parishes" },
   },
   {
     code: "DO",
     name: { en: "Dominican Republic", es: "República Dominicana" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "DZ",
     name: { en: "Algeria", es: "Argelia" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "EC",
     name: { en: "Ecuador", es: "Ecuador" },
-    subdivisions: { type: "Provinces" },
+    // subdivisions: { type: "Provinces" },
   },
   {
     code: "EE",
     name: { en: "Estonia", es: "Estonia" },
-    subdivisions: { type: "Counties" },
+    // subdivisions: { type: "Counties" },
   },
   {
     code: "EG",
     name: { en: "Egypt", es: "Egipto" },
-    subdivisions: { type: "Governorates" },
+    // subdivisions: { type: "Governorates" },
   },
   // { code: "EH", name: "Western Sahara" },
   {
     code: "ER",
     name: { en: "Eritrea", es: "Eritrea" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   {
     code: "ES",
     name: { en: "Spain", es: "España" },
-    subdivisions: { type: "Comunidades Autónomas" },
+    // subdivisions: { type: "Comunidades Autónomas" },
   },
   {
     code: "ET",
     name: { en: "Ethiopia", es: "Etiopía" },
-    subdivisions: { type: "Regions" },
+    // subdivisions: { type: "Regions" },
   },
   // { code: "EU", name: "European Union" },
   { code: "FI", name: { en: "Finland", es: "Finlandia" } },
@@ -773,7 +774,7 @@ const LANGUAGES = [
   { code: "pt", name: "Português" },
 ];
 
-const CURRENCIES = {
+const CURRENCIES: Currencies = {
   AD: { code: "EUR", name: "Euro" },
   AE: { code: "AED", name: "United Arab Emirates Dirham" },
   AF: { code: "AFN", name: "Afghan Afghani" },
@@ -1027,7 +1028,7 @@ const CURRENCIES = {
   ZW: { code: "ZWL", name: "Zimbabwean Dollar" },
 };
 
-const PHONE_PREFIXES = {
+const PHONE_PREFIXES: PhonePrefixes = {
   AF: "93",
   AL: "355",
   DZ: "213",

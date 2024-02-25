@@ -10,6 +10,7 @@ import {
 } from "../../redux/features/transfer/transferSlice";
 import CashPickupSitesCard from "./CashPickupSitesCard";
 import { useTranslation } from "react-i18next";
+import { CashPickupSites, Institution } from "../../types";
 
 const SelectInstitutionStep = () => {
   const dispatch = useAppDispatch();
@@ -21,8 +22,9 @@ const SelectInstitutionStep = () => {
     (state: RootState) => state.transfer.country
   );
 
-  const [banks, setBanks] = useState([]);
-  const [cashPickupSites, setCashPickupSites] = useState([]);
+  const [banks, setBanks] = useState<Institution[]>([]);
+  const [cashPickupSites, setCashPickupSites] =
+    useState<CashPickupSites | null>(null);
 
   const { t } = useTranslation();
 
@@ -99,7 +101,9 @@ const SelectInstitutionStep = () => {
             {" "}
             {t("sendMoney.selectInstitution.cash.options.other")}
           </Typography>
-          <CashPickupSitesCard sites={cashPickupSites?.otherSites} />
+          {cashPickupSites && (
+            <CashPickupSitesCard sites={cashPickupSites?.otherSites} />
+          )}
         </>
       )}
     </div>

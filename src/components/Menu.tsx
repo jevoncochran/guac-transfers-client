@@ -44,12 +44,14 @@ const Menu = ({
         <MuiMenuItem
           key={idx}
           onClick={
-            mi.onSelect
-              ? () => {
-                  mi.onSelect();
-                  handleClose();
-                }
-              : handleSelect
+            () => {
+              if (mi.onSelect) {
+                mi.onSelect();
+                handleClose();
+              } else {
+                handleSelect();
+              }
+            }
           }
         >
           {mi.item}

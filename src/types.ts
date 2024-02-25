@@ -5,7 +5,28 @@ export interface Language {
 
 export interface Country {
   code: string;
-  name: string;
+  name: CountryName;
+}
+
+export interface TransferCountry extends Country {
+  subdivisions?: Subdivisions;
+}
+
+export interface CountryName {
+  en: string;
+  es: string;
+  [key: string]: string; // Index signature to allow string indexing
+}
+
+export interface Subdivisions {
+  type: SubdivisionType;
+  list: string[];
+}
+
+export interface SubdivisionType {
+  en: string;
+  es: string;
+  [key: string]: string; // Index signature to allow string indexing
 }
 
 export interface MenuItem {
@@ -50,6 +71,10 @@ export interface Phone {
   body: string;
 }
 
+export interface PhonePrefixes {
+  [countryCode: string]: string;
+}
+
 export interface Recipient {
   id?: number;
   name?: {
@@ -86,14 +111,14 @@ export interface Address {
   department: string;
 }
 
-interface Card {
+export interface Card {
   stripeId: string;
   type: CardType;
   brand: CardBrand;
   last4: string;
 }
 
-interface BankAccount {
+export interface BankAccount {
   stripeId: string;
   type: BankAccountType;
   last4: string;
@@ -127,4 +152,18 @@ export interface Transfer {
   standardFee: number;
   thirdPartyCharge: number;
   receiveAmount: number;
+}
+
+export interface Currencies {
+  [code: string]: Currency;
+}
+
+export interface Currency {
+  code: string;
+  name: string;
+}
+
+export interface CashPickupSites {
+  banks: Institution[];
+  otherSites: Institution[];
 }

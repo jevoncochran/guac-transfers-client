@@ -6,11 +6,12 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TransferCard from "../components/transfer-history/TransferCard";
 import { useTranslation } from "react-i18next";
+import { Transfer } from "../types";
 
 const TransferHistory = () => {
   const userId = useAppSelector((state: RootState) => state.auth.user?.id);
 
-  const [transfers, setTransfers] = useState([]);
+  const [transfers, setTransfers] = useState<Transfer[]>([]);
 
   const { t } = useTranslation();
 
@@ -21,7 +22,7 @@ const TransferHistory = () => {
         console.log(res.data);
         setTransfers(res.data);
       });
-  }, []);
+  }, [userId]);
 
   return (
     <div>
