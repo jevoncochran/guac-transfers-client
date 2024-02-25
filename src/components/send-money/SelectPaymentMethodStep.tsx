@@ -23,6 +23,8 @@ const SelectPaymentMethodStep = () => {
 
   const { t } = useTranslation();
 
+  // TODO: Remove any value and correctly type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleCardSelect = (value: any) => {
     dispatch(
       setPaymentMethod({

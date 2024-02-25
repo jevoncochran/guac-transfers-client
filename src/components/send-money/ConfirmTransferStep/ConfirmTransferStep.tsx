@@ -15,6 +15,7 @@ import { formatAmount } from "../../../utils/formatAmount";
 import { useTranslation } from "react-i18next";
 import { PHONE_PREFIXES } from "../../../constants";
 import { removeSpaces } from "../../../utils/removeSpaces";
+import { Card } from "../../../types";
 
 const ConfirmTransferStep = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ const ConfirmTransferStep = () => {
     recipientPhoneIso: transfer.recipient?.phone?.iso ?? transfer.country?.code,
     recipientPhoneNum: `+${
       transfer.recipient?.phone?.prefix ??
-      PHONE_PREFIXES[transfer.country?.code]
+      PHONE_PREFIXES[transfer.country?.code as string]
     } ${removeSpaces(transfer.recipient?.phone?.body as string)}`,
     recipientStreetAddress: transfer.recipient?.address?.streetAddress,
     recipientCity: transfer.recipient?.address?.city,
@@ -69,7 +70,9 @@ const ConfirmTransferStep = () => {
     <Box display="flex" alignItems="center">
       <img
         src={
-          transfer.paymentMethod?.method.brand === "visa" ? visa : masterCard
+          (transfer.paymentMethod?.method as Card).brand === "visa"
+            ? visa
+            : masterCard
         }
         className="option-card-start-adornment"
         alt=""
@@ -250,7 +253,7 @@ const ConfirmTransferStep = () => {
                 ),
                 line1: `+${
                   transfer.recipient?.phone?.prefix?.replace("+", "") ??
-                  PHONE_PREFIXES[transfer.country?.code]
+                  PHONE_PREFIXES[transfer.country?.code as string]
                 } ${removeSpaces(transfer.recipient?.phone?.body as string)}`,
               },
             ]}

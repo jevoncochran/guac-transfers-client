@@ -46,8 +46,8 @@ const SelectAmountStep = () => {
 
   const { formatAmount } = useFormatAmount();
 
-  const userCurrency = CURRENCIES[user?.country?.code]?.code;
-  const transferCurrency = CURRENCIES[transfer.country?.code]?.code;
+  const userCurrency = CURRENCIES[user?.country?.code as string].code;
+  const transferCurrency = CURRENCIES[transfer.country?.code as string].code;
 
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

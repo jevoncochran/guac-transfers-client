@@ -21,6 +21,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
 
   const { t } = useTranslation();
 
@@ -31,10 +32,12 @@ const LoginForm = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
+    setLoading(true);
     axios
       .post(`${import.meta.env.VITE_API_URL}/auth/login`, credentials)
       .then((res) => {
         if (res.status === 200) {
+          setLoading(false);
           // Grab full language object using lang code provided by API call
           const userLang = getLanguageByCode(res.data.language);
           // Grab full country object using country code provided by API call
@@ -87,7 +90,10 @@ const LoginForm = () => {
         placeholder={t("auth.login.inputs.password.placeholder")}
         onChange={handleChange}
       />
-      <AuthDialogButton label={t("auth.login.submitButton")} />
+      <AuthDialogButton
+        label={t("auth.login.submitButton")}
+        disabled={loading}
+      />
       <Typography>
         {t("auth.login.register.text")}{" "}
         <span
