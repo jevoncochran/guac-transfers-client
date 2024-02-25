@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "/transfer/send",
+        path: "transfer/send",
         element: (
           <ProtectedRoute>
             <SendMoney />
