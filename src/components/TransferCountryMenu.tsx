@@ -44,6 +44,11 @@ const TransferCountryMenu = ({
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
         },
+
+        "& css-r8u8y9": {
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+        },
       }}
     >
       {TRANSFER_COUNTRIES.map((country) => (
