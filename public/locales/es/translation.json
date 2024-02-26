@@ -88,6 +88,7 @@
 
     "selectRecipient": {
       "mainHeading": "Seleccionar al destinatario para enviar dinero:",
+      "selectCountry": "Por favor, selecciona el país del destinatario.",
       "newRecipient": "Nuevo destinatario",
       "previousRecipient": {
         "bankDeposit": {
@@ -100,7 +101,6 @@
 
     "selectAmount": {
       "mainHeading": "Tiempo de entrega",
-      "selectCountry": "Por favor, selecciona el país del destinatario.",
       "send": "Tú envías",
       "receive": "El destinatario recibe",
       "transferMethod": {

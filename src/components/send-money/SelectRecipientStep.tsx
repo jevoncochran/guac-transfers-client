@@ -52,18 +52,20 @@ const SelectRecipientStep = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `${import.meta.env.VITE_API_URL}/recipients?senderId=${
-          user?.id
-        }&country=${transfer.country?.code}`
-      )
-      .then((res) => {
-        setRecipients(res.data);
-      });
+    if (transfer.country?.code) {
+      axios
+        .get(
+          `${import.meta.env.VITE_API_URL}/recipients?senderId=${
+            user?.id
+          }&country=${transfer.country?.code}`
+        )
+        .then((res) => {
+          setRecipients(res.data);
+        });
+    }
   }, [transfer.country?.code, user?.id]);
 
-  return (
+  return transfer.country ? (
     <>
       <Typography variant="mainHeading">
         {t("sendMoney.selectRecipient.mainHeading")}
@@ -111,6 +113,10 @@ const SelectRecipientStep = () => {
         />
       ))}
     </>
+  ) : (
+    <Typography variant="h5">
+      {t("sendMoney.selectRecipient.selectCountry")}
+    </Typography>
   );
 };
 

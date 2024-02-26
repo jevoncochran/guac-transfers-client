@@ -87,6 +87,7 @@
 
     "selectRecipient": {
       "mainHeading": "Select a recipient to send money to:",
+      "selectCountry": "Please select a country to transfer money to.",
       "newRecipient": "New Recipient",
       "previousRecipient": {
         "bankDeposit": {
@@ -99,7 +100,6 @@
 
     "selectAmount": {
       "mainHeading": "Delivery Speed",
-      "selectCountry": "Please select a country to transfer money to.",
       "send": "You send",
       "receive": "They receive",
       "transferMethod": {
