@@ -168,7 +168,7 @@ const SelectAmountStep = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, rate, transfer.transferMethod]);
 
-  return transfer.country ? (
+  return (
     <>
       <Box sx={{ marginBottom: "16px" }}>
         <InputLabel>{t("sendMoney.selectAmount.send")}</InputLabel>
@@ -290,10 +290,6 @@ const SelectAmountStep = () => {
         }
       />
     </>
-  ) : (
-    <Typography variant="h5">
-      {t("sendMoney.selectAmount.selectCountry")}
-    </Typography>
   );
 };
 
