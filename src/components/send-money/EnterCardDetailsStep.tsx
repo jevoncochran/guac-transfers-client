@@ -64,7 +64,8 @@ const EnterCardDetailsStep = () => {
 
     try {
       const token = await generateStripeToken();
-      alert(token?.id);
+      // TODO: Here, we want to have some type of toaster alert
+      // alert(token?.id);
       axios
         .post(`${import.meta.env.VITE_API_URL}/users/${userId}/addCard`, {
           tokenId: token?.id,

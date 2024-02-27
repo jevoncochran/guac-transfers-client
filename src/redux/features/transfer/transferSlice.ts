@@ -8,6 +8,7 @@ import {
   Recipient,
   TransferStep,
 } from "../../../types";
+import { splitPhoneNumber } from "../../../utils/splitPhoneNumber";
 
 export interface TransferState {
   country: Country | null;
@@ -146,7 +147,12 @@ export const transferSlice = createSlice({
           city: action.payload.city,
           department: action.payload.state,
         },
-        phone: action.payload.phone,
+        // phone: action.payload.phoneNum,
+        phone: {
+          iso: action.payload.phoneIso,
+          prefix: splitPhoneNumber(action.payload.phoneNum).prefix,
+          body: splitPhoneNumber(action.payload.phoneNum).body,
+        },
       };
       // Institution of previous recipient (i.e. bank or various cash pickup locations)
       state.institution = {
@@ -199,7 +205,7 @@ export const {
   setRecipientPhoneNum,
   selectPreviousRecipient,
   clearTransfer,
-  clearRecipient
+  clearRecipient,
 } = transferSlice.actions;
 
 export default transferSlice.reducer;
