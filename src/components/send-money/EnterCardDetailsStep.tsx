@@ -2,6 +2,10 @@ import { FormEvent, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   CardCvcElement,
   CardExpiryElement,
@@ -32,6 +36,7 @@ const EnterCardDetailsStep = () => {
 
   const [customerName, setCustomerName] = useState("");
   const [postalCode, setPostalCode] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const { t } = useTranslation();
 
@@ -56,7 +61,14 @@ const EnterCardDetailsStep = () => {
       throw error;
     }
 
+    setOpenSnackbar(true);
+
     return token;
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+    dispatch(goToNextTransferStep());
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -64,7 +76,8 @@ const EnterCardDetailsStep = () => {
 
     try {
       const token = await generateStripeToken();
-      alert(token?.id);
+      // TODO: Here, we want to have some type of toaster alert
+      // alert(token?.id);
       axios
         .post(`${import.meta.env.VITE_API_URL}/users/${userId}/addCard`, {
           tokenId: token?.id,
@@ -84,7 +97,6 @@ const EnterCardDetailsStep = () => {
                 },
               })
             );
-            dispatch(goToNextTransferStep());
           }
         });
     } catch (error) {
@@ -94,6 +106,34 @@ const EnterCardDetailsStep = () => {
 
   return (
     <div>
+      {/* TODO: Make this its own component */}
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={openSnackbar}
+        autoHideDuration={6000} // Adjust as needed
+        onClose={handleCloseSnackbar} // Triggered when the Snackbar is closed
+      >
+        <Alert
+          variant="filled"
+          severity="success"
+          action={
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleCloseSnackbar}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          Your card was successfully added.
+        </Alert>
+      </Snackbar>
+
       <Typography variant="mainHeading">
         {t("sendMoney.enterCardDetails.label")}
       </Typography>

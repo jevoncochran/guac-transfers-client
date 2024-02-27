@@ -41,7 +41,7 @@ const EnterSenderPhoneNumberStep = () => {
               code={
                 // TODO: This needs to be a utility function
                 // This is confusing as hell
-                senderPhoneNum?.prefix?.replace("+", "") ??
+                senderPhoneNum?.prefix ??
                 PHONE_PREFIXES[sender?.country?.code as string]
               }
               onClick={() => dispatch(openSenderPhoneModal())}

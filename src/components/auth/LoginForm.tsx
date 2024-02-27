@@ -15,6 +15,7 @@ import {
 } from "../../utils/getLanguageAndCountry";
 import InputGroup from "../InputGroup";
 import { useTranslation } from "react-i18next";
+import { splitPhoneNumber } from "../../utils/splitPhoneNumber";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -53,8 +54,8 @@ const LoginForm = () => {
                 res.data.phoneIso && res.data.phoneNum
                   ? {
                       iso: res.data.phoneIso,
-                      prefix: res.data.phoneNum.split(" ")[0],
-                      body: res.data.phoneNum.split(" ")[1],
+                      prefix: splitPhoneNumber(res.data.phoneNum).prefix,
+                      body: splitPhoneNumber(res.data.phoneNum).body,
                     }
                   : null,
               phoneIso: undefined,

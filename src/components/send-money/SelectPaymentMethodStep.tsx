@@ -61,6 +61,7 @@ const SelectPaymentMethodStep = () => {
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {cards.map((card: any) => (
         <OptionCard
+          key={card.id}
           label={`•••• •••• •••• ${card.card.last4}`}
           sublabel={
             card.card.funding === "debit"
