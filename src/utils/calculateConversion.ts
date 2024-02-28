@@ -19,7 +19,9 @@ export const calculateConversion = (
     // Remove excess decimals
     charges = removeExcessDecimals(charges);
 
-    const receiveAmount = converted - charges;
+    // Get receive amount and then remove excess decimals
+    let receiveAmount = converted - charges;
+    receiveAmount = removeExcessDecimals(receiveAmount);
 
     return {
       sendAmount: amount,
