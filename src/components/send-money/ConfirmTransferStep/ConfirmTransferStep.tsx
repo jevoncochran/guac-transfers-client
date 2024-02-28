@@ -233,18 +233,20 @@ const ConfirmTransferStep = () => {
             ]}
             step={TransferStep.SelectRecipient}
           />
-          <ConfirmationOptionCard
-            confirmationItems={[
-              {
-                label: t(
-                  "sendMoney.confirmTransfer.section.recipient.subsections.address.label"
-                ),
-                line1: transfer.recipient?.address?.streetAddress as string,
-                line2: `${transfer.recipient?.address?.city}, ${transfer.recipient?.address?.department}`,
-              },
-            ]}
-            step={TransferStep.EnterRecipientAddress}
-          />
+          {transfer.recipient?.address && (
+            <ConfirmationOptionCard
+              confirmationItems={[
+                {
+                  label: t(
+                    "sendMoney.confirmTransfer.section.recipient.subsections.address.label"
+                  ),
+                  line1: transfer.recipient?.address?.streetAddress as string,
+                  line2: `${transfer.recipient?.address?.city}, ${transfer.recipient?.address?.department}`,
+                },
+              ]}
+              step={TransferStep.EnterRecipientAddress}
+            />
+          )}
           <ConfirmationOptionCard
             confirmationItems={[
               {
