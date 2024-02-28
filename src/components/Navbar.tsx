@@ -19,6 +19,7 @@ import { NavLink } from "react-router-dom";
 import { Country, Language } from "../types";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
+import { CONTENT_STYLES } from "../constants";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -109,7 +110,7 @@ const Navbar = () => {
         paddingY: "12px",
         display: "flex",
         alignItems: "center",
-        height: "92px",
+        height: CONTENT_STYLES.heights.navBar,
       }}
     >
       {/* LOGO */}

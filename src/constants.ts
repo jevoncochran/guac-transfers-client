@@ -2,7 +2,14 @@ import visa from "./assets/visa.svg";
 import mastercard from "./assets/mastercard.svg";
 import { Country, Currencies, PhonePrefixes, TransferCountry } from "./types";
 
-const SITE_PADDING_X = "200px";
+const CONTENT_STYLES = {
+  sitePaddingX: "200px",
+
+  heights: {
+    navBar: "92px",
+    heroSection: "500px",
+  },
+};
 
 const USER_COUNTRIES: Country[] = [
   { code: "AT", name: { en: "Austria", es: "Austria" } },
@@ -1282,7 +1289,7 @@ const CARD_BRAND_IMG = {
 };
 
 export {
-  SITE_PADDING_X,
+  CONTENT_STYLES,
   USER_COUNTRIES,
   TRANSFER_COUNTRIES,
   LANGUAGES,

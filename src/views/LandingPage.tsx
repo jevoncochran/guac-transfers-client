@@ -3,6 +3,7 @@ import { useAppSelector } from "../redux/hooks";
 import HeroSection from "../components/landing/HeroSection";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
+import PitchSection from "../components/landing/PitchSection";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -17,7 +18,12 @@ const LandingPage = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  return <HeroSection />;
+  return (
+    <>
+      <HeroSection />
+      <PitchSection />
+    </>
+  );
 };
 
 export default LandingPage;
