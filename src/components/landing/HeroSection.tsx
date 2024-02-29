@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import families from "../../assets/families.png";
 import { useTranslation } from "react-i18next";
+import { CONTENT_STYLES } from "../../constants";
 
 const HeroSection = () => {
   const { t } = useTranslation();
@@ -11,7 +12,11 @@ const HeroSection = () => {
     <Box
       display={"flex"}
       justifyContent={"space-between"}
-      sx={{ height: "500px", backgroundColor: "#fcfbe6", paddingX: "200px" }}
+      sx={{
+        height: CONTENT_STYLES.heights.heroSection,
+        backgroundColor: "#fcfbe6",
+        paddingX: "200px",
+      }}
     >
       <Box
         display="flex"

@@ -4,7 +4,7 @@ import Divider from "./Divider";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
 import { Outlet } from "react-router-dom";
-import { SITE_PADDING_X } from "../constants";
+import { CONTENT_STYLES } from "../constants";
 import { useTheme } from "@mui/material";
 
 const PageLayout = () => {
@@ -19,7 +19,7 @@ const PageLayout = () => {
       <Navbar />
       {isLoggedIn && <Divider />}
       {isLoggedIn ? (
-        <Box sx={{ paddingX: SITE_PADDING_X, paddingTop: "32px" }}>
+        <Box sx={{ paddingX: CONTENT_STYLES.sitePaddingX, paddingTop: "32px" }}>
           <Box
             sx={{
               width: "100%",
