@@ -4,9 +4,12 @@ import DiscountIcon from "@mui/icons-material/Discount";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { CONTENT_STYLES } from "../../constants";
 import { Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 // TODO: Break the different sections of the pitch into their own components
 const PitchSection = () => {
+  const { t } = useTranslation();
+
   return (
     <Box
       height={`calc(100vh - ${CONTENT_STYLES.heights.navBar} - ${CONTENT_STYLES.heights.heroSection})`}
@@ -23,10 +26,11 @@ const PitchSection = () => {
           alignItems="center"
         >
           <TimelineIcon fontSize="large" color="primary" />
-          <Typography variant="h5">Peace of mind</Typography>
+          <Typography variant="h5">
+            {t("landing.pitch.convenience.label")}
+          </Typography>
           <Typography align="center">
-            Send within minutes from your phone. Status updates for you and your
-            recipient.
+            {t("landing.pitch.convenience.text")}
           </Typography>
         </Box>
         <Box
@@ -37,9 +41,12 @@ const PitchSection = () => {
           alignItems="center"
         >
           <DiscountIcon fontSize="large" color="primary" />
-          <Typography variant="h5">Save on fees</Typography>
+          <Typography variant="h5">
+            {" "}
+            {t("landing.pitch.price.label")}
+          </Typography>
           <Typography align="center">
-            Send for less. Our fees are much lower than our competitors.
+            {t("landing.pitch.price.text")}
           </Typography>
         </Box>
         <Box
@@ -50,10 +57,12 @@ const PitchSection = () => {
           alignItems="center"
         >
           <AccessTimeIcon fontSize="large" color="primary" />
-          <Typography variant="h5">On time</Typography>
+          <Typography variant="h5">
+            {" "}
+            {t("landing.pitch.speed.label")}
+          </Typography>
           <Typography align="center">
-            Every transfer carries a delivery promise. We deliver your transfer
-            on time or your money back.
+            {t("landing.pitch.speed.text")}
           </Typography>
         </Box>
       </Box>

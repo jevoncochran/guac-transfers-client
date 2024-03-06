@@ -35,7 +35,7 @@ const HeroSection = () => {
         </Typography>
         <Button
           variant="contained"
-          sx={{ marginTop: "24px", marginX: "auto", width: "150px" }}
+          sx={{ marginTop: "24px", marginX: "auto", minWidth: "150px" }}
         >
           {t("landing.hero.moreInfoButton")}
         </Button>

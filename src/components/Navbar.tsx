@@ -94,7 +94,12 @@ const Navbar = () => {
           "country",
           JSON.stringify({
             code: "US",
-            name: { en: "United States", es: "Estados Unidos" },
+            name: {
+              en: "United States",
+              es: "Estados Unidos",
+              pt: "Estados Unidos",
+              fr: "États-Uni",
+            },
           })
         );
       }
@@ -102,6 +107,9 @@ const Navbar = () => {
     setLanguage(JSON.parse(localStorage.getItem("language")!));
     setUserCountry(JSON.parse(localStorage.getItem("country")!));
   }, [isLoggedIn, user]);
+
+  console.log(i18n.language);
+  console.log(language);
 
   return (
     <Box
@@ -235,7 +243,7 @@ const Navbar = () => {
           <Box
             display="flex"
             justifyContent={"space-between"}
-            width="300px"
+            minWidth="300px"
             marginBottom={"12px"}
           >
             <Box
@@ -294,7 +302,7 @@ const Navbar = () => {
               display={"flex"}
               justifyContent={"flex-end"}
               sx={{
-                width: "350px",
+                minWidth: "350px",
               }}
             >
               <Button

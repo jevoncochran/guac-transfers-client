@@ -20,12 +20,26 @@
     }
   },
 
-  "divider": { "send": "Enviar dinero a" },
+  "divider": { "send": "Enviar dinero a", "select": "Seleccionar país" },
 
   "landing": {
     "hero": {
       "tagline": "Transferencias sin problemas cuando y donde las necesites",
       "moreInfoButton": "Aprende más"
+    },
+    "pitch": {
+      "convenience": {
+        "label": "Tranquilidad de espíritu",
+        "text": "Envía en minutos desde tu teléfono. Notificaciones de estado para ti y tu destinatario."
+      },
+      "price": {
+        "label": "Ahorrar en tarifas",
+        "text": "Envía por menos. Nuestras tarifas son mucho más bajas que las de nuestros competidores."
+      },
+      "speed": {
+        "label": "A tiempo",
+        "text": "Cada transferencia conlleva una promesa de entrega. Entregamos tu transferencia a tiempo o te devolvemos tu dinero."
+      }
     }
   },
 

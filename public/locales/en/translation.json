@@ -19,12 +19,26 @@
     }
   },
 
-  "divider": { "send": "Send money to" },
+  "divider": { "send": "Send money to", "select": "Select Country" },
 
   "landing": {
     "hero": {
       "tagline": "Hassle-free transfers when and where you need them",
       "moreInfoButton": "Learn More"
+    },
+    "pitch": {
+      "convenience": {
+        "label": "Peace of mind",
+        "text": "Send within minutes from your phone. Status updates for you and your recipient."
+      },
+      "price": {
+        "label": "Save on fees",
+        "text": "Send for less. Our fees are much lower than those of our competitors."
+      },
+      "speed": {
+        "label": "On time",
+        "text": "Every transfer carries a delivery promise. We deliver your transfer on time or your money back."
+      }
     }
   },
 
