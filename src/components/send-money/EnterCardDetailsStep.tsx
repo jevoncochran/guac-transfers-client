@@ -113,7 +113,7 @@ const EnterCardDetailsStep = () => {
           horizontal: "right",
         }}
         open={openSnackbar}
-        autoHideDuration={6000} // Adjust as needed
+        autoHideDuration={3000}
         onClose={handleCloseSnackbar} // Triggered when the Snackbar is closed
       >
         <Alert

@@ -70,7 +70,7 @@ const Divider = () => {
             color={theme.palette.secondary.contrastText}
             fontSize="14px"
           >
-            Select Country
+            {t("divider.select")}
           </Typography>
         )}
         <ExpandMoreOutlinedIcon

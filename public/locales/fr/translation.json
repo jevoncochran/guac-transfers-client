@@ -1,0 +1,396 @@
+{
+  "navBar": {
+    "motto": "Votre Argent, Rapidement",
+    "tabs": {
+      "tab1": "Envoyer de l'Argent",
+      "tab2": "Historique des Transferts",
+      "tab3": "Référez des Amis"
+    },
+
+    "auth": { "login": "Se Connecter", "register": "Rejoindre Maintenant" },
+
+    "welcome": "Bienvenue",
+
+    "accountMenu": {
+      "settings": "Paramètres",
+      "redeem": "Utiliser l'Offre",
+      "help": "Aide",
+      "logout": "Déconnexion"
+    }
+  },
+
+  "divider": {
+    "send": "Envoyer de l'argent à",
+    "select": "Choisissez le pays"
+  },
+
+  "landing": {
+    "hero": {
+      "tagline": "Transferts sans tracas quand et où vous en avez besoin",
+      "moreInfoButton": "En savoir plus"
+    },
+    "pitch": {
+      "convenience": {
+        "label": "Sérénité",
+        "text": "Envoyez en quelques minutes depuis votre téléphone. Mises à jour de statut pour vous et votre destinataire."
+      },
+      "price": {
+        "label": "Économisez sur les frais",
+        "text": "Envoyez pour moins cher. Nos frais sont bien inférieurs à ceux de nos concurrents."
+      },
+      "speed": {
+        "label": "À temps",
+        "text": "Chaque transfert porte une promesse de livraison. Nous livrons votre transfert à temps ou remboursons votre argent."
+      }
+    }
+  },
+
+  "auth": {
+    "login": {
+      "label": "Bienvenue de retour",
+      "inputs": {
+        "email": {
+          "label": "Adresse E-mail",
+          "placeholder": "Veuillez entrer votre adresse e-mail"
+        },
+        "password": {
+          "label": "Mot de Passe",
+          "placeholder": "Veuillez entrer votre mot de passe"
+        }
+      },
+      "submitButton": "Se Connecter",
+      "register": {
+        "text": "Besoin d'un compte ?",
+        "clickable": "Rejoindre Maintenant"
+      }
+    },
+
+    "register": {
+      "label": "Créer un compte",
+      "inputs": {
+        "firstName": {
+          "label": "Prénom",
+          "placeholder": "Veuillez entrer votre prénom"
+        },
+        "lastName": {
+          "label": "Nom de Famille",
+          "placeholder": "Veuillez entrer votre nom de famille"
+        },
+        "email": {
+          "label": "Adresse E-mail",
+          "placeholder": "Veuillez entrer votre adresse e-mail"
+        },
+        "password": {
+          "label": "Mot de Passe",
+          "placeholder": "Veuillez entrer votre mot de passe"
+        },
+        "passwordConfirm": {
+          "label": "Confirmer le Mot de Passe",
+          "placeholder": "Veuillez confirmer votre mot de passe"
+        }
+      },
+      "submitButton": "Rejoindre Maintenant",
+      "login": {
+        "text": "Vous avez déjà un compte ?",
+        "clickable": "Se Connecter"
+      }
+    }
+  },
+
+  "sendMoney": {
+    "backButton": "Retour",
+
+    "continueButtonDefault": "Continuer",
+
+    "selectRecipient": {
+      "mainHeading": "Sélectionnez un destinataire pour envoyer de l'argent :",
+      "selectCountry": "Veuillez sélectionner un pays pour transférer de l'argent.",
+      "newRecipient": "Nouveau Bénéficiaire",
+      "previousRecipient": {
+        "bankDeposit": {
+          "substring1": "",
+          "substring2": "compte se terminant par"
+        },
+        "cashPickup": "Retrait d'espèces à"
+      }
+    },
+
+    "selectAmount": {
+      "mainHeading": "Vitesse de Livraison",
+      "send": "Vous envoyez",
+      "receive": "Ils reçoivent",
+      "transferMethod": {
+        "card": {
+          "label": "Express",
+
+          "time": {
+            "substring1": "Argent livré en",
+            "substring2": "minutes"
+          },
+
+          "method": {
+            "substring1": "Payer avec",
+            "substring2": "carte de débit/crédit"
+          }
+        },
+
+        "bankAccount": {
+          "label": "Économique",
+
+          "time": {
+            "substring1": "Argent livré en",
+            "substring2": "3-5 jours"
+          },
+
+          "method": {
+            "substring1": "Payer avec",
+            "substring2": "compte bancaire"
+          }
+        }
+      }
+    },
+
+    "selectDeliveryMethod": {
+      "mainHeading": "Méthode de Livraison",
+      "subtitle": "Comment souhaitez-vous que l'argent soit livré ?",
+      "methods": {
+        "bankDeposit": "Dépôt Bancaire",
+        "cashPickup": "Retrait d'Espèces"
+      }
+    },
+
+    "selectInstitution": {
+      "bank": {
+        "mainHeading": "Dépôt Bancaire",
+        "subtitle": "Sélectionnez la banque du destinataire"
+      },
+
+      "cash": {
+        "mainHeading": "Retrait d'Espèces",
+        "subtitle": "Sélectionnez une option de retrait d'espèces",
+        "options": {
+          "banks": "Banques",
+          "other": "Autres Lieux"
+        }
+      }
+    },
+
+    "enterRecipientName": {
+      "mainHeading": "Nom du Bénéficiaire",
+      "subtitle": {
+        "bank": "Ces informations doivent correspondre au nom sur le compte bancaire du bénéficiaire",
+        "cash": "Ces informations doivent correspondre au nom sur la pièce d'identité du bénéficiaire émise par le gouvernement"
+      },
+      "inputs": {
+        "firstName": {
+          "label": "Prénom",
+          "placeholder": "Veuillez fournir votre prénom"
+        },
+        "middleName": {
+          "label": "Deuxième Prénom",
+          "placeholder": "Veuillez fournir votre deuxième prénom (facultatif)"
+        },
+        "lastName": {
+          "label": "Nom de Famille",
+          "placeholder": "Veuillez fournir votre nom de famille"
+        }
+      }
+    },
+
+    "enterRecipientBankAccount": {
+      "mainHeading": "Compte Bancaire du Bénéficiaire",
+      "subtitle": "Entrez le numéro de compte bancaire du bénéficiaire",
+      "inputs": {
+        "accountNumber": {
+          "label": "Numéro de Compte",
+          "placeholder": "par exemple, 123456789"
+        }
+      }
+    },
+
+    "enterRecipientAddress": {
+      "mainHeading": "Adresse du Bénéficiaire",
+      "subtitle": {
+        "substring1": "Entrez l'adresse associée au",
+        "substring2": "compte se terminant par"
+      },
+      "inputs": {
+        "streetAddress": {
+          "label": "Adresse",
+          "placeholder": "Veuillez entrer l'adresse du bénéficiaire"
+        },
+        "city": {
+          "label": "Ville",
+          "placeholder": "Veuillez entrer la ville du bénéficiaire"
+        }
+      }
+    },
+
+    "enterRecipientPhoneNumber": {
+      "mainHeading": "Numéro de Téléphone du Bénéficiaire",
+      "subtitle": "Entrez le numéro de téléphone du bénéficiaire pour que nous puissions lui envoyer des mises à jour par SMS",
+      "inputs": {
+        "phone": {
+          "label": "Numéro de Mobile du Bénéficiaire",
+          "placeholder": "Veuillez entrer le numéro de téléphone du bénéficiaire"
+        }
+      }
+    },
+
+    "enterSenderPhoneNumber": {
+      "mainHeading": "Votre Numéro de Téléphone",
+      "inputs": {
+        "phone": {
+          "label": "Votre Numéro de Mobile",
+          "placeholder": "Veuillez entrer votre numéro de téléphone"
+        }
+      }
+    },
+
+    "selectPaymentMethod": {
+      "mainHeading": "Méthode de Paiement",
+      "options": {
+        "savedCard": {
+          "sublabel": {
+            "debit": "carte de débit",
+            "credit": "carte de crédit"
+          }
+        },
+        "newCard": {
+          "label": "Ajouter Nouvelle Carte"
+        }
+      }
+    },
+
+    "enterCardDetails": {
+      "label": "Ajouter Nouvelle Carte",
+      "inputs": {
+        "cardNumber": {
+          "label": "Numéro de Carte"
+        },
+        "cardExpiration": {
+          "label": "Date d'Expiration"
+        },
+        "cvc": { "label": "Code de Sécurité" },
+        "zip": {
+          "label": "Code Postal",
+          "placeholder": "Veuillez entrer votre code postal"
+        },
+        "name": {
+          "label": "Votre Nom (tel qu'il apparaît sur la carte)",
+          "placeholder": "Veuillez entrer votre nom tel qu'il apparaît sur la carte"
+        }
+      }
+    },
+
+    "confirmTransfer": {
+      "mainHeading": "Confirmer et Envoyer",
+      "continueButton": "Envoyer",
+      "editButton": "Modifier",
+      "section": {
+        "amount": {
+          "label": "Montant & Livraison",
+          "subsections": {
+            "converted": {
+              "label": "Montant Converti"
+            },
+            "fee": {
+              "label": "Frais de Transfert"
+            },
+            "cost": {
+              "label": "Coût Total"
+            },
+            "toRecipient": {
+              "label": "Total au Bénéficiaire"
+            },
+            "transferMethod": {
+              "label": "Vitesse de Livraison",
+              "line1": {
+                "card": "Express",
+                "bankAccount": "Économique"
+              }
+            },
+            "deliveryMethod": {
+              "label": "Méthode de Livraison",
+              "line1": {
+                "bank": "Dépôt Bancaire",
+                "cash": "Retrait d'Espèces"
+              }
+            },
+            "cashPickup": {
+              "label": "Lieu(x) de Retrait d'Espèces"
+            }
+          }
+        },
+
+        "payment": {
+          "label": "Détails du Paiement",
+          "subsections": {
+            "method": {
+              "label": "Méthode de Paiement",
+              "line1": {
+                "debit": "carte de débit",
+                "credit": "carte de crédit"
+              }
+            },
+            "billingAddress": {
+              "label": "Adresse de Facturation"
+            }
+          }
+        },
+
+        "recipient": {
+          "label": "Détails du Bénéficiaire",
+          "subsections": {
+            "name": {
+              "label": "Nom"
+            },
+            "address": {
+              "label": "Adresse"
+            },
+            "phone": {
+              "label": "Numéro de Téléphone"
+            }
+          }
+        },
+
+        "sender": {
+          "label": "Vos Détails",
+          "subsections": {
+            "name": {
+              "label": "Nom"
+            },
+            "phone": {
+              "label": "Numéro de Téléphone"
+            }
+          }
+        }
+      }
+    },
+
+    "success": {
+      "mainHeading": "Transfert Réussi",
+      "continueButton": "Nouveau Transfert",
+      "received": "Reçu par",
+      "confirmation": {
+        "bankDeposit": {
+          "line1": "Nous avons confirmé que vos fonds ont été déposés sur le compte de votre bénéficiaire",
+          "line2": "."
+        },
+        "cash": {
+          "line1": "Nous avons confirmé que vos fonds sont disponibles pour un retrait d'espèces à",
+          "line2": "les endroits suivants :"
+        },
+        "complete": "Votre transaction est complète et nous espérons vous revoir."
+      }
+    }
+  },
+
+  "transferHistory": {
+    "mainHeading": "Vos Transferts",
+
+    "transferCard": {
+      "sent": "Envoyé le"
+    }
+  }
+}
