@@ -84,13 +84,13 @@ const Navbar = () => {
       const storedLanguage =
         localStorage.getItem("language") &&
         localStorage.getItem("language") !== "undefined"
-          ? JSON.parse(localStorage.getItem("language"))
+          ? JSON.parse(localStorage.getItem("language") as string)
           : null;
 
       const storedCountry =
         localStorage.getItem("country") &&
         localStorage.getItem("country") !== "undefined"
-          ? JSON.parse(localStorage.getItem("country"))
+          ? JSON.parse(localStorage.getItem("country") as string)
           : null;
       if (!storedLanguage) {
         localStorage.setItem(
