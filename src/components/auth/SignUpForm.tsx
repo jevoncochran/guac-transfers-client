@@ -31,6 +31,10 @@ const SignUpForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordMatchError, setPasswordMatchError] = useState("");
+  const [requiredFieldsError, setRequiredFieldsError] = useState("");
+  const [existingUserError, setExistingUserError] = useState("");
 
   const { t } = useTranslation();
 
@@ -42,8 +46,46 @@ const SignUpForm = () => {
     setOpenSnackbar(false);
   };
 
+  const missingFieldCheck = (field: string) => {
+    if (requiredFieldsError && field === "") {
+      return "This field is missing";
+    } else {
+      return "";
+    }
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    // Reset errors
+    setEmailError("");
+    setPasswordMatchError("");
+    setRequiredFieldsError("");
+    setExistingUserError("");
+
+    // Validate required fields
+    if (
+      !credentials.firstName ||
+      !credentials.lastName ||
+      !credentials.email ||
+      !credentials.password ||
+      !credentials.passwordConfirm
+    ) {
+      setRequiredFieldsError("All fields are required");
+      return;
+    }
+
+    // Validate email format
+    if (!isValidEmail(credentials.email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
+
+    // Validate password match
+    if (credentials.password !== credentials.passwordConfirm) {
+      setPasswordMatchError("Passwords do not match");
+      return;
+    }
 
     setLoading(true);
     setOpenSnackbar(true);
@@ -87,7 +129,18 @@ const SignUpForm = () => {
             dispatch(closeAuthModal());
           }, delaySeconds);
         }
+      })
+      .catch((err) => {
+        setLoading(false);
+        if (err.response && err.response.status === 409) {
+          setExistingUserError("A user with this email already exists");
+        }
       });
+  };
+
+  // TODO: Move this to util folder
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   return (
@@ -99,6 +152,7 @@ const SignUpForm = () => {
         }}
         open={openSnackbar}
         onClose={handleCloseSnackbar} // Triggered when the Snackbar is closed
+        autoHideDuration={5000}
       >
         <Alert
           variant="filled"
@@ -114,8 +168,8 @@ const SignUpForm = () => {
             </IconButton>
           }
         >
-          The server needs to fire up and this usually takes around 50 seconds.
-          Apologies for the wait!
+          The server may need to fire up and this usually takes around 50
+          seconds. Apologies for the wait!
         </Alert>
       </Snackbar>
 
@@ -128,6 +182,7 @@ const SignUpForm = () => {
           type="text"
           placeholder={t("auth.register.inputs.firstName.placeholder")}
           onChange={handleChange}
+          error={missingFieldCheck(credentials.firstName)}
         />
 
         {/* Last Name */}
@@ -138,6 +193,7 @@ const SignUpForm = () => {
           type="text"
           placeholder={t("auth.register.inputs.lastName.placeholder")}
           onChange={handleChange}
+          error={missingFieldCheck(credentials.lastName)}
         />
 
         {/* Email Address */}
@@ -145,9 +201,10 @@ const SignUpForm = () => {
           inputName="email"
           label={t("auth.register.inputs.email.label")}
           value={credentials.email}
-          type="email"
+          type="text"
           placeholder={t("auth.register.inputs.email.placeholder")}
           onChange={handleChange}
+          error={missingFieldCheck(credentials.email) || emailError}
         />
 
         {/* Password */}
@@ -158,6 +215,7 @@ const SignUpForm = () => {
           type="password"
           placeholder={t("auth.register.inputs.password.placeholder")}
           onChange={handleChange}
+          error={missingFieldCheck(credentials.password)}
         />
 
         {/* Confirm Password */}
@@ -168,7 +226,21 @@ const SignUpForm = () => {
           type="password"
           placeholder={t("auth.register.inputs.passwordConfirm.placeholder")}
           onChange={handleChange}
+          error={
+            missingFieldCheck(credentials.passwordConfirm) || passwordMatchError
+          }
         />
+
+        {requiredFieldsError && (
+          <Alert severity="error" sx={{ marginBottom: "16px" }}>
+            {requiredFieldsError}
+          </Alert>
+        )}
+        {existingUserError && (
+          <Alert severity="error" sx={{ marginBottom: "16px" }}>
+            {existingUserError}
+          </Alert>
+        )}
 
         {/* Submit Button */}
         <AuthDialogButton

@@ -1,3 +1,4 @@
+import { FormHelperText } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
@@ -11,6 +12,7 @@ interface Props {
   placeholder: string;
   startAdornment?: JSX.Element;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error: string | null;
 }
 
 const InputGroup = ({
@@ -21,6 +23,7 @@ const InputGroup = ({
   placeholder,
   startAdornment,
   onChange,
+  error,
 }: Props) => {
   return (
     <Box sx={{ marginBottom: "16px" }}>
@@ -37,7 +40,11 @@ const InputGroup = ({
         InputLabelProps={{ shrink: false }}
         placeholder={value ? "" : placeholder}
         onChange={onChange}
+        error={error ? true : false}
       />
+      {error && error !== "This field is missing" && (
+        <FormHelperText error={true}>{error}</FormHelperText>
+      )}
     </Box>
   );
 };
