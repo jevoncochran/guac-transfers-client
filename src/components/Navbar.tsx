@@ -77,12 +77,21 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (user && isLoggedIn) {
+    if (user && isLoggedIn && user.language && user.country) {
       localStorage.setItem("language", JSON.stringify(user.language));
       localStorage.setItem("country", JSON.stringify(user.country));
     } else {
-      const storedLanguage = localStorage.getItem("language");
-      const storedCountry = localStorage.getItem("country");
+      const storedLanguage =
+        localStorage.getItem("language") &&
+        localStorage.getItem("language") !== "undefined"
+          ? JSON.parse(localStorage.getItem("language") as string)
+          : null;
+
+      const storedCountry =
+        localStorage.getItem("country") &&
+        localStorage.getItem("country") !== "undefined"
+          ? JSON.parse(localStorage.getItem("country") as string)
+          : null;
       if (!storedLanguage) {
         localStorage.setItem(
           "language",
