@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,6 +15,8 @@ import ContinueButton from "./ContinueButton";
 import { useTranslation } from "react-i18next";
 import { TRANSFER_COUNTRIES } from "../../constants";
 import i18n from "../../i18n";
+import FormErrorAlert from "../FormErrorAlert";
+import { identifyMissingFields } from "../../utils/missingFieldCheck";
 
 const EnterRecipientAddressStep = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +31,8 @@ const EnterRecipientAddressStep = () => {
     (state: RootState) => state.transfer.country
   );
 
+  const [requiredFieldsError, setRequiredFieldsError] = useState("");
+
   const { t } = useTranslation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +42,23 @@ const EnterRecipientAddressStep = () => {
         [e.target.name]: e.target.value,
       })
     );
+  };
+
+  const handleContinue = () => {
+    // Reset errors
+    setRequiredFieldsError("");
+
+    // Validate required fields
+    if (
+      !recipientAddress?.streetAddress ||
+      !recipientAddress.city ||
+      !recipientAddress.department
+    ) {
+      setRequiredFieldsError("All fields are required");
+      return;
+    }
+
+    dispatch(goToNextTransferStep());
   };
 
   return (
@@ -52,6 +74,8 @@ const EnterRecipientAddressStep = () => {
         )} ${recipientAccount?.accountNumber?.slice(-4)}`}
       </Typography>
 
+      <FormErrorAlert error={requiredFieldsError} />
+
       <InputGroup
         inputName="streetAddress"
         label={t("sendMoney.enterRecipientAddress.inputs.streetAddress.label")}
@@ -60,6 +84,10 @@ const EnterRecipientAddressStep = () => {
           "sendMoney.enterRecipientAddress.inputs.streetAddress.placeholder"
         )}
         onChange={handleChange}
+        error={identifyMissingFields(
+          requiredFieldsError,
+          recipientAddress?.streetAddress ?? ""
+        )}
       />
 
       <InputGroup
@@ -70,6 +98,10 @@ const EnterRecipientAddressStep = () => {
           "sendMoney.enterRecipientAddress.inputs.city.placeholder"
         )}
         onChange={handleChange}
+        error={identifyMissingFields(
+          requiredFieldsError,
+          recipientAddress?.city ?? ""
+        )}
       />
 
       {transferCountry?.code === "CO" ? (
@@ -94,6 +126,14 @@ const EnterRecipientAddressStep = () => {
               )
             }
             fullWidth
+            error={
+              identifyMissingFields(
+                requiredFieldsError,
+                recipientAddress?.department ?? ""
+              )
+                ? true
+                : false
+            }
           >
             {TRANSFER_COUNTRIES.find(
               (country) => country.code === "CO"
@@ -111,10 +151,14 @@ const EnterRecipientAddressStep = () => {
           value={recipientAddress?.department ?? ""}
           placeholder="Please enter department of recipient"
           onChange={handleChange}
+          error={identifyMissingFields(
+            requiredFieldsError,
+            recipientAddress?.department ?? ""
+          )}
         />
       )}
 
-      <ContinueButton continueAction={() => dispatch(goToNextTransferStep())} />
+      <ContinueButton continueAction={handleContinue} />
     </div>
   );
 };

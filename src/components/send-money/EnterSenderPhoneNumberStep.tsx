@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import InputGroup from "../InputGroup";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -11,6 +12,8 @@ import PhonePrefix from "./PhonePrefix";
 import { PHONE_PREFIXES } from "../../constants";
 import PhonePrefixMenu from "./PhonePrefixMenu";
 import { openSenderPhoneModal } from "../../redux/features/ui/uiSlice";
+import FormErrorAlert from "../FormErrorAlert";
+import { identifyMissingFields } from "../../utils/missingFieldCheck";
 
 const EnterSenderPhoneNumberStep = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +23,30 @@ const EnterSenderPhoneNumberStep = () => {
     (state: RootState) => state.auth.user?.phone
   );
 
+  const [requiredFieldError, setRequiredFieldError] = useState("");
+
   const { t } = useTranslation();
+
+  const handleContinue = () => {
+    // Reset errors
+    setRequiredFieldError("");
+
+    // Validate required fields
+    if (!senderPhoneNum?.body) {
+      setRequiredFieldError("Please enter your phone number");
+      return;
+    }
+
+    axios
+      .patch(`${import.meta.env.VITE_API_URL}/users/${sender?.id}`, {
+        phoneIso: senderPhoneNum?.iso,
+        phoneNum: `+${senderPhoneNum?.prefix} ${senderPhoneNum?.body.replace(
+          /\s+/g,
+          ""
+        )}`,
+      })
+      .then(() => dispatch(goToNextTransferStep()));
+  };
 
   return (
     <div>
@@ -28,6 +54,9 @@ const EnterSenderPhoneNumberStep = () => {
         <Typography variant="mainHeading">
           {t("sendMoney.enterSenderPhoneNumber.mainHeading")}
         </Typography>
+
+        <FormErrorAlert error={requiredFieldError} />
+
         <InputGroup
           inputName="phone"
           label={t("sendMoney.enterSenderPhoneNumber.inputs.phone.label")}
@@ -59,19 +88,12 @@ const EnterSenderPhoneNumberStep = () => {
               })
             )
           }
+          error={identifyMissingFields(
+            requiredFieldError,
+            senderPhoneNum?.body ?? ""
+          )}
         />
-        <ContinueButton
-          continueAction={() => {
-            axios
-              .patch(`${import.meta.env.VITE_API_URL}/users/${sender?.id}`, {
-                phoneIso: senderPhoneNum?.iso,
-                phoneNum: `+${
-                  senderPhoneNum?.prefix
-                } ${senderPhoneNum?.body.replace(/\s+/g, "")}`,
-              })
-              .then(() => dispatch(goToNextTransferStep()));
-          }}
-        />
+        <ContinueButton continueAction={handleContinue} />
       </div>
       <PhonePrefixMenu type="sender" />
     </div>

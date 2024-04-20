@@ -11,6 +11,7 @@ interface Props {
   placeholder: string;
   startAdornment?: JSX.Element;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error: string | null;
 }
 
 const InputGroup = ({
@@ -21,6 +22,7 @@ const InputGroup = ({
   placeholder,
   startAdornment,
   onChange,
+  error,
 }: Props) => {
   return (
     <Box sx={{ marginBottom: "16px" }}>
@@ -37,6 +39,7 @@ const InputGroup = ({
         InputLabelProps={{ shrink: false }}
         placeholder={value ? "" : placeholder}
         onChange={onChange}
+        error={error ? true : false}
       />
     </Box>
   );

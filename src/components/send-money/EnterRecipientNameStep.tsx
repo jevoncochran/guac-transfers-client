@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
@@ -9,6 +10,8 @@ import ContinueButton from "./ContinueButton";
 import { Country, DeliveryMethod, TransferStep } from "../../types";
 import InputGroup from "../InputGroup";
 import { useTranslation } from "react-i18next";
+import { identifyMissingFields } from "../../utils/missingFieldCheck";
+import FormErrorAlert from "../FormErrorAlert";
 
 const EnterRecipientNameStep = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +25,8 @@ const EnterRecipientNameStep = () => {
   const transferCountry = useAppSelector(
     (state: RootState) => state.transfer.country
   );
+
+  const [requiredFieldsError, setRequiredFieldsError] = useState("");
 
   const { t } = useTranslation();
 
@@ -38,6 +43,15 @@ const EnterRecipientNameStep = () => {
     deliveryMethod: DeliveryMethod,
     transferCountry: Country
   ) => {
+    // Reset errors
+    setRequiredFieldsError("");
+
+    // Validate required fields
+    if (!recipientName?.firstName || !recipientName.lastName) {
+      setRequiredFieldsError("First name and last name is required");
+      return;
+    }
+
     let nextStep: TransferStep;
 
     // For bank deposit transfers, the next step is recipient bank account step
@@ -58,6 +72,7 @@ const EnterRecipientNameStep = () => {
   };
 
   return (
+    // TODO: This should be a form
     <div>
       <Typography variant="mainHeading">
         {t("sendMoney.enterRecipientName.mainHeading")}
@@ -67,6 +82,9 @@ const EnterRecipientNameStep = () => {
           ? t("sendMoney.enterRecipientName.subtitle.bank")
           : t("sendMoney.enterRecipientName.subtitle.cash")}
       </Typography>
+
+      <FormErrorAlert error={requiredFieldsError} />
+
       <InputGroup
         inputName="firstName"
         label={t("sendMoney.enterRecipientName.inputs.firstName.label")}
@@ -77,6 +95,10 @@ const EnterRecipientNameStep = () => {
             : t("sendMoney.enterRecipientName.inputs.firstName.placeholder")
         }
         onChange={handleChange}
+        error={identifyMissingFields(
+          requiredFieldsError,
+          recipientName?.firstName ?? ""
+        )}
       />
       <InputGroup
         inputName="middleName"
@@ -88,6 +110,7 @@ const EnterRecipientNameStep = () => {
             : t("sendMoney.enterRecipientName.inputs.middleName.placeholder")
         }
         onChange={handleChange}
+        error=""
       />
       <InputGroup
         inputName="lastName"
@@ -99,6 +122,10 @@ const EnterRecipientNameStep = () => {
             : t("sendMoney.enterRecipientName.inputs.lastName.placeholder")
         }
         onChange={handleChange}
+        error={identifyMissingFields(
+          requiredFieldsError,
+          recipientName?.lastName ?? ""
+        )}
       />
       <ContinueButton
         continueAction={() =>

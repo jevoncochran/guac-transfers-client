@@ -16,6 +16,9 @@ import {
 import InputGroup from "../InputGroup";
 import { useTranslation } from "react-i18next";
 import { splitPhoneNumber } from "../../utils/splitPhoneNumber";
+import { isValidEmail } from "../../utils/isValidEmail";
+import { identifyMissingFields } from "../../utils/missingFieldCheck";
+import FormErrorAlert from "../FormErrorAlert";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +26,8 @@ const LoginForm = () => {
 
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [requiredFieldsError, setRequiredFieldsError] = useState("");
 
   const { t } = useTranslation();
 
@@ -32,6 +37,21 @@ const LoginForm = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    // Reset errors
+    setEmailError("");
+    setRequiredFieldsError("");
+
+    // Validate required fields
+    if (!credentials.email || !credentials.password) {
+      setRequiredFieldsError("All fields are required");
+      return;
+    }
+
+    if (!isValidEmail(credentials.email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
 
     setLoading(true);
     axios
@@ -75,14 +95,24 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <FormErrorAlert error={requiredFieldsError} />
+      <FormErrorAlert error={emailError} />
+
+      {/* Email Address */}
       <InputGroup
         inputName="email"
         label={t("auth.login.inputs.email.label")}
         value={credentials.email}
-        type="email"
+        type="text"
         placeholder={t("auth.login.inputs.email.placeholder")}
         onChange={handleChange}
+        error={
+          identifyMissingFields(requiredFieldsError, credentials.email) ||
+          emailError
+        }
       />
+
+      {/* Password */}
       <InputGroup
         inputName="password"
         label={t("auth.login.inputs.password.label")}
@@ -90,6 +120,7 @@ const LoginForm = () => {
         type="password"
         placeholder={t("auth.login.inputs.password.placeholder")}
         onChange={handleChange}
+        error={identifyMissingFields(requiredFieldsError, credentials.password)}
       />
       <AuthDialogButton
         label={t("auth.login.submitButton")}

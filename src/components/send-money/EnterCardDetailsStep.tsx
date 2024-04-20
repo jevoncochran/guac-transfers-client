@@ -25,6 +25,8 @@ import {
   setPaymentMethod,
 } from "../../redux/features/transfer/transferSlice";
 import { useTranslation } from "react-i18next";
+import { identifyMissingFields } from "../../utils/missingFieldCheck";
+import FormErrorAlert from "../FormErrorAlert";
 
 const EnterCardDetailsStep = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +39,7 @@ const EnterCardDetailsStep = () => {
   const [customerName, setCustomerName] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [requiredFieldsError, setRequiredFieldsError] = useState("");
 
   const { t } = useTranslation();
 
@@ -73,6 +76,14 @@ const EnterCardDetailsStep = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // Reset errors
+    setRequiredFieldsError("");
+
+    if (!customerName || !postalCode) {
+      setRequiredFieldsError("All fields are required");
+      return;
+    }
 
     try {
       const token = await generateStripeToken();
@@ -137,7 +148,10 @@ const EnterCardDetailsStep = () => {
       <Typography variant="mainHeading">
         {t("sendMoney.enterCardDetails.label")}
       </Typography>
+      
       <form onSubmit={handleSubmit}>
+        <FormErrorAlert error={requiredFieldsError} />
+
         <Box sx={{ marginBottom: "16px" }}>
           <InputLabel>
             {t("sendMoney.enterCardDetails.inputs.cardNumber.label")}
@@ -177,6 +191,7 @@ const EnterCardDetailsStep = () => {
           value={postalCode}
           placeholder={t("sendMoney.enterCardDetails.inputs.zip.placeholder")}
           onChange={(e) => setPostalCode(e.target.value)}
+          error={identifyMissingFields(requiredFieldsError, postalCode)}
         />
 
         <InputGroup
@@ -185,6 +200,7 @@ const EnterCardDetailsStep = () => {
           value={customerName}
           placeholder={t("sendMoney.enterCardDetails.inputs.name.placeholder")}
           onChange={(e) => setCustomerName(e.target.value)}
+          error={identifyMissingFields(requiredFieldsError, customerName)}
         />
         <ContinueButton submitBtn />
       </form>

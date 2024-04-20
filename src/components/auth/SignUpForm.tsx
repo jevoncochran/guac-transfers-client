@@ -18,6 +18,9 @@ import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { isValidEmail } from "../../utils/isValidEmail";
+import { identifyMissingFields } from "../../utils/missingFieldCheck";
+import FormErrorAlert from "../FormErrorAlert";
 
 const SignUpForm = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +34,10 @@ const SignUpForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordMatchError, setPasswordMatchError] = useState("");
+  const [requiredFieldsError, setRequiredFieldsError] = useState("");
+  const [existingUserError, setExistingUserError] = useState("");
 
   const { t } = useTranslation();
 
@@ -44,6 +51,36 @@ const SignUpForm = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    // Reset errors
+    setEmailError("");
+    setPasswordMatchError("");
+    setRequiredFieldsError("");
+    setExistingUserError("");
+
+    // Validate required fields
+    if (
+      !credentials.firstName ||
+      !credentials.lastName ||
+      !credentials.email ||
+      !credentials.password ||
+      !credentials.passwordConfirm
+    ) {
+      setRequiredFieldsError("All fields are required");
+      return;
+    }
+
+    // Validate email format
+    if (!isValidEmail(credentials.email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
+
+    // Validate password match
+    if (credentials.password !== credentials.passwordConfirm) {
+      setPasswordMatchError("Passwords do not match");
+      return;
+    }
 
     setLoading(true);
     setOpenSnackbar(true);
@@ -87,6 +124,12 @@ const SignUpForm = () => {
             dispatch(closeAuthModal());
           }, delaySeconds);
         }
+      })
+      .catch((err) => {
+        setLoading(false);
+        if (err.response && err.response.status === 409) {
+          setExistingUserError("A user with this email already exists");
+        }
       });
   };
 
@@ -99,6 +142,7 @@ const SignUpForm = () => {
         }}
         open={openSnackbar}
         onClose={handleCloseSnackbar} // Triggered when the Snackbar is closed
+        autoHideDuration={5000}
       >
         <Alert
           variant="filled"
@@ -114,12 +158,16 @@ const SignUpForm = () => {
             </IconButton>
           }
         >
-          The server needs to fire up and this usually takes around 50 seconds.
-          Apologies for the wait!
+          The server may need to fire up and this usually takes around 50
+          seconds. Apologies for the wait!
         </Alert>
       </Snackbar>
 
       <form onSubmit={handleSubmit}>
+        <FormErrorAlert error={requiredFieldsError} />
+        <FormErrorAlert error={passwordMatchError} />
+        <FormErrorAlert error={existingUserError} />
+
         {/* First Name */}
         <InputGroup
           inputName="firstName"
@@ -128,6 +176,10 @@ const SignUpForm = () => {
           type="text"
           placeholder={t("auth.register.inputs.firstName.placeholder")}
           onChange={handleChange}
+          error={identifyMissingFields(
+            requiredFieldsError,
+            credentials.firstName
+          )}
         />
 
         {/* Last Name */}
@@ -138,6 +190,10 @@ const SignUpForm = () => {
           type="text"
           placeholder={t("auth.register.inputs.lastName.placeholder")}
           onChange={handleChange}
+          error={identifyMissingFields(
+            requiredFieldsError,
+            credentials.lastName
+          )}
         />
 
         {/* Email Address */}
@@ -145,9 +201,13 @@ const SignUpForm = () => {
           inputName="email"
           label={t("auth.register.inputs.email.label")}
           value={credentials.email}
-          type="email"
+          type="text"
           placeholder={t("auth.register.inputs.email.placeholder")}
           onChange={handleChange}
+          error={
+            identifyMissingFields(requiredFieldsError, credentials.email) ||
+            emailError
+          }
         />
 
         {/* Password */}
@@ -158,6 +218,10 @@ const SignUpForm = () => {
           type="password"
           placeholder={t("auth.register.inputs.password.placeholder")}
           onChange={handleChange}
+          error={identifyMissingFields(
+            requiredFieldsError,
+            credentials.password
+          )}
         />
 
         {/* Confirm Password */}
@@ -168,6 +232,12 @@ const SignUpForm = () => {
           type="password"
           placeholder={t("auth.register.inputs.passwordConfirm.placeholder")}
           onChange={handleChange}
+          error={
+            identifyMissingFields(
+              requiredFieldsError,
+              credentials.passwordConfirm
+            ) || passwordMatchError
+          }
         />
 
         {/* Submit Button */}
