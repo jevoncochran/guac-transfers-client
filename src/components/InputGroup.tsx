@@ -1,4 +1,3 @@
-import { FormHelperText } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
@@ -42,9 +41,6 @@ const InputGroup = ({
         onChange={onChange}
         error={error ? true : false}
       />
-      {error && error !== "This field is missing" && (
-        <FormHelperText error={true}>{error}</FormHelperText>
-      )}
     </Box>
   );
 };

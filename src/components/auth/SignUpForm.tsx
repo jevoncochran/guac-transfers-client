@@ -18,6 +18,9 @@ import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { isValidEmail } from "../../utils/isValidEmail";
+import { identifyMissingFields } from "../../utils/missingFieldCheck";
+import FormErrorAlert from "../FormErrorAlert";
 
 const SignUpForm = () => {
   const dispatch = useAppDispatch();
@@ -44,14 +47,6 @@ const SignUpForm = () => {
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
-  };
-
-  const missingFieldCheck = (field: string) => {
-    if (requiredFieldsError && field === "") {
-      return "This field is missing";
-    } else {
-      return "";
-    }
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -138,11 +133,6 @@ const SignUpForm = () => {
       });
   };
 
-  // TODO: Move this to util folder
-  const isValidEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
   return (
     <>
       <Snackbar
@@ -174,6 +164,10 @@ const SignUpForm = () => {
       </Snackbar>
 
       <form onSubmit={handleSubmit}>
+        <FormErrorAlert error={requiredFieldsError} />
+        <FormErrorAlert error={passwordMatchError} />
+        <FormErrorAlert error={existingUserError} />
+
         {/* First Name */}
         <InputGroup
           inputName="firstName"
@@ -182,7 +176,10 @@ const SignUpForm = () => {
           type="text"
           placeholder={t("auth.register.inputs.firstName.placeholder")}
           onChange={handleChange}
-          error={missingFieldCheck(credentials.firstName)}
+          error={identifyMissingFields(
+            requiredFieldsError,
+            credentials.firstName
+          )}
         />
 
         {/* Last Name */}
@@ -193,7 +190,10 @@ const SignUpForm = () => {
           type="text"
           placeholder={t("auth.register.inputs.lastName.placeholder")}
           onChange={handleChange}
-          error={missingFieldCheck(credentials.lastName)}
+          error={identifyMissingFields(
+            requiredFieldsError,
+            credentials.lastName
+          )}
         />
 
         {/* Email Address */}
@@ -204,7 +204,10 @@ const SignUpForm = () => {
           type="text"
           placeholder={t("auth.register.inputs.email.placeholder")}
           onChange={handleChange}
-          error={missingFieldCheck(credentials.email) || emailError}
+          error={
+            identifyMissingFields(requiredFieldsError, credentials.email) ||
+            emailError
+          }
         />
 
         {/* Password */}
@@ -215,7 +218,10 @@ const SignUpForm = () => {
           type="password"
           placeholder={t("auth.register.inputs.password.placeholder")}
           onChange={handleChange}
-          error={missingFieldCheck(credentials.password)}
+          error={identifyMissingFields(
+            requiredFieldsError,
+            credentials.password
+          )}
         />
 
         {/* Confirm Password */}
@@ -227,20 +233,12 @@ const SignUpForm = () => {
           placeholder={t("auth.register.inputs.passwordConfirm.placeholder")}
           onChange={handleChange}
           error={
-            missingFieldCheck(credentials.passwordConfirm) || passwordMatchError
+            identifyMissingFields(
+              requiredFieldsError,
+              credentials.passwordConfirm
+            ) || passwordMatchError
           }
         />
-
-        {requiredFieldsError && (
-          <Alert severity="error" sx={{ marginBottom: "16px" }}>
-            {requiredFieldsError}
-          </Alert>
-        )}
-        {existingUserError && (
-          <Alert severity="error" sx={{ marginBottom: "16px" }}>
-            {existingUserError}
-          </Alert>
-        )}
 
         {/* Submit Button */}
         <AuthDialogButton

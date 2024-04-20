@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import InputGroup from "../InputGroup";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
@@ -9,6 +10,8 @@ import {
 import ContinueButton from "./ContinueButton";
 import { useTranslation } from "react-i18next";
 import { Country, TransferStep } from "../../types";
+import FormErrorAlert from "../FormErrorAlert";
+import { identifyMissingFields } from "../../utils/missingFieldCheck";
 
 const EnterRecipientBankAccountStep = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +23,8 @@ const EnterRecipientBankAccountStep = () => {
     (state: RootState) => state.transfer.country
   );
 
+  const [requiredFieldError, setRequiredFieldError] = useState("");
+
   const { t } = useTranslation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +32,15 @@ const EnterRecipientBankAccountStep = () => {
   };
 
   const handleContinue = (transferCountry: Country) => {
+    // Reset errors
+    setRequiredFieldError("");
+
+    // Validate account number is entered as required
+    if (!recipientBankAccount) {
+      setRequiredFieldError("Please enter your recipient's bank account number");
+      return;
+    }
+
     let nextStep: TransferStep;
 
     // If recipient country is Colombia, go to recipient address step
@@ -49,6 +63,8 @@ const EnterRecipientBankAccountStep = () => {
         {t("sendMoney.enterRecipientBankAccount.subtitle")}
       </Typography>
 
+      <FormErrorAlert error={requiredFieldError} />
+
       <InputGroup
         inputName="accountNumber"
         label={t(
@@ -63,6 +79,10 @@ const EnterRecipientBankAccountStep = () => {
               )
         }
         onChange={handleChange}
+        error={identifyMissingFields(
+          requiredFieldError,
+          recipientBankAccount ?? ""
+        )}
       />
       <ContinueButton
         continueAction={() => handleContinue(transferCountry as Country)}
