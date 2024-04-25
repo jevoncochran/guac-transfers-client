@@ -38,7 +38,7 @@ const EnterSenderPhoneNumberStep = () => {
     }
 
     axios
-      .patch(`${import.meta.env.VITE_API_URL}/users/${sender?.id}`, {
+      .patch(`${process.env.VITE_API_URL}/users/${sender?.id}`, {
         phoneIso: senderPhoneNum?.iso,
         phoneNum: `+${senderPhoneNum?.prefix} ${senderPhoneNum?.body.replace(
           /\s+/g,

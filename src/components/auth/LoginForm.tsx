@@ -55,7 +55,7 @@ const LoginForm = () => {
 
     setLoading(true);
     axios
-      .post(`${import.meta.env.VITE_API_URL}/auth/login`, credentials)
+      .post(`${process.env.VITE_API_URL}/auth/login`, credentials)
       .then((res) => {
         if (res.status === 200) {
           setLoading(false);

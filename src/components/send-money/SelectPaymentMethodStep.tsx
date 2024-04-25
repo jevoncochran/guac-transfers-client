@@ -43,9 +43,7 @@ const SelectPaymentMethodStep = () => {
   useEffect(() => {
     axios
       .get(
-        `${import.meta.env.VITE_API_URL}/users/${
-          user?.id
-        }/cards?stripeCustomerId=${user?.stripeCustomerId}`
+        `${process.env.VITE_API_URL}/users/${user?.id}/cards?stripeCustomerId=${user?.stripeCustomerId}`
       )
       .then((res) => {
         console.log(res.data);

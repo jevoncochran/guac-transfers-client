@@ -53,6 +53,6 @@ export const calculateConversion = (
   }
 };
 
-const removeExcessDecimals = (figure: number) => {
+export const removeExcessDecimals = (figure: number) => {
   return Math.round((figure + Number.EPSILON) * 100) / 100;
 };

@@ -55,9 +55,7 @@ const SelectRecipientStep = () => {
     if (transfer.country?.code) {
       axios
         .get(
-          `${import.meta.env.VITE_API_URL}/recipients?senderId=${
-            user?.id
-          }&country=${transfer.country?.code}`
+          `${process.env.VITE_API_URL}/recipients?senderId=${user?.id}&country=${transfer.country?.code}`
         )
         .then((res) => {
           setRecipients(res.data);

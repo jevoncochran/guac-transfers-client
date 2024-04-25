@@ -90,7 +90,7 @@ const EnterCardDetailsStep = () => {
       // TODO: Here, we want to have some type of toaster alert
       // alert(token?.id);
       axios
-        .post(`${import.meta.env.VITE_API_URL}/users/${userId}/addCard`, {
+        .post(`${process.env.VITE_API_URL}/users/${userId}/addCard`, {
           tokenId: token?.id,
         })
         .then((res) => {
@@ -148,7 +148,7 @@ const EnterCardDetailsStep = () => {
       <Typography variant="mainHeading">
         {t("sendMoney.enterCardDetails.label")}
       </Typography>
-      
+
       <form onSubmit={handleSubmit}>
         <FormErrorAlert error={requiredFieldsError} />
 

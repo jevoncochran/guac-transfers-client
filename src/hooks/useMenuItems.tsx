@@ -73,7 +73,7 @@ export const useMenuItems = () => {
     onSelect: () => {
       if (user && isLoggedIn) {
         // Update language in database (only send language code)
-        axios.patch(`${import.meta.env.VITE_API_URL}/users/${user.id}`, {
+        axios.patch(`${process.env.VITE_API_URL}/users/${user.id}`, {
           language: language.code,
         });
       }
@@ -91,7 +91,7 @@ export const useMenuItems = () => {
     onSelect: () => {
       if (user && isLoggedIn) {
         // Update country in database (only send country code)
-        axios.patch(`${import.meta.env.VITE_API_URL}/users/${user.id}`, {
+        axios.patch(`${process.env.VITE_API_URL}/users/${user.id}`, {
           country: country.code,
         });
       }

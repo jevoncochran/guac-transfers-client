@@ -19,7 +19,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import "./i18n";
 import Loading from "./components/Loading.tsx";
 
-const stripe = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+const stripe = loadStripe(process.env.VITE_STRIPE_PUBLISHABLE_KEY as string);
 
 const router = createBrowserRouter([
   {

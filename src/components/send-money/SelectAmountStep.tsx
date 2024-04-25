@@ -135,7 +135,7 @@ const SelectAmountStep = () => {
     axios
       .get(
         `${
-          import.meta.env.VITE_API_URL
+          process.env.VITE_API_URL
         }/convert?from=${userCurrency}&to=${transferCurrency}&amount=${1}`
       )
       .then((res) => {

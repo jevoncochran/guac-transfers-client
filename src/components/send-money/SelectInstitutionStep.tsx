@@ -37,9 +37,7 @@ const SelectInstitutionStep = () => {
     if (deliveryMethod === "bankDeposit") {
       axios
         .get(
-          `${import.meta.env.VITE_API_URL}/banks?country=${
-            transferCountry?.code
-          }`
+          `${process.env.VITE_API_URL}/banks?country=${transferCountry?.code}`
         )
         .then((res) => {
           console.log(res.data);
@@ -48,9 +46,7 @@ const SelectInstitutionStep = () => {
     } else {
       axios
         .get(
-          `${import.meta.env.VITE_API_URL}/cash-pickup-sites?country=${
-            transferCountry?.code
-          }`
+          `${process.env.VITE_API_URL}/cash-pickup-sites?country=${transferCountry?.code}`
         )
         .then((res) => {
           console.log(res.data);

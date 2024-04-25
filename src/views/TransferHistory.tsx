@@ -17,7 +17,7 @@ const TransferHistory = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/users/${userId}/transfer-history`)
+      .get(`${process.env.VITE_API_URL}/users/${userId}/transfer-history`)
       .then((res) => {
         console.log(res.data);
         setTransfers(res.data);

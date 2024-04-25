@@ -85,7 +85,7 @@ const SignUpForm = () => {
     setLoading(true);
     setOpenSnackbar(true);
     axios
-      .post(`${import.meta.env.VITE_API_URL}/auth/register`, {
+      .post(`${process.env.VITE_API_URL}/auth/register`, {
         ...credentials,
         language: JSON.parse(localStorage.getItem("language")!).code,
         country: JSON.parse(localStorage.getItem("country")!).code,
@@ -94,7 +94,7 @@ const SignUpForm = () => {
         setLoading(false);
         if (res.status === 201) {
           // Delay the navigation by 10 seconds in development environment
-          const isDevelopment = import.meta.env.VITE_NODE_ENV === "development";
+          const isDevelopment = process.env.VITE_NODE_ENV === "development";
           const delaySeconds = isDevelopment ? 10000 : 0; // 10 seconds delay
 
           // Grab full language object using lang code provided by API call
@@ -164,8 +164,9 @@ const SignUpForm = () => {
       </Snackbar>
 
       <form onSubmit={handleSubmit}>
-        <FormErrorAlert error={requiredFieldsError} />
+        <FormErrorAlert error={emailError} />
         <FormErrorAlert error={passwordMatchError} />
+        <FormErrorAlert error={requiredFieldsError} />
         <FormErrorAlert error={existingUserError} />
 
         {/* First Name */}
@@ -181,7 +182,6 @@ const SignUpForm = () => {
             credentials.firstName
           )}
         />
-
         {/* Last Name */}
         <InputGroup
           inputName="lastName"
@@ -195,7 +195,6 @@ const SignUpForm = () => {
             credentials.lastName
           )}
         />
-
         {/* Email Address */}
         <InputGroup
           inputName="email"
@@ -209,7 +208,6 @@ const SignUpForm = () => {
             emailError
           }
         />
-
         {/* Password */}
         <InputGroup
           inputName="password"
@@ -223,7 +221,6 @@ const SignUpForm = () => {
             credentials.password
           )}
         />
-
         {/* Confirm Password */}
         <InputGroup
           inputName="passwordConfirm"
@@ -239,13 +236,11 @@ const SignUpForm = () => {
             ) || passwordMatchError
           }
         />
-
         {/* Submit Button */}
         <AuthDialogButton
           label={t("auth.register.submitButton")}
           disabled={loading}
         />
-
         {/* Sign in instead */}
         <Typography>
           {t("auth.register.login.text")}{" "}

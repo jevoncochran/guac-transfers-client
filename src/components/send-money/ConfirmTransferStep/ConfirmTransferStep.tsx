@@ -60,7 +60,7 @@ const ConfirmTransferStep = () => {
 
   const handleSubmit = () => {
     axios
-      .post(`${import.meta.env.VITE_API_URL}/transfers/send`, transferData)
+      .post(`${process.env.VITE_API_URL}/transfers/send`, transferData)
       .then(() => {
         dispatch(goToNextTransferStep());
       });
